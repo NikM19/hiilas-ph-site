@@ -899,21 +899,7 @@ footer.wide-footer {
 @media (max-width: 450px) {
   .intro-inner {top: 50%;}
 }
-.language-switch {
-  list-style: none;
-  display: flex;
-  gap: 16px;
-  align-items: center;
-  padding: 0;
-  margin: 0;
-  font-weight: 600;
-  font-size: 18px;
-  position: absolute;
-  top: 35px;
-  right: 40px;
-  background: transparent;
-  z-index: 999;
-}
+
 
 .language-switch li a {
   color: #333;
@@ -1005,14 +991,62 @@ footer.wide-footer {
         padding: 16px 10px 16px 10px;
     }
 }
-/* Для мобильных: ниже логотипа, по центру */
+.header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  position: relative;
+}
+
+.brand {
+  padding: 30px 0 0 0;
+  font-size: 24px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.3rem;
+}
+
+.language-switch {
+  list-style: none;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  font-weight: 600;
+  font-size: 18px;
+  position: static;
+  background: transparent;
+  z-index: 2;
+}
+
+.language-switch li a {
+  color: #333;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.language-switch li a:hover {
+  color: #888;
+}
+
+.navicon {
+  padding: 20px 0 0 0;
+  margin-left: 12px;
+}
+
+@media (max-width: 900px) {
+  .header-row {
+    flex-wrap: wrap;
+  }
+}
+
 @media (max-width: 700px) {
-  .language-switch {
-    position: static;
-    justify-content: center;
-    font-size: 20px;
-    margin: 6px 0 0 0;
-    width: 100%;
+  .header-row {
+    flex-direction: column;
+    align-items: center;
   }
   .brand {
     text-align: center;
@@ -1020,5 +1054,14 @@ footer.wide-footer {
     float: none;
     padding: 30px 0 0 0;
     display: block;
+  }
+  .language-switch {
+    justify-content: center;
+    font-size: 20px;
+    margin: 6px 0 0 0;
+    width: 100%;
+  }
+  .navicon {
+    margin-left: 0;
   }
 }
