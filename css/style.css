@@ -902,14 +902,16 @@ footer.wide-footer {
 .language-switch {
   list-style: none;
   display: flex;
-  gap: 12px;
-  position: absolute;
-  top: 35px;
-  right: 200px; /* ← сместим левее меню */
-  z-index: 999;
-  background: transparent;
+  gap: 16px;
+  justify-content: center;
+  align-items: center;
   padding: 0;
   margin: 0;
+  font-weight: 600;
+  font-size: 18px;
+  position: static;
+  background: transparent;
+  z-index: 999;
 }
 
 .language-switch li a {
