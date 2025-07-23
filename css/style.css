@@ -903,13 +903,14 @@ footer.wide-footer {
   list-style: none;
   display: flex;
   gap: 16px;
-  justify-content: center;
   align-items: center;
   padding: 0;
   margin: 0;
   font-weight: 600;
   font-size: 18px;
-  position: static;
+  position: absolute;
+  top: 35px;
+  right: 40px;
   background: transparent;
   z-index: 999;
 }
@@ -1003,4 +1004,21 @@ footer.wide-footer {
     #contact .contact-info-block {
         padding: 16px 10px 16px 10px;
     }
+}
+/* Для мобильных: ниже логотипа, по центру */
+@media (max-width: 700px) {
+  .language-switch {
+    position: static;
+    justify-content: center;
+    font-size: 20px;
+    margin: 6px 0 0 0;
+    width: 100%;
+  }
+  .brand {
+    text-align: center;
+    width: 100%;
+    float: none;
+    padding: 30px 0 0 0;
+    display: block;
+  }
 }
