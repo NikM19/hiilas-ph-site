@@ -1084,3 +1084,48 @@ footer.wide-footer {
     gap: 20px;
   }
 }
+.language-switch {
+  list-style: none;
+  display: flex;
+  gap: 16px;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.language-switch.in-menu {
+  justify-content: center;
+  margin-top: 20px;
+}
+
+/* Скрыть языки вне меню на мобильных устройствах */
+@media (max-width: 767px) {
+  .language-switch {
+    display: none;
+  }
+
+  .list-menu .language-switch.in-menu {
+    display: flex;
+  }
+}
+
+/* На десктопе — показать и выровнять рядом с гамбургером */
+@media (min-width: 768px) {
+  .nav-container .header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .language-switch {
+    order: 3;
+  }
+
+  .navicon {
+    order: 2;
+    margin-left: 16px;
+  }
+}
