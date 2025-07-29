@@ -1065,3 +1065,22 @@ footer.wide-footer {
     margin-left: 0;
   }
 }
+/* Скрываем дубликат языков по умолчанию */
+.language-switch.mobile-only {
+  display: none;
+}
+
+/* Показываем в гамбургер-меню только на мобилке */
+@media (max-width: 700px) {
+  .language-switch:not(.mobile-only) {
+    display: none;
+  }
+
+  .language-switch.mobile-only {
+    display: flex;
+    justify-content: center;
+    margin: 16px 0;
+    font-size: 20px;
+    gap: 20px;
+  }
+}
