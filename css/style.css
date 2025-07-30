@@ -1026,3 +1026,87 @@ footer.wide-footer {
     margin-left: 0;
   }
 }
+
+/* Обновлённые стили для корректного позиционирования */
+.header-row {
+  position: relative; /* Родительский контейнер для абсолютного позиционирования */
+}
+
+/* Десктоп: ближе к гамбургер-меню и на одной линии */
+@media (min-width: 768px) {
+  .language-switch {
+    position: absolute !important; /* Приоритет над исходными стилями */
+    top: 20px !important;
+    right: 60px !important; /* Ближе к гамбургеру */
+    display: flex !important;
+    gap: 16px !important;
+    align-items: center !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 18px !important;
+    font-weight: 600 !important;
+  }
+  .navicon {
+    position: absolute !important;
+    top: 20px !important;
+    right: 20px !important; /* Фиксируем гамбургер */
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  .brand {
+    position: absolute !important;
+    top: 20px !important;
+    left: 20px !important; /* Фиксируем бренд слева */
+  }
+}
+
+/* Мобильная версия (вертикальная, < 768px) */
+@media (max-width: 767px) {
+  .language-switch {
+    display: none !important; /* Скрываем кнопки языка */
+  }
+  .navicon {
+    display: block !important; /* Убеждаемся, что гамбургер виден */
+    position: absolute !important;
+    top: 20px !important;
+    right: 20px !important;
+  }
+  .brand {
+    position: absolute !important;
+    top: 20px !important;
+    left: 20px !important;
+  }
+  .list-menu .language-switch.in-menu {
+    display: flex !important; /* Кнопки остаются в меню */
+    justify-content: center !important;
+    margin-top: 20px !important;
+  }
+}
+
+/* Мобильная версия (горизонтальная, 768px–1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .language-switch {
+    position: absolute !important;
+    top: 20px !important;
+    right: 60px !important;
+    display: flex !important;
+    gap: 16px !important;
+    align-items: center !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 18px !important;
+    font-weight: 600 !important;
+  }
+  .navicon {
+    position: absolute !important;
+    top: 20px !important;
+    right: 20px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  .brand {
+    position: absolute !important;
+    top: 20px !important;
+    left: 20px !important;
+  }
+}
