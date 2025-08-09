@@ -23,38 +23,51 @@
     <nav class="nav-inner transparent">
       <div class="navbar">
         <div class="container">
-          <div class="header-row">
-            <div class="brand">
-              <a href="index.html"><strong>Hiilas</strong> Photography</a>
-            </div>
-            <ul class="language-switch">
-              <li><a href="index.html">EN</a></li>
-              <li><a href="index-fi.html">FI</a></li>
-              <li><a href="index-ru.html">RU</a></li>
+ <div class="header-row">
+  <!-- ЛОГО -->
+  <div class="brand">
+    <a href="index.html"><strong>Hiilas</strong> Photography</a>
+  </div>
+
+  <div class="header-spacer"></div>
+
+  <!-- ГРУППА СПРАВА: языки + бургер -->
+  <div class="header-right">
+    <!-- Языки (десктоп) -->
+    <ul class="language-switch desktop-only">
+      <li><a href="index.html">EN</a></li>
+      <li><a href="index-fi.html">FI</a></li>
+      <li><a href="index-ru.html">RU</a></li>
+    </ul>
+
+    <!-- Бургер -->
+    <div class="navicon">
+      <div class="menu-container">
+        <div class="circle dark inline">
+          <i class="icon ion-navicon"></i>
+        </div>
+        <div class="list-menu">
+          <i class="icon ion-close-round close-iframe"></i>
+
+          <!-- Языки (мобильное меню, рядом с X) -->
+          <ul class="language-switch mobile-only">
+            <li><a href="index.html">EN</a></li>
+            <li><a href="index-fi.html">FI</a></li>
+            <li><a href="index-ru.html">RU</a></li>
+          </ul>
+
+          <div class="intro-inner">
+            <ul id="nav-menu">
+              <li><a href="index.html">Home</a></li>
+              <li><a href="about.html">My Story</a></li>
+              <li><a href="contact.html">Contact</a></li>
             </ul>
-            <div class="navicon">
-              <div class="menu-container">
-                <div class="circle dark inline">
-                  <i class="icon ion-navicon"></i>
-                </div>
-                <div class="list-menu">
-                  <i class="icon ion-close-round close-iframe"></i>
-                  <div class="intro-inner">
-                    <ul id="nav-menu">
-                      <li><a href="index.html">Home</a></li>
-                      <li><a href="about.html">My Story</a></li>
-                      <li><a href="contact.html">Contact</a></li>
-                    </ul>
-                    <ul class="language-switch mobile-only">
-                      <li><a href="index.html">EN</a></li>
-                      <li><a href="index-fi.html">FI</a></li>
-                      <li><a href="index-ru.html">RU</a></li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div><!-- header-row -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><!-- /header-right -->
+</div><!-- /header-row -->
         </div>
       </div>
     </nav>
