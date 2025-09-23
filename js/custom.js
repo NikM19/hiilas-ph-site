@@ -234,3 +234,126 @@ rAF = requestAnimationFrame(function(){
   });
 
 })(jQuery);
+
+// === 3D Tilt с инерцией, мягким входом, бликом/тенью и zoom-to-cursor ===
+(function(){
+  // выключаем на тач-экранах и при Reduce Motion
+  if (!window.matchMedia('(hover: hover)').matches) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  var useGlobal = document.body.getAttribute('data-fx') === 'tilt';
+  var selector  = useGlobal ? '.iso-box' : '.iso-box.fx-tilt';
+  var boxes     = document.querySelectorAll(selector);
+  if (!boxes.length) return;
+
+  var MAX      = 8;      // наклон (°)
+  var SCALE    = 1.06;   // зум на ховере
+  var LERP     = 0.12;   // инерция (0.08–0.18)
+  var ENTER_MS = 180;    // длительность «мягкого входа»
+
+  boxes.forEach(function(box){
+    var img = box.querySelector('img');
+    if (!img) return;
+
+    var over=false, raf=null;
+    var rx=0, ry=0;      // текущие углы
+    var trX=0, trY=0;    // целевые углы
+    var enterTimer=null;
+
+    function onEnter(){
+      over = true;
+      box.classList.add('is-entering'); // для лёгкого blur в CSS (если включён)
+      img.style.willChange = 'transform, filter';
+
+      // короткий стартовый зум, без наклонов — мягкий вход
+      img.style.transition = 'transform .18s cubic-bezier(.22,.61,.36,1), filter .18s ease-out';
+      img.style.transform  = 'scale(' + SCALE + ')';
+
+      if (enterTimer) clearTimeout(enterTimer);
+      enterTimer = setTimeout(function(){
+        box.classList.remove('is-entering');
+        if (over && !raf) raf = requestAnimationFrame(tick);
+      }, ENTER_MS);
+    }
+
+    function onMove(e){
+      // если сразу повели мышью — стартуем tick мгновенно
+      if (enterTimer){ clearTimeout(enterTimer); enterTimer=null; box.classList.remove('is-entering'); }
+      if (!raf) raf = requestAnimationFrame(tick);
+
+      var r  = box.getBoundingClientRect();
+      var px = (e.clientX - r.left)/r.width  - 0.5; // -0.5..0.5
+      var py = (e.clientY - r.top) /r.height - 0.5;
+
+      // целевые углы (инерция подтянет плавно)
+      trX = -py * MAX;
+      trY =  px * MAX;
+
+      // zoom-to-cursor: центр трансформации
+      box.style.setProperty('--ox', ((e.clientX - r.left)/r.width*100).toFixed(1)+'%');
+      box.style.setProperty('--oy', ((e.clientY - r.top )/r.height*100).toFixed(1)+'%');
+
+      // блик/тень: позиция и направление (используется в CSS ::before/::after)
+      box.style.setProperty('--x',  ((px+0.5)*100).toFixed(1)+'%');
+      box.style.setProperty('--y',  ((py+0.5)*100).toFixed(1)+'%');
+      box.style.setProperty('--dx', px.toFixed(3));
+      box.style.setProperty('--dy', py.toFixed(3));
+    }
+
+    function onLeave(){
+      over = false;
+      if (enterTimer){ clearTimeout(enterTimer); enterTimer=null; }
+      box.classList.remove('is-entering');
+
+      img.style.transition = 'transform .35s cubic-bezier(.22,.61,.36,1), filter .25s ease-out';
+      img.style.transform  = '';
+      img.style.willChange = '';
+
+      // очистим CSS-переменные
+      box.style.removeProperty('--x');
+      box.style.removeProperty('--y');
+      box.style.removeProperty('--dx');
+      box.style.removeProperty('--dy');
+      box.style.removeProperty('--ox');
+      box.style.removeProperty('--oy');
+    }
+
+    function tick(){
+      raf = null;
+      // инерция: плавно приближаемся к цели
+      rx += (trX - rx) * LERP;
+      ry += (trY - ry) * LERP;
+
+      img.style.transition = 'transform .06s linear';
+      img.style.transform  = 'scale(' + SCALE + ') rotateX(' + rx + 'deg) rotateY(' + ry + 'deg)';
+
+      if (over || Math.abs(trX - rx) > 0.01 || Math.abs(trY - ry) > 0.01) {
+        raf = requestAnimationFrame(tick);
+      }
+    }
+
+    box.addEventListener('mouseenter', onEnter, {passive:true});
+    box.addEventListener('mousemove',  onMove,  {passive:true});
+    box.addEventListener('mouseleave', onLeave, {passive:true});
+  });
+})();
+
+// === Lazy + Blur-up для изображений в .iso-box ===
+(function(){
+  var imgs = document.querySelectorAll('.iso-box img');
+  if (!imgs.length) return;
+
+  imgs.forEach(function(img){
+    // если не проставлено в HTML — проставим
+    if (!img.hasAttribute('loading'))  img.setAttribute('loading','lazy');
+    if (!img.hasAttribute('decoding')) img.setAttribute('decoding','async');
+
+    // эффект проявления
+    img.classList.add('img-blur');
+    if (img.complete) {
+      img.classList.add('is-loaded');
+    } else {
+      img.addEventListener('load', function(){ img.classList.add('is-loaded'); }, {once:true});
+    }
+  });
+})();

@@ -1299,3 +1299,189 @@ body.no-scroll {
 .iso-box{
   transition-timing-function: cubic-bezier(.22,.61,.36,1);
 }
+
+/* ===== BASE (один раз) ===== */
+.iso-box{ position: relative; overflow: hidden; transition: box-shadow .35s cubic-bezier(.22,.61,.36,1); }
+.iso-box img{ display:block; width:100%; height:auto; transform: translateZ(0);
+  will-change: transform, filter; transition: transform .35s cubic-bezier(.22,.61,.36,1), filter .35s; }
+@media (hover:hover){
+  .iso-box:hover{ box-shadow: 0 10px 30px rgba(0,0,0,.15); }
+}
+
+/* ===== РЕЖИМЫ ПО <body data-fx="..."> ===== */
+
+/* 1) gray→color + zoom (кинематографично) */
+body[data-fx="grayzoom"] .iso-box img{ filter: grayscale(22%) saturate(90%) contrast(98%); }
+@media (hover:hover){
+  body[data-fx="grayzoom"] .iso-box:hover img{ filter:none; transform: scale(1.05); }
+}
+
+/* 2) zoom + pan вверх на 2px */
+@media (hover:hover){
+  body[data-fx="pan"] .iso-box:hover img{ transform: scale(1.06) translateY(-2px); }
+}
+
+/* 3) soft glow вокруг кадра */
+body[data-fx="glow"] .iso-box::after{
+  content:""; position:absolute; inset:-8%;
+  background: rgba(255,255,255,.12); filter: blur(12px);
+  opacity:0; pointer-events:none; transition: opacity .35s;
+}
+@media (hover:hover){
+  body[data-fx="glow"] .iso-box:hover::after{ opacity:1; }
+  body[data-fx="glow"] .iso-box:hover img{ transform: scale(1.04); }
+}
+
+/* 4) overlay + плюс в центре */
+body[data-fx="overlay"] .iso-box::before{
+  content:""; position:absolute; inset:0;
+  background: radial-gradient(transparent 55%, rgba(0,0,0,.35));
+  opacity:0; transition: opacity .35s; pointer-events:none;
+}
+body[data-fx="overlay"] .iso-box::after{
+  content:"+"; position:absolute; left:50%; top:50%;
+  transform: translate(-50%,-50%) scale(.9);
+  font: 600 22px/1 system-ui, sans-serif; color:#fff; letter-spacing:.04em;
+  opacity:0; transition: transform .28s, opacity .28s; pointer-events:none;
+}
+@media (hover:hover){
+  body[data-fx="overlay"] .iso-box:hover::before{ opacity:1; }
+  body[data-fx="overlay"] .iso-box:hover::after{ opacity:1; transform: translate(-50%,-50%) scale(1); }
+  body[data-fx="overlay"] .iso-box:hover img{ transform: scale(1.04); }
+}
+
+/* 5) subtle rotate (чуть-чуть «жизни») */
+@media (hover:hover){
+  body[data-fx="rotate"] .iso-box:hover img{ transform: scale(1.045) rotateZ(.4deg); }
+}
+
+/* 6) zoom-out reveal (из лёгкого зума в 1.0 + «резкость») */
+body[data-fx="zoomout"] .iso-box img{
+  transform: scale(1.04);
+  filter: saturate(96%) contrast(98%) blur(.1px);
+}
+@media (hover:hover){
+  body[data-fx="zoomout"] .iso-box:hover img{
+    transform: scale(1.0);
+    filter: none;
+  }
+}
+
+/* 7) warm lift (слегка теплее и сочнее на hover) */
+@media (hover:hover){
+  body[data-fx="warm"] .iso-box:hover img{
+    filter: saturate(112%) contrast(104%) sepia(8%);
+    transform: scale(1.04);
+  }
+}
+
+/* 8) shine sweep (диагональный блик) */
+body[data-fx="shine"] .iso-box::before{
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,.35) 50%, transparent 70%);
+  transform: translateX(-120%); transition: transform .6s ease;
+}
+@media (hover:hover){
+  body[data-fx="shine"] .iso-box:hover::before{ transform: translateX(120%); }
+  body[data-fx="shine"] .iso-box:hover img{ transform: scale(1.035); }
+}
+
+/* 9) границы-уголки (border reveal) */
+body[data-fx="corners"] .iso-box::before,
+body[data-fx="corners"] .iso-box::after{
+  content:""; position:absolute; width:22%; height:22%; pointer-events:none; opacity:.85;
+  border:2px solid rgba(255,255,255,.9); transform: scale(.9); transition: transform .28s, opacity .28s;
+}
+body[data-fx="corners"] .iso-box::before{ left:8px; top:8px; border-right:none; border-bottom:none; }
+body[data-fx="corners"] .iso-box::after { right:8px; bottom:8px; border-left:none; border-top:none; }
+@media (hover:hover){
+  body[data-fx="corners"] .iso-box:hover::before,
+  body[data-fx="corners"] .iso-box:hover::after{ transform: scale(1); }
+  body[data-fx="corners"] .iso-box:hover img{ transform: scale(1.035); }
+}
+
+/* 10) vignette мягкая (центр светлее) */
+body[data-fx="vignette"] .iso-box::before{
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,.28));
+  opacity:0; transition: opacity .35s;
+}
+@media (hover:hover){
+  body[data-fx="vignette"] .iso-box:hover::before{ opacity:1; }
+  body[data-fx="vignette"] .iso-box:hover img{ transform: scale(1.04); }
+}
+
+/* 3D-tilt режим (включается, когда на <body data-fx="tilt">) */
+@media (hover:hover){
+  body[data-fx="tilt"] .iso-box{ perspective: 950px; } /* перспектива для ребёнка */
+  body[data-fx="tilt"] .iso-box:hover img{ transform: none; } /* трансформы управляет JS */
+}
+
+/* если у пользователя Reduce Motion — ничего не дёргаем */
+@media (prefers-reduced-motion: reduce){
+  body[data-fx="tilt"] .iso-box img{ transition: none !important; }
+}
+
+@media (hover:hover){
+  /* Зум происходит "к месту" наведения курсора */
+  body[data-fx="tilt"] .iso-box img{
+    transform-origin: var(--ox, 50%) var(--oy, 50%);
+  }
+}
+
+/* === TILT: блик + динамическая тень (по CSS-переменным из JS) === */
+@media (hover:hover){
+  body[data-fx="tilt"] .iso-box{
+    /* позиция блика и направление тени — JS проставит */
+    --x:50%; --y:50%;   /* где блик */
+    --dx:0;  --dy:0;    /* куда смещать тень */
+    position: relative;
+  }
+
+  /* блик сверху */
+  body[data-fx="tilt"] .iso-box::before{
+    content:"";
+    position:absolute; inset:0; pointer-events:none;
+    background: radial-gradient(circle at var(--x) var(--y),
+                 rgba(255,255,255,.25), rgba(255,255,255,0) 55%);
+    opacity:0; transition: opacity .25s;
+  }
+
+  /* мягкая тень под карточкой */
+  body[data-fx="tilt"] .iso-box::after{
+    content:"";
+    position:absolute; left:0; right:0; bottom:-6px; height:24px; pointer-events:none;
+    filter: blur(8px);
+    background: radial-gradient(60% 40% at calc(50% + var(--dx)*20px) 0%,
+                 rgba(0,0,0,.35), rgba(0,0,0,0) 70%);
+    opacity:0; transition: opacity .25s;
+  }
+
+  body[data-fx="tilt"] .iso-box:hover::before,
+  body[data-fx="tilt"] .iso-box:hover::after{ opacity:1; }
+}
+
+/* старт: лёгкий blur и небольшой масштаб */
+.img-blur{
+  filter: blur(12px);
+  transform: scale(1.02);
+}
+
+/* когда загрузилось — плавно убираем эффекты */
+.img-blur.is-loaded{
+  filter: none;
+  transform: none;
+  transition: filter .35s, transform .35s;
+}
+
+/* Микро-мягкость в момент входа курсора */
+@media (hover:hover){
+  /* немного ускорим фильтр, чтобы мягко погасить "софт" */
+  body[data-fx="tilt"] .iso-box img{
+    transition: transform .35s cubic-bezier(.22,.61,.36,1), filter .22s ease-out;
+  }
+  /* пока курсор только вошёл — слегка софтим картинку */
+  body[data-fx="tilt"] .iso-box.is-entering img{
+    filter: blur(.35px);
+  }
+}
