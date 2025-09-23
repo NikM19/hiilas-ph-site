@@ -361,26 +361,27 @@ a.icon {
   }
 }
 
-.list-menu {
-  position: fixed;
+/* Полноэкранное оверлей-меню */
+.list-menu{
+  position: fixed !important;
+  top: 0; left: 0; right: 0; bottom: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.9);
+  opacity: 0; 
   visibility: hidden;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  z-index: 9999999;
-  background: rgba(0, 0, 0, 0.9);
-  transition: all 0.6s ease;
-  -webkit-transition: all 0.6s ease;
-  -moz-transition: all 0.6s ease;
-  opacity: 0;
-  z-index: -1;
+  transition: opacity .3s ease, visibility .3s ease;
+  z-index: 99999;              /* оставляем высокий слой */
+  padding-top: 0 !important;   /* сброс старого отступа */
+  pointer-events: none;        /* пока скрыто — кликов нет */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.list-menu.reveal-modal {
-  opacity: 1;
-  z-index: 999999;
+.list-menu.reveal-modal{
+  opacity: 1; 
   visibility: visible;
+  pointer-events: auto;        /* открыто — клики работают */
 }
 
 .list-menu .ion-close-round {
@@ -392,6 +393,34 @@ a.icon {
   cursor: pointer;
 }
 
+/* === Overlay menu: brighten text on hover (no glow, no bg) === */
+.list-menu #nav-menu a{
+  color: rgba(255,255,255,.78);
+  transition: color var(--ui-ease) ease, filter var(--ui-ease) ease;
+  text-shadow: none;
+}
+.list-menu #nav-menu a:hover,
+.list-menu #nav-menu a:focus-visible{
+  color: #fff;
+  filter: brightness(var(--hover-brightness)) contrast(1.05);
+}
+.list-menu #nav-menu a:active{
+  filter: brightness(calc(var(--hover-brightness) - .06)) contrast(1.05);
+}
+
+/* Мобильный "блик" при тапе: ярче текст */
+@media (hover: none) and (pointer: coarse){
+  .list-menu ul#nav-menu > li > a{
+    transition: filter var(--ui-ease) ease, transform .1s ease, color var(--ui-ease) ease;
+    -webkit-tap-highlight-color: rgba(255,255,255,.12);
+  }
+  .list-menu ul#nav-menu > li > a:active,
+  .list-menu ul#nav-menu > li > a:focus-visible{
+    filter: brightness(var(--tap-brightness)) drop-shadow(0 0 6px rgba(255,255,255,.25));
+    transform: scale(var(--tap-scale));
+    outline: none;
+  }
+}
 /* header section styles
 /* ========================================== */
 #header {
@@ -548,15 +577,13 @@ a.icon {
 .iso-box {
     position: relative;
     min-height: 50px;
-    float: left;
     overflow: hidden;
-    margin-bottom: 25px;
 }
 
 .iso-box > a {
     display: block;
     width: 100%;
-    height: 100%;
+    height: auto;
     overflow: hidden;
 } 
 
@@ -869,38 +896,6 @@ footer.wide-footer {
 }
 
 /* ------------------------------
-   ISO Grid Responsive Fixes
------------------------------- */
-
-.iso-box-wrapper {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 12px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.iso-box {
-  margin: 0 12px 24px;
-  max-width: 370px;
-  width: 100%;
-}
-
-@media (max-width: 900px) {
-  .iso-box-wrapper { max-width: 700px; }
-  .iso-box { max-width: 90vw; }
-}
-@media (max-width: 600px) {
-  .iso-box-wrapper {
-    max-width: 97vw;
-    padding: 0 4px;
-  }
-  .iso-box { max-width: 98vw; }
-}
-
-/* ------------------------------
    Header Overlay
 ------------------------------ */
 
@@ -958,7 +953,7 @@ footer.wide-footer {
 }
 
 .language-switch li a {
-  color: #333;
+  color: #333333;
   text-decoration: none;
   transition: color 0.3s;
 }
@@ -975,46 +970,114 @@ footer.wide-footer {
 
 /* ====== MOBILE ====== */
 @media (max-width: 767px) {
-  /* Прячем десктопные языки */
-  .desktop-only {
-    display: none !important;
-  }
+  .desktop-only { display: none !important; }
 
-  /* Шапка мобильная */
   .header-row {
     height: 70px;
     padding: 0 15px;
   }
 
-  /* Языки в меню */
-  .list-menu {
-    position: relative;
-    padding-top: 50px; /* чтобы не наезжали на крестик */
+  /* крестик (X) — поверх всего */
+  .list-menu .ion-close-round{
+    position: absolute;
+    top: 18px; right: 20px;
+    font-size: 28px;
+    cursor: pointer;
+    z-index: 100003;
   }
 
-  .language-switch.mobile-only {
+/* MOBILE: языки по центру сверху, ровно в линию с крестом */
+  /* прячем языки по умолчанию на мобилке */
+  .language-switch.mobile-only{
+    display: none;
+  }
+
+  /* когда меню открыто (у тебя в этот момент на body вешается .no-scroll) —
+     показываем языки и центрируем их по горизонтали */
+  body.no-scroll .language-switch.mobile-only{
     display: flex !important;
-    position: absolute;
-    top: 20px;
-    right: 60px; /* рядом с крестиком */
+    position: fixed;              /* к окну, не к диву */
+    top: clamp(22px, calc(env(safe-area-inset-top) + 2.2vh), 40px);  /* возьми то же значение, что у крестика */
+    left: 50%;
+    transform: translateX(-50%);  /* идеальный центр по X */
     gap: 12px;
-    font-size: 14px;
-    font-weight: bold;
-    text-transform: uppercase;
     margin: 0;
     padding: 0;
     list-style: none;
+    z-index: 100004;              /* поверх оверлея и под курсором */
   }
 
-  /* Кнопка закрытия (X) */
-  .list-menu .ion-close-round {
-    position: absolute;
-    top: 18px;
-    right: 20px;
-    font-size: 28px;
-    cursor: pointer;
+  body.no-scroll .language-switch.mobile-only a{
+    color: #fff !important;
+    text-decoration: none;
   }
 }
+
+/* анимация для языков в мобильном оверлее */
+body.no-scroll .language-switch.mobile-only a{
+  transition: color var(--ui-ease), filter var(--ui-ease), transform .12s;
+  -webkit-tap-highlight-color: rgba(255,255,255,.15);
+  opacity: .9; /* лёгкое притухание в базе, чтобы эффект был заметнее */
+}
+
+body.no-scroll .language-switch.mobile-only a:hover,
+body.no-scroll .language-switch.mobile-only a:focus-visible{
+  filter: brightness(var(--hover-brightness)) contrast(1.05);
+  opacity: 1;
+}
+
+@media (hover: none) and (pointer: coarse){
+  body.no-scroll .language-switch.mobile-only a:active{
+    filter: brightness(var(--tap-brightness)) contrast(1.05);
+    transform: scale(var(--tap-scale));
+  }
+}
+
+  /* контент внутри оверлея — без абсолютов и на всю ширину */
+  .list-menu .intro-inner{
+    position: static !important;
+    left: auto !important;
+    top: auto !important;
+    transform: none !important;
+    width: 100% !important;
+    text-align: center !important;
+  }
+
+  /* список пунктов — обнуляем отступы и центрируем */
+  .list-menu ul#nav-menu{
+    margin: 0 auto !important;
+    padding: 0 !important;
+    list-style: none;
+    width: 100%;
+    max-width: 480px;         /* узкая колонка по центру */
+    text-align: center;       /* ключ к выравниванию текста */
+  }
+
+  .list-menu ul#nav-menu > li{
+    display: block;
+    margin: 0 !important;
+    padding: 12px 0 !important;  /* удобная тап-зона */
+    list-style: none;
+  }
+
+  .list-menu ul#nav-menu > li > a{
+    display: inline-block; 
+    transform: none !important;
+  }
+
+  .list-menu a{ pointer-events: auto; }
+
+
+/* блокируем прокрутку при открытом меню */
+html.no-scroll, body.no-scroll{ overflow: hidden; height: 100%; }
+
+/* === MOBILE MENU ALIGNMENT FIX (final) === */
+@media (max-width: 767px){
+  /* сам контейнер-оверлей уже flex — ок */
+
+}
+
+
 
 /* ====== DESKTOP ====== */
 @media (min-width: 768px) {
@@ -1032,5 +1095,207 @@ footer.wide-footer {
   .navicon {
     margin-right: -65px; /* подбери -6…-18px по вкусу */
     margin-left: 19px;   /* чтобы сохранить небольшой зазор от языков */
+    padding-top: clamp(28px, 3.4vh, 44px);
   }
+}
+/* Десктоп: логотип в одну строку */
+.brand a{
+  display:inline-flex;
+  gap:6px;
+  align-items:baseline;
+  white-space:nowrap;
+}
+
+/* Мобайл: логотип в две строки и бургер у правого края */
+@media (max-width: 767px){
+  .header-row{
+    height:86px;          /* чуть больше места под две строки */
+    padding-right: 10px;   /* уменьшаем правый внутренний отступ */
+  }
+
+  .brand{ font-size:20px; }
+  .brand a{
+    display:flex;
+    flex-direction:column;
+    gap:0;
+    line-height:1.05;
+    white-space:normal;   /* разрешаем перенос */
+  }
+
+  /* бургер ближе к правой кромке */
+  .header-right{ margin-left:auto; }     /* группа справа прижимается вправо */
+  .navicon{ margin-right:-2px; }         /* можно -2…-10px, если хочешь ещё правее */
+}
+
+/* === HERO (шапка главной) одинаковая на EN / FI / RU === */
+#header.header-one{
+  background-image: url('../images/header-bg.jpg') !important;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: auto !important;         /* гасим 42vh/60vh из .header-one */
+  min-height: 420px !important;    /* эталон как на index.html */
+  padding-top: 150px !important;   /* как на index.html */
+  position: relative;
+}
+
+/* Мобильная настройка шапки, если нужна пониже */
+@media (max-width: 768px){
+  #header.header-one{
+    min-height: 380px !important;
+    padding-top: 80px !important;
+  }
+}
+
+/* --- Burger click area fix (header only) --- */
+.header-row .circle {
+  position: static !important;   /* вместо абсолютного позиционирования */
+  margin: 0 !important;
+  width: 45px;
+  height: 45px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1001;                 /* поверх всего в шапке */
+}
+
+/* чтобы иконка не терялась */
+.header-row .circle i {
+  pointer-events: none;          /* кликаем по кругу тоже */
+}
+
+/* когда меню открыто — блокируем скролл страницы */
+body.no-scroll {
+  overflow: hidden;
+}
+
+/* Гарантируем клики по пунктам меню и языкам в оверлее */
+.list-menu a,
+.language-switch.mobile-only {
+  position: relative;
+  z-index: 100001;
+  pointer-events: auto;
+}
+
+/* ==== Pinterest masonry: 3 колонки + настраиваемый зазор ==== */
+:root{
+  --grid-gap: 18px;          /* твоя существующая переменная оставляем */
+  --cols: 3;
+  --hover-brightness: 1.22;  /* сила свечения на десктопе */
+  --tap-brightness: 1.35;    /* сила свечения на таче */
+  --tap-scale: .985;         /* лёгкое «вдавливание» при тапе */
+  --ui-ease: .18s;           /* скорость анимации */
+}   
+.iso-box-wrapper{
+  max-width: 1140px !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+  position: relative !important;
+}
+
+/* ширина одной колонки — строго завязана на --cols */
+.grid-sizer{
+  width: calc((100% - (var(--cols) - 1) * var(--grid-gap)) / var(--cols));
+}
+.gutter-sizer{ width: var(--grid-gap); }
+
+/* Карточка */
+.iso-box{
+  width: calc((100% - (var(--cols) - 1) * var(--grid-gap)) / var(--cols)) !important;
+  margin: 0 0 var(--grid-gap) 0 !important;
+  box-sizing: border-box;
+  overflow: hidden;
+  /* Isotope сам двигает карточки через transform — 
+     оставляем легкий transition только для его анимации */
+  transition: transform .22s ease, opacity .18s ease;
+  will-change: transform, left, top;
+}
+
+/* Плавное и мягкое появление изображений */
+.iso-box img{
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity .28s ease, transform .28s ease;
+  display: block;
+  width: 100%;
+  height: auto;
+  will-change: opacity, transform;
+}
+.iso-box img.is-loaded{
+  opacity: 1;
+  transform: none;
+}
+
+/* если пользователь просит "меньше анимации" — уважаем */
+@media (prefers-reduced-motion: reduce){
+  .iso-box img{
+    transition: opacity .2s linear, transform 0s;
+    transform: none;
+  }
+}
+/* 2 колонки */
+@media (max-width: 900px){
+  :root{ --cols: 2; }
+}
+/* 1 колонка */
+@media (max-width: 600px){
+  :root{ --cols: 1; }
+}
+
+
+/* чуть меньше пустоты над футером */
+#portfolio{ padding-bottom: 3rem; }
+@media (max-width:700px){ #portfolio{ padding-bottom: 2rem; } 
+}
+
+/* плавное появление карточек */
+@keyframes cardFade { from{opacity:0} to{opacity:1} }
+.iso-box.is-visible{ animation: cardFade .18s ease both; }
+
+/* кнопка */
+.btn-more{
+  display:block;
+  margin: 24px auto 0;
+  padding: 12px 22px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border: 1px solid #333;
+  background: #111;
+  color: #fff;
+  cursor: pointer;
+  transition: opacity .2s ease, transform .1s ease;
+}
+.btn-more:hover{ opacity: .9; }
+.btn-more:active{ transform: scale(.98); }
+.btn-more[hidden]{ display:none !important; }
+
+/* Кнопка "Показать ещё" — состояние загрузки */
+.btn-more.is-busy{
+  pointer-events: none;
+  opacity: .85;
+  position: relative;
+}
+.btn-more.is-busy::after{
+  content: '';
+  display: inline-block;
+  width: 1em; height: 1em;
+  margin-left: .5em;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  vertical-align: -.2em;
+  animation: btnspin .6s linear infinite;
+}
+@keyframes btnspin{ to{ transform: rotate(360deg); } }
+
+/* Категорный режим: показываем все карточки без требования .is-visible */
+.mode-cat .iso-box{
+  opacity: 1;
+  transform: none;
+  animation: none;
+}
+
+/* Мягкая кривая для анимаций Isotope */
+.iso-box{
+  transition-timing-function: cubic-bezier(.22,.61,.36,1);
 }

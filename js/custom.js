@@ -1,205 +1,236 @@
+// custom.js — мобильное меню + Isotope (masonry, imagesLoaded, resize)
+(function($){
 
-/* jQuery Pre loader
- -----------------------------------------------*/
-$(window).load(function () {
-  $('.preloader').fadeOut(1000); // set duration in brackets    
-});
-
-
-/* Google Map
------------------------------------------------*/
-var map = '';
-var center;
-
-function initialize() {
-  var mapOptions = {
-    zoom: 16,
-    center: new google.maps.LatLng(13.758468, 100.567481),
-    scrollwheel: false
-  };
-
-  map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-
-  google.maps.event.addDomListener(map, 'idle', function () {
-    calculateCenter();
+  // ==== Preloader ====
+  $(window).on('load', function(){
+    $('.preloader').fadeOut(600);
   });
 
-  google.maps.event.addDomListener(window, 'resize', function () {
-    map.setCenter(center);
-  });
-}
+  // ==== WOW (если подключён) ====
+  try { new WOW().init(); } catch(e){}
 
-function calculateCenter() {
-  center = map.getCenter();
-}
+// ==== Isotope + фильтры ====
+$(window).on('load', function(){
 
-function loadGoogleMap() {
-  var script = document.createElement('script');
-  script.type = 'text/javascript';
-  script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&' + 'callback=initialize';
-  document.body.appendChild(script);
-}
+  var $grid = $('.iso-box-wrapper');
+  if(!$grid.length || !$.fn.isotope) return;
 
-$(function () {
-  loadGoogleMap();
-});
+  var currentFilter = '*'; // All
+  var lastInteractive = 0;
 
-
-/* Istope Portfolio
------------------------------------------------*/
-/*
-jQuery(document).ready(function($){
-
-  if ( $('.iso-box-wrapper').length > 0 ) { 
-
-      var $container  = $('.iso-box-wrapper'), 
-        $imgs     = $('.iso-box img');
-
-      $container.imagesLoaded(function () {
-
-        $container.isotope({
-        layoutMode: 'fitRows',
-        itemSelector: '.iso-box'
-        });
-
-        $imgs.load(function(){
-          $container.isotope('reLayout');
-        })
-
-      });
-
-      //filter items on button click
-
-      $('.filter-wrapper li a').click(function(){
-
-          var $this = $(this), filterValue = $this.attr('data-filter');
-
-      $container.isotope({ 
-        filter: filterValue,
-        animationOptions: { 
-            duration: 750, 
-            easing: 'linear', 
-            queue: false, 
-        }                
-      });             
-
-      // don't proceed if already selected 
-
-      if ( $this.hasClass('selected') ) { 
-        return false; 
-      }
-
-      var filter_wrapper = $this.closest('.filter-wrapper');
-      filter_wrapper.find('.selected').removeClass('selected');
-      $this.addClass('selected');
-
-        return false;
-      }); 
-
+  function currentSelector(){
+    // В All показываем только .is-visible (кнопка «Показать ещё»), в категориях — всю категорию
+    return currentFilter === '*' ? '.is-visible' : currentFilter;
   }
 
+  // Временное отключение анимации на время одного arrange/layout
+var DEFAULT_TD = '0.22s', silencing = false;
+function silent(fn){
+  if (silencing) { fn(); return; }
+  silencing = true;
+  var iso  = $grid.data('isotope');
+  var prev = (iso && iso.options.transitionDuration) || DEFAULT_TD;
+  $grid.isotope('option', { transitionDuration: 0 });
+  fn();
+  // вернём анимацию, когда Isotope закончит раскладку
+  $grid.one('arrangeComplete layoutComplete', function(){
+    $grid.isotope('option', { transitionDuration: prev });
+    silencing = false;
+  });
+}
+
+  // Автоподстройка числа колонок (на десктопе уменьшаем, если мало карточек)
+  function autoCols(){
+    var cols = 3;
+    if (window.matchMedia('(max-width:600px)').matches) cols = 1;
+    else if (window.matchMedia('(max-width:900px)').matches) cols = 2;
+    else {
+      var iso = $grid.data('isotope');
+      if (iso){
+        var vis = iso.filteredItems.length; // сколько реально видно
+        if (vis <= 2) cols = 1;
+        else if (vis <= 6) cols = 2;       // порог подправь по вкусу: 9–12
+        else cols = 3;
+      }
+    }
+    $grid[0].style.setProperty('--cols', cols); // локально, только для этой сетки
+  }
+
+  function initIso(){
+    // добавим сайзеры, если их нет
+    if(!$grid.find('.grid-sizer').length){
+      $grid.prepend('<div class="grid-sizer"></div><div class="gutter-sizer"></div>');
+    }
+
+$grid.isotope({
+  itemSelector: '.iso-box',
+  layoutMode: 'masonry',
+  percentPosition: true,
+  transitionDuration: '0.28s',   // чутка длиннее
+  stagger: 40,                   // волна мягче (можно 45–60)
+  masonry: {
+    columnWidth: '.grid-sizer',
+    gutter: '.gutter-sizer',
+    horizontalOrder: false
+  },
+  hiddenStyle:  { opacity: 0 },  // <— только фейд, без scale/сжатия
+  visibleStyle: { opacity: 1 },
+  filter: currentSelector()
 });
-*/
 
-/* Navigation Bar
- -----------------------------------------------*/
-$(document).ready(function () {
-  "use strict";
+// перекладываем по мере загрузки каждого изображения + ставим .is-loaded
+if ($.fn.imagesLoaded) {
+  // всё, что уже в кэше — сразу считаем загруженным
+  $grid.find('img').each(function(){
+    if (this.complete && this.naturalWidth) this.classList.add('is-loaded');
+  });
 
-  // Navbar Sticky
+  $grid.imagesLoaded()
+    .progress(function(_, image){
+      if (image && image.img) image.img.classList.add('is-loaded');
 
-  (function () {
-    var docElem = document.documentElement,
-      didScroll = false,
-      stickynav = 50;
-    document.querySelector('.nav-container');
-    function init() {
-      window.addEventListener('scroll', function () {
-        if (!didScroll) {
-          didScroll = true;
-          setTimeout(scrollPage, 50);
+      // не перебивать свежую анимацию после клика/«показать ещё»
+      if (Date.now() - lastInteractive < 450) return;
+      silent(function(){ $grid.isotope('layout'); });
+    })
+    .always(function(){
+      silent(function(){ $grid.isotope('layout'); });
+    });
+}
+
+    autoCols();
+    requestAnimationFrame(function(){ $grid.isotope('layout'); });
+    $('#load-more').show(); // стартуем в All
+  }
+
+  if ($.fn.imagesLoaded) { $grid.imagesLoaded(initIso); }
+  else { initIso(); }
+
+  // ——— когда карточке добавили .is-visible (кнопка «Показать ещё»)
+  var observer = new MutationObserver(function(list){
+    for (var i=0; i<list.length; i++){
+      var m = list[i];
+if (m.type === 'attributes' &&
+    m.attributeName === 'class' &&
+    m.target.classList.contains('iso-box') &&
+    m.target.classList.contains('is-visible')) {
+
+  // анимированная перекладка
+  lastInteractive = Date.now();
+  $grid.isotope('arrange', { filter: currentSelector() });
+  autoCols();
+  requestAnimationFrame(function(){ $grid.isotope('layout'); });
+
+  // (не обязательно) можно убрать лишний imagesLoaded тут — он уже есть в initIso()
+  break;
+}
+    }
+  });
+  if ($grid[0]) {
+    observer.observe($grid[0], { subtree:true, attributes:true, attributeFilter:['class'] });
+  }
+
+  // ——— переключение фильтров
+$(document).on('click', '.filter-wrapper a', function(e){
+  e.preventDefault();
+  currentFilter = $(this).data('filter') || '*';
+
+  // режим All / категория — показываем/прячем кнопку
+  if (currentFilter === '*') {
+    $('body').removeClass('mode-cat');
+    $('#load-more').show();
+  } else {
+    $('body').addClass('mode-cat');
+    $('#load-more').hide();
+  }
+
+  // 1) применяем фильтр и пересчитываем колонки
+  $grid.isotope('arrange', { filter: currentSelector() });
+  autoCols();
+
+  // 2) только в режиме All чуть перемешаем — ТИХО, без анимации
+  if (currentFilter === '*') {
+    silent(function(){ $grid.isotope('shuffle'); });
+  }
+
+  // 3) сам layout — с анимацией
+  lastInteractive = Date.now();
+  requestAnimationFrame(function(){ $grid.isotope('layout'); });
+
+  // активная кнопка фильтра
+  $('.filter-wrapper a').removeClass('selected');
+  $(this).addClass('selected');
+});
+
+  // ——— ресайз (с дебаунсом)
+  var rAF;
+  $(window).on('resize', function(){
+    cancelAnimationFrame(rAF);
+rAF = requestAnimationFrame(function(){
+  autoCols();
+  silent(function(){ $grid.isotope('layout'); });
+});
+});
+  // ——— мелкая оптимизация загрузки
+  $('.iso-box img').attr({ loading:'lazy', decoding:'async' });
+
+});
+
+  // ==== Мобильное меню ====
+  $(function(){
+    function $menus(){ return $('.list-menu'); }
+
+    function openMenu(){
+      $menus().addClass('reveal-modal');
+      $('html,body').addClass('no-scroll');
+    }
+    function closeMenu(){
+      $menus().removeClass('reveal-modal');
+      $('html,body').removeClass('no-scroll');
+    }
+
+    // Открыть по бургеру
+    $(document)
+      .off('click.openMenu')
+      .on('click.openMenu', '.navicon, .navicon .circle, .navicon .ion-navicon', function(e){
+        e.preventDefault(); e.stopPropagation();
+        openMenu();
+      });
+
+    // Закрыть по X
+    $(document)
+      .off('click.closeMenu')
+      .on('click.closeMenu', '.close-iframe, .list-menu .ion-close-round', function(e){
+        e.preventDefault(); e.stopPropagation();
+        closeMenu();
+      });
+
+    // Закрыть по клику на фон
+    $(document)
+      .off('click.bgClose')
+      .on('click.bgClose', '.list-menu', function(e){
+        if (e.target === this) closeMenu();
+      });
+
+    // Закрыть по клику на ссылку + гарантированный переход
+    $(document)
+      .off('click.linkClose')
+      .on('click.linkClose', '.list-menu a', function(e){
+        var href = $(this).attr('href') || '';
+        closeMenu();
+        if (href && href !== '#') {
+          e.preventDefault();
+          window.location.href = href;
+        } else {
+          e.preventDefault();
         }
-      }, false);
-    }
+      });
 
-    function scrollPage() {
-      var sy = scrollY();
-      if (sy >= stickynav) {
-        $('.nav-container').addClass('sticky');
-      }
-      else {
-        $('.nav-container').removeClass('sticky');
-      }
-      didScroll = false;
-    }
+    // ESC
+    $(document).on('keydown', function(e){ if (e.key === 'Escape') closeMenu(); });
 
-    function scrollY() {
-      return window.pageYOffset || docElem.scrollTop;
-    }
-    init();
-  })();
-
-});
-
-
-$(document).ready(function () {
-
-  "use strict";
-
-  $('.menu-container').each(function (index) {
-    $(this).find('.circle').attr('menu-link', index);
-    $(this).find('.list-menu').clone().appendTo('body').attr('menu-link', index);
+    // iOS хак
+    $(document).on('touchstart', '.close-iframe, .list-menu .ion-close-round, .list-menu a', function(){});
   });
 
-  $('.menu-container .circle').click(function () {
-    var linkedVideo = $('section').closest('body').find('.list-menu[menu-link="' + $(this).attr('menu-link') + '"]');
-    linkedVideo.toggleClass('reveal-modal');
-
-  });
-
-  $('section').closest('body').find('.close-iframe').click(function () {
-    $(this).closest('.list-menu').toggleClass('reveal-modal');
-  });
-
-
-  /* wow
-  -------------------------------*/
-  new WOW({ mobile: false }).init();
-
-});
-
-$(window).on('load', function () {
-  var $grid = $('.iso-box-wrapper').isotope({
-    itemSelector: '.iso-box',
-    layoutMode: 'masonry',
-    masonry: {
-      gutter: 24,
-      isFitWidth: true // ВАЖНО!
-    }
-  });
-
-  $('.filter-wrapper a').click(function () {
-    $('.filter-wrapper a').removeClass('selected');
-    $(this).addClass('selected');
-    var selector = $(this).attr('data-filter');
-
-    if (selector === '*') {
-      var $container = $('.iso-box-wrapper');
-      var $items = $container.children('.iso-box');
-
-      // 1. Сбросить фильтр (показать все фото)
-      $grid.isotope({ filter: '*' });
-
-      // 2. Перемешать все элементы
-      $items.sort(function () { return 0.5 - Math.random(); });
-      $items.detach().appendTo($container);
-
-      // 3. Обновить isotope, чтобы перестроил сетку
-      $grid.isotope('reloadItems').isotope({ sortBy: 'original-order' });
-
-    } else {
-      $grid.isotope({ filter: selector });
-    }
-    return false;
-  });
-});
+})(jQuery);
