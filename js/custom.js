@@ -17,6 +17,7 @@ $(window).on('load', function(){
 
   var currentFilter = '*'; // All
   var lastInteractive = 0;
+  var didInitialReveal = false;
 
   function currentSelector(){
     // В All показываем только .is-visible (кнопка «Показать ещё»), в категориях — всю категорию
@@ -36,6 +37,26 @@ function silent(fn){
   $grid.one('arrangeComplete layoutComplete', function(){
     $grid.isotope('option', { transitionDuration: prev });
     silencing = false;
+  });
+}
+
+// NEW: мягко показать список карточек (волной)
+function softReveal(elems){
+  if (!elems || !elems.length) return;
+
+  elems.forEach(function(el, i){
+    el.classList.remove('iso-soft-in');
+    el.classList.add('iso-soft-start');
+    el.style.setProperty('--st', (i * 25) + 'ms'); // шаг «волны»
+  });
+
+  requestAnimationFrame(function(){
+    requestAnimationFrame(function(){
+      elems.forEach(function(el){
+        el.classList.add('iso-soft-in');
+        el.classList.remove('iso-soft-start');
+      });
+    });
   });
 }
 
@@ -66,8 +87,8 @@ $grid.isotope({
   itemSelector: '.iso-box',
   layoutMode: 'masonry',
   percentPosition: true,
-  transitionDuration: '0.28s',   // чутка длиннее
-  stagger: 40,                   // волна мягче (можно 45–60)
+  transitionDuration: '0.26s',   // чутка длиннее
+  stagger: 0,                   // волна мягче (можно 45–60)
   masonry: {
     columnWidth: '.grid-sizer',
     gutter: '.gutter-sizer',
@@ -78,24 +99,59 @@ $grid.isotope({
   filter: currentSelector()
 });
 
+$grid.on('transitionend', '.iso-box img', function(e){
+  // интересуют только opacity/transform
+  if (e.propertyName !== 'opacity' && e.propertyName !== 'transform') return;
+  var box = this.closest('.iso-box');
+  if (box) box.classList.remove('iso-soft-in','iso-soft-start');
+});
+
+$grid.one('arrangeComplete.softInit', function(e, items){
+  if (!items || !items.length) return;
+  didInitialReveal = true;
+  softReveal(items.map(function(it){ return it.element; }));
+});
+
+// NEW: после раскладки (фильтр/перекладка) — мягко «вплываем»
+$grid.off('arrangeComplete.soft').on('arrangeComplete.soft', function(e, items){
+  if (didInitialReveal){                   // ← пропускаем самую первую волну
+    didInitialReveal = false;
+    return;
+  }
+  if (currentFilter === '*' && Date.now() - lastInteractive < 400) return;
+  if (!items || !items.length) return;
+  var domElems = items
+    .filter(function(it){ return it.isVisible && it.element && it.element.parentNode; })
+    .map(function(it){ return it.element; });
+  softReveal(domElems);
+});
+
 // перекладываем по мере загрузки каждого изображения + ставим .is-loaded
 if ($.fn.imagesLoaded) {
   // всё, что уже в кэше — сразу считаем загруженным
   $grid.find('img').each(function(){
     if (this.complete && this.naturalWidth) this.classList.add('is-loaded');
   });
-
+  var progressScheduled = false;
   $grid.imagesLoaded()
     .progress(function(_, image){
       if (image && image.img) image.img.classList.add('is-loaded');
 
       // не перебивать свежую анимацию после клика/«показать ещё»
-      if (Date.now() - lastInteractive < 450) return;
-      silent(function(){ $grid.isotope('layout'); });
-    })
-    .always(function(){
-      silent(function(){ $grid.isotope('layout'); });
-    });
+
+    if (Date.now() - lastInteractive < 450) return;
+
+    if (!progressScheduled){
+      progressScheduled = true;
+      requestAnimationFrame(function(){
+        progressScheduled = false;
+        silent(function(){ $grid.isotope('layout'); });
+      });
+    }
+  })
+  .always(function(){
+    silent(function(){ $grid.isotope('layout'); });
+  })
 }
 
     autoCols();
@@ -103,32 +159,64 @@ if ($.fn.imagesLoaded) {
     $('#load-more').show(); // стартуем в All
   }
 
-  if ($.fn.imagesLoaded) { $grid.imagesLoaded(initIso); }
-  else { initIso(); }
+  function boot(){ initIso(); }
 
-  // ——— когда карточке добавили .is-visible (кнопка «Показать ещё»)
-  var observer = new MutationObserver(function(list){
-    for (var i=0; i<list.length; i++){
-      var m = list[i];
-if (m.type === 'attributes' &&
-    m.attributeName === 'class' &&
-    m.target.classList.contains('iso-box') &&
-    m.target.classList.contains('is-visible')) {
-
-  // анимированная перекладка
-  lastInteractive = Date.now();
-  $grid.isotope('arrange', { filter: currentSelector() });
-  autoCols();
-  requestAnimationFrame(function(){ $grid.isotope('layout'); });
-
-  // (не обязательно) можно убрать лишний imagesLoaded тут — он уже есть в initIso()
-  break;
+if ($.fn.imagesLoaded) {
+  $grid.imagesLoaded(boot);
+} else {
+  boot();
 }
-    }
+
+  // ——— когда карточке ДОБАВИЛИ .is-visible (кнопка «Показать ещё»)
+var obsPaused = false;
+var arrangeScheduled = false;
+
+function scheduleArrange(){
+  if (arrangeScheduled) return;
+  arrangeScheduled = true;
+  requestAnimationFrame(function(){
+    arrangeScheduled = false;
+    lastInteractive = Date.now();
+    obsPaused = true;
+    $grid.isotope('arrange', { filter: currentSelector() });
+    autoCols();
+    requestAnimationFrame(function(){ $grid.isotope('layout'); });
   });
-  if ($grid[0]) {
-    observer.observe($grid[0], { subtree:true, attributes:true, attributeFilter:['class'] });
+}
+
+var observer = new MutationObserver(function(list){
+  if (obsPaused) return;
+  for (var i = 0; i < list.length; i++){
+    var m = list[i];
+    if (m.type !== 'attributes' || m.attributeName !== 'class') continue;
+    var t = m.target;
+    // обрабатываем только .iso-box, у которой .is-visible ТОЛЬКО ЧТО появился
+    if (!t.classList || !t.classList.contains('iso-box')) continue;
+
+    var old = m.oldValue || '';
+    var wasVisible = old.indexOf('is-visible') !== -1;
+    var nowVisible = t.classList.contains('is-visible');
+    if (!wasVisible && nowVisible){
+      t.classList.remove('iso-soft-in','iso-soft-start');
+      // мягко показать ЭТУ карточку и один раз перестроить сетку
+      softReveal([t]);
+      scheduleArrange();
+    }
   }
+});
+
+if ($grid[0]) {
+  observer.observe($grid[0], {
+    subtree: true,
+    attributes: true,
+    attributeFilter: ['class'],
+    attributeOldValue: true   // <— важно, чтобы видеть "до/после"
+  });
+}
+
+// на время самой раскладки — не реагируем на внутренние классы Isotope
+$grid.on('arrangeComplete layoutComplete', function(){ obsPaused = false; });
+$grid.on('arrange', function(){ obsPaused = true; });
 
   // ——— переключение фильтров
 $(document).on('click', '.filter-wrapper a', function(e){

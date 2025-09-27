@@ -78,18 +78,38 @@
 
    <!-- Header section
 ================================================== -->
-   <section id="header" class="header-one"
-      style="background-image: url('images/header-bg.jpg'); background-size: cover; background-position: center; min-height: 420px; position: relative;">
-      <div class="container">
-         <div class="row">
-            <div class="col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8">
-               <div class="header-thumb">
-                  <h1 class="wow fadeIn" data-wow-delay="0.8s">Photographing with love</h1>
-               </div>
-            </div>
-         </div>
+<section id="header" class="header-one">
+  <!-- responsive background -->
+  <picture class="hero-bg">
+    <!-- ≥1200px -->
+    <source type="image/avif" media="(min-width:1200px)" srcset="images/header-bg-2000.avif">
+    <source type="image/webp" media="(min-width:1200px)" srcset="images/header-bg-2000.webp">
+    <!-- ≥768px -->
+    <source type="image/avif" media="(min-width:768px)"  srcset="images/header-bg-1400.avif">
+    <source type="image/webp" media="(min-width:768px)"  srcset="images/header-bg-1400.webp">
+    <!-- мобильные + fallback -->
+    <source type="image/avif" srcset="images/header-bg-800.avif">
+    <source type="image/webp" srcset="images/header-bg-800.webp">
+
+    <img
+      src="images/header-bg-1400.jpg"
+      srcset="images/header-bg-800.jpg 800w, images/header-bg-1400.jpg 1400w, images/header-bg-2000.jpg 2000w"
+      sizes="100vw"
+      decoding="async"
+      fetchpriority="high"
+      alt="" aria-hidden="true">
+  </picture>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8">
+        <div class="header-thumb">
+          <h1 class="wow fadeIn" data-wow-delay="0.8s">Photographing with love</h1>
+        </div>
       </div>
-   </section>
+    </div>
+  </div>
+</section>
    <!-- Portfolio section
 ================================================== -->
    <section id="portfolio">
