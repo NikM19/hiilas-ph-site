@@ -794,7 +794,7 @@ footer.wide-footer {
     padding-top: 80px;
     padding-bottom: 80px;
     text-align: center;
-    position: relative;
+    position: static;
     box-sizing: border-box;
 }
 
@@ -1202,7 +1202,7 @@ body.no-scroll {
 .iso-box-wrapper{
   max-width: 1140px !important;
   margin: 0 auto !important;
-  padding: 0 !important;
+  padding: 0 0 56p !important;
   position: relative !important;
 }
 

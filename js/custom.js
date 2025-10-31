@@ -413,3 +413,41 @@ rAF = requestAnimationFrame(function(){
     }
   });
 })();
+
+/* --- Isotope: дополнительные relayout-подстраховки --- */
+(function($){
+  var $grid = $('.iso-box-wrapper');
+  if (!$grid.length) return;
+
+  function relayout(){
+    if ($grid.data('isotope')) {
+      $grid.isotope('arrange');
+      $grid.isotope('layout');
+    }
+  }
+
+  // прогресс загрузки изображений
+  $grid.imagesLoaded().progress(function(){ relayout(); }).always(function(){ relayout(); });
+
+  // футер попал в зону видимости — перестроиться
+  var footer = document.querySelector('footer');
+  if (footer && 'IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      if (entries.some(e => e.isIntersecting)) relayout();
+    }, { rootMargin: '400px' });
+    io.observe(footer);
+  }
+
+  // ресайз / смена ориентации
+  var debId;
+  function debounced(){ clearTimeout(debId); debId = setTimeout(relayout, 150); }
+  window.addEventListener('resize', debounced);
+  window.addEventListener('orientationchange', function(){ setTimeout(relayout, 200); });
+
+  // небольшая отложенная подстраховка
+  if ('requestIdleCallback' in window){
+    requestIdleCallback(relayout, { timeout: 800 });
+  } else {
+    setTimeout(relayout, 800);
+  }
+})(jQuery);
