@@ -1204,6 +1204,7 @@ body.no-scroll {
   margin: 0 auto !important;
   padding: 0 0 72px !important;
   position: relative !important;
+  contain: layout paint;
 }
 
 /* ширина одной колонки — строго завязана на --cols */
@@ -1234,6 +1235,8 @@ body.no-scroll {
   transition: transform .28s ease; /* лёгкая плавность без лишнего fade */
   will-change: transform;          /* без will-change:opacity — экономим память */
 }
+
+.iso-box picture { display:block; line-height:0; }
 
 /* если пользователь просит "меньше анимации" — уважаем */
 @media (prefers-reduced-motion: reduce){

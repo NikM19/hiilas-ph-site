@@ -454,3 +454,29 @@ $('.iso-box img').attr({ decoding:'async' });
     setTimeout(relayout, 800);
   }
 })(jQuery);
+
+/* === Load More: добавляем .is-visible порциями, раскладкой займётся custom.js === */
+(function () {
+  var btn   = document.getElementById('load-more');
+  var items = Array.from(document.querySelectorAll('.iso-box'));
+  if (!btn || !items.length) return;
+
+  var STEP  = matchMedia('(max-width:600px)').matches ? 9 : 12;
+  var shown = 0;
+
+  function reveal(n){
+    var slice = items.slice(shown, shown + n);
+    slice.forEach(function(el){ el.classList.add('is-visible'); });
+    shown += slice.length;
+    if (shown >= items.length) btn.hidden = true;
+  }
+
+  // первая порция
+  reveal(STEP);
+
+  btn.addEventListener('click', function(){
+    btn.classList.add('is-busy');
+    reveal(STEP);                    // классы добавили — MutationObserver в custom.js сам сделает arrange/layout
+    setTimeout(function(){ btn.classList.remove('is-busy'); }, 250);
+  });
+})();
