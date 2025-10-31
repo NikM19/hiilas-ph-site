@@ -254,8 +254,8 @@ rAF = requestAnimationFrame(function(){
   silent(function(){ $grid.isotope('layout'); });
 });
 });
-  // ——— мелкая оптимизация загрузки
-  $('.iso-box img').attr({ loading:'lazy', decoding:'async' });
+// ——— мелкая оптимизация загрузки
+$('.iso-box img').attr({ decoding:'async' });
 
 });
 
@@ -399,12 +399,15 @@ rAF = requestAnimationFrame(function(){
   var imgs = document.querySelectorAll('.iso-box img');
   if (!imgs.length) return;
 
-  imgs.forEach(function(img){
-    // если не проставлено в HTML — проставим
-    if (!img.hasAttribute('loading'))  img.setAttribute('loading','lazy');
+  imgs.forEach(function(img, i){
+    if (i < 12) {                      // верх страницы грузим сразу
+      img.removeAttribute('loading');
+      img.setAttribute('fetchpriority','high'); // хинт браузеру
+    } else {
+      if (!img.hasAttribute('loading')) img.setAttribute('loading','lazy');
+    }
     if (!img.hasAttribute('decoding')) img.setAttribute('decoding','async');
 
-    // эффект проявления
     img.classList.add('img-blur');
     if (img.complete) {
       img.classList.add('is-loaded');
