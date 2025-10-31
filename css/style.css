@@ -454,12 +454,6 @@ a.icon {
   padding-top: 120px !important;
 }
 
-.header-one {
-  background: url('../images/header-bg.jpg') no-repeat;
-  height: 60vh !important;
-  min-height: 520px;
-  padding-top: 150px !important;
-}
 .header-two {
   background: url('../images/header-bg.jpg') no-repeat;
 }
@@ -1127,17 +1121,36 @@ html.no-scroll, body.no-scroll{ overflow: hidden; height: 100%; }
   .navicon{ margin-right:-2px; }         /* можно -2…-10px, если хочешь ещё правее */
 }
 
-/* === HERO (шапка главной) одинаковая на EN / FI / RU === */
+/* === HERO / Header-one без фоновой картинки из CSS === */
 #header.header-one{
-  background-image: url('../images/header-bg.jpg') !important;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  height: auto !important;         /* гасим 42vh/60vh из .header-one */
-  min-height: 420px !important;    /* эталон как на index.html */
-  padding-top: 150px !important;   /* как на index.html */
-  position: relative;
+  position: relative;        /* для ::before и абсолютного <picture> */
+  height: auto !important;   /* как и было */
+  min-height: 420px !important;
+  padding-top: 150px !important;
 }
+
+/* Растягиваем <picture class="hero-bg"> как подложку */
+.hero-bg,
+.hero-bg > img{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;          /* как background-size: cover */
+  display: block;
+  z-index: 0;                 /* под контентом */
+}
+
+/* затемнение поверх картинки — оставляем */
+.header-one::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 1;
+}
+
+.header-thumb{ position: relative; z-index: 2; }
 
 /* Мобильная настройка шапки, если нужна пониже */
 @media (max-width: 768px){
@@ -1298,8 +1311,12 @@ body.no-scroll {
 
 /* ===== BASE (один раз) ===== */
 .iso-box{ position: relative; overflow: hidden; transition: box-shadow .35s cubic-bezier(.22,.61,.36,1); }
-.iso-box img{ display:block; width:100%; height:auto; transform: translateZ(0);
-  will-change: transform, filter; transition: transform .35s cubic-bezier(.22,.61,.36,1), filter .35s; }
+.iso-box img{
+  display:block; width:100%; height:auto;
+  /* убрали translateZ(0) и heavy will-change */
+  will-change: auto;
+  transition: transform .35s cubic-bezier(.22,.61,.36,1), filter .35s;
+}
 @media (hover:hover){
   .iso-box:hover{ box-shadow: 0 10px 30px rgba(0,0,0,.15); }
 }
@@ -1352,13 +1369,14 @@ body[data-fx="overlay"] .iso-box::after{
 }
 
 /* 6) zoom-out reveal (из лёгкого зума в 1.0 + «резкость») */
-body[data-fx="zoomout"] .iso-box img{
-  transform: scale(1.04);
-  filter: saturate(96%) contrast(98%) blur(.1px);
+body[data-fx~="zoomout"] .iso-box img{
+  transform: scale(1.08);
+  filter: saturate(103%) contrast(100%) blur(.2px);
+  transition: transform .35s cubic-bezier(.22,.61,.36,1), filter .35s;
 }
 @media (hover:hover){
-  body[data-fx="zoomout"] .iso-box:hover img{
-    transform: scale(1.0);
+  body[data-fx~="zoomout"] .iso-box:hover img{
+    transform: scale(1.00);
     filter: none;
   }
 }
@@ -1409,25 +1427,36 @@ body[data-fx="vignette"] .iso-box::before{
 
 /* 3D-tilt режим (включается, когда на <body data-fx="tilt">) */
 @media (hover:hover){
-  body[data-fx="tilt"] .iso-box{ perspective: 950px; } /* перспектива для ребёнка */
-  body[data-fx="tilt"] .iso-box:hover img{ transform: none; } /* трансформы управляет JS */
+  body[data-fx~="tilt"] .iso-box{ perspective: 950px; } /* перспектива для ребёнка */
+}
+
+/* Гибрид: tilt + мягкий zoom-out при hover */
+body[data-fx~="tilt"] .iso-box img{
+  transform-origin: var(--ox,50%) var(--oy,50%);
+  transition: transform .35s cubic-bezier(.22,.61,.36,1), filter .22s ease-out;
+}
+
+@media (hover:hover){
+  body[data-fx~="tilt"] .iso-box:hover img{
+    transform: scale(1.00); /* «отпускаем» назад при наведении */
+  }
 }
 
 /* если у пользователя Reduce Motion — ничего не дёргаем */
 @media (prefers-reduced-motion: reduce){
-  body[data-fx="tilt"] .iso-box img{ transition: none !important; }
+  body[data-fx~="tilt"].iso-box img{ transition: none !important; }
 }
 
 @media (hover:hover){
   /* Зум происходит "к месту" наведения курсора */
-  body[data-fx="tilt"] .iso-box img{
+  body[data-fx~="tilt"] .iso-box img{
     transform-origin: var(--ox, 50%) var(--oy, 50%);
   }
 }
 
 /* === TILT: блик + динамическая тень (по CSS-переменным из JS) === */
 @media (hover:hover){
-  body[data-fx="tilt"] .iso-box{
+  body[data-fx~="tilt"] .iso-box{
     /* позиция блика и направление тени — JS проставит */
     --x:50%; --y:50%;   /* где блик */
     --dx:0;  --dy:0;    /* куда смещать тень */
@@ -1435,7 +1464,7 @@ body[data-fx="vignette"] .iso-box::before{
   }
 
   /* блик сверху */
-  body[data-fx="tilt"] .iso-box::before{
+  body[data-fx~="tilt"] .iso-box::before{
     content:"";
     position:absolute; inset:0; pointer-events:none;
     background: radial-gradient(circle at var(--x) var(--y),
@@ -1444,7 +1473,7 @@ body[data-fx="vignette"] .iso-box::before{
   }
 
   /* мягкая тень под карточкой */
-  body[data-fx="tilt"] .iso-box::after{
+  body[data-fx~="tilt"] .iso-box::after{
     content:"";
     position:absolute; left:0; right:0; bottom:-6px; height:24px; pointer-events:none;
     filter: blur(8px);
@@ -1453,8 +1482,8 @@ body[data-fx="vignette"] .iso-box::before{
     opacity:0; transition: opacity .25s;
   }
 
-  body[data-fx="tilt"] .iso-box:hover::before,
-  body[data-fx="tilt"] .iso-box:hover::after{ opacity:1; }
+  body[data-fx~="tilt"] .iso-box:hover::before,
+  body[data-fx~="tilt"] .iso-box:hover::after{ opacity:1; }
 }
 
 /* старт: лёгкий blur и небольшой масштаб */
@@ -1473,11 +1502,11 @@ body[data-fx="vignette"] .iso-box::before{
 /* Микро-мягкость в момент входа курсора */
 @media (hover:hover){
   /* немного ускорим фильтр, чтобы мягко погасить "софт" */
-  body[data-fx="tilt"] .iso-box img{
+  body[data-fx~="tilt"].iso-box img{
     transition: transform .35s cubic-bezier(.22,.61,.36,1), filter .22s ease-out;
   }
   /* пока курсор только вошёл — слегка софтим картинку */
-  body[data-fx="tilt"] .iso-box.is-entering img{
+  body[data-fx~="tilt"] .iso-box.is-entering img{
     filter: blur(.35px);
   }
 }

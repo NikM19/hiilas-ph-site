@@ -172,7 +172,10 @@ var obsPaused = false;
 var arrangeScheduled = false;
 
 function scheduleArrange(){
+  var iso = $grid.data('isotope');
+  if (!iso) return;                 // <— защита: если isotope не инициализирован
   if (arrangeScheduled) return;
+
   arrangeScheduled = true;
   requestAnimationFrame(function(){
     arrangeScheduled = false;
@@ -223,29 +226,21 @@ $(document).on('click', '.filter-wrapper a', function(e){
   e.preventDefault();
   currentFilter = $(this).data('filter') || '*';
 
-  // режим All / категория — показываем/прячем кнопку
-  if (currentFilter === '*') {
-    $('body').removeClass('mode-cat');
-    $('#load-more').show();
-  } else {
-    $('body').addClass('mode-cat');
-    $('#load-more').hide();
-  }
+  if (currentFilter === '*') { $('body').removeClass('mode-cat'); $('#load-more').show(); }
+  else { $('body').addClass('mode-cat'); $('#load-more').hide(); }
 
-  // 1) применяем фильтр и пересчитываем колонки
+  // если isotope ещё не готов — выходим тихо
+  if (!$grid.data('isotope')) return;
+
   $grid.isotope('arrange', { filter: currentSelector() });
   autoCols();
 
-  // 2) только в режиме All чуть перемешаем — ТИХО, без анимации
   if (currentFilter === '*') {
     silent(function(){ $grid.isotope('shuffle'); });
   }
-
-  // 3) сам layout — с анимацией
   lastInteractive = Date.now();
   requestAnimationFrame(function(){ $grid.isotope('layout'); });
 
-  // активная кнопка фильтра
   $('.filter-wrapper a').removeClass('selected');
   $(this).addClass('selected');
 });
@@ -323,101 +318,74 @@ rAF = requestAnimationFrame(function(){
 
 })(jQuery);
 
-// === 3D Tilt с инерцией, мягким входом, бликом/тенью и zoom-to-cursor ===
+// === 3D Tilt с инерцией + совместим с "zoomout" ===
+// === 3D Tilt + ЕДИНЫЙ zoom без рывков ===
 (function(){
-  // выключаем на тач-экранах и при Reduce Motion
-  if (!window.matchMedia('(hover: hover)').matches) return;
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (!matchMedia('(hover:hover)').matches) return;
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-  var useGlobal = document.body.getAttribute('data-fx') === 'tilt';
-  var selector  = useGlobal ? '.iso-box' : '.iso-box.fx-tilt';
-  var boxes     = document.querySelectorAll(selector);
-  if (!boxes.length) return;
+  var fx = document.body.getAttribute('data-fx') || '';
+  if (!/\btilt\b/.test(fx)) return;
 
-  var MAX      = 8;      // наклон (°)
-  var SCALE    = 1.06;   // зум на ховере
-  var LERP     = 0.12;   // инерция (0.08–0.18)
-  var ENTER_MS = 180;    // длительность «мягкого входа»
+  var zoomOut = /\bzoomout\b/.test(fx);
+  var zoomIn  = /\bzoomin\b/.test(fx);
 
-  boxes.forEach(function(box){
+  // Режимы: выбирай в <body data-fx="tilt zoomout"> или "tilt zoomin"
+  var BASE   = zoomOut ? 1.08 : 1.00;  // старт: чуть крупнее для zoomout
+  var TARGET = zoomOut ? 1.00 : 1.06;  // цель при ховере
+
+  var MAX   = 12;    // сила наклона
+  var EASE  = 0.16;  // инерция углов
+  var EASES = 0.12;  // инерция масштаба
+
+  document.querySelectorAll('.iso-box').forEach(function(box){
     var img = box.querySelector('img');
     if (!img) return;
 
-    var over=false, raf=null;
-    var rx=0, ry=0;      // текущие углы
-    var trX=0, trY=0;    // целевые углы
-    var enterTimer=null;
+    var over=false, raf=0, rx=0, ry=0, tx=0, ty=0, sc=BASE, scT=BASE;
 
-    function onEnter(){
-      over = true;
-      box.classList.add('is-entering'); // для лёгкого blur в CSS (если включён)
-      img.style.willChange = 'transform, filter';
-
-      // короткий стартовый зум, без наклонов — мягкий вход
-      img.style.transition = 'transform .18s cubic-bezier(.22,.61,.36,1), filter .18s ease-out';
-      img.style.transform  = 'scale(' + SCALE + ')';
-
-      if (enterTimer) clearTimeout(enterTimer);
-      enterTimer = setTimeout(function(){
-        box.classList.remove('is-entering');
-        if (over && !raf) raf = requestAnimationFrame(tick);
-      }, ENTER_MS);
+    function tick(){
+      rx += (tx - rx) * EASE;
+      ry += (ty - ry) * EASE;
+      sc += (scT - sc) * EASES;
+      img.style.transform = 'scale('+sc.toFixed(4)+') rotateX('+rx.toFixed(3)+'deg) rotateY('+ry.toFixed(3)+'deg)';
+      if (over || Math.abs(tx-rx)>0.01 || Math.abs(ty-ry)>0.01 || Math.abs(scT-sc)>0.002){
+        raf = requestAnimationFrame(tick);
+      }
     }
 
-    function onMove(e){
-      // если сразу повели мышью — стартуем tick мгновенно
-      if (enterTimer){ clearTimeout(enterTimer); enterTimer=null; box.classList.remove('is-entering'); }
-      if (!raf) raf = requestAnimationFrame(tick);
-
-      var r  = box.getBoundingClientRect();
-      var px = (e.clientX - r.left)/r.width  - 0.5; // -0.5..0.5
+    function setOriginFromEvent(e){
+      var r = box.getBoundingClientRect();
+      var px = (e.clientX - r.left)/r.width  - 0.5;
       var py = (e.clientY - r.top) /r.height - 0.5;
-
-      // целевые углы (инерция подтянет плавно)
-      trX = -py * MAX;
-      trY =  px * MAX;
-
-      // zoom-to-cursor: центр трансформации
-      box.style.setProperty('--ox', ((e.clientX - r.left)/r.width*100).toFixed(1)+'%');
-      box.style.setProperty('--oy', ((e.clientY - r.top )/r.height*100).toFixed(1)+'%');
-
-      // блик/тень: позиция и направление (используется в CSS ::before/::after)
-      box.style.setProperty('--x',  ((px+0.5)*100).toFixed(1)+'%');
-      box.style.setProperty('--y',  ((py+0.5)*100).toFixed(1)+'%');
-      box.style.setProperty('--dx', px.toFixed(3));
-      box.style.setProperty('--dy', py.toFixed(3));
+      box.style.setProperty('--ox', ((px+0.5)*100)+'%');
+      box.style.setProperty('--oy', ((py+0.5)*100)+'%');
+      box.style.setProperty('--x',  ((px+0.5)*100)+'%');
+      box.style.setProperty('--y',  ((py+0.5)*100)+'%');
+      box.style.setProperty('--dx', px);
+      box.style.setProperty('--dy', py);
+      tx = -py * MAX;
+      ty =  px * MAX;
     }
+
+    function onEnter(e){
+      over = true;
+      scT = TARGET;                        // масштаб едет к цели
+      img.style.willChange = 'transform, filter';
+      img.style.transition = 'filter .18s ease-out';
+      setOriginFromEvent(e);               // СРАЗУ центр по курсору — убираем «прыжок»
+      if (!raf) raf = requestAnimationFrame(tick);
+    }
+
+    function onMove(e){ setOriginFromEvent(e); }
 
     function onLeave(){
       over = false;
-      if (enterTimer){ clearTimeout(enterTimer); enterTimer=null; }
-      box.classList.remove('is-entering');
-
-      img.style.transition = 'transform .35s cubic-bezier(.22,.61,.36,1), filter .25s ease-out';
-      img.style.transform  = '';
-      img.style.willChange = '';
-
-      // очистим CSS-переменные
-      box.style.removeProperty('--x');
-      box.style.removeProperty('--y');
-      box.style.removeProperty('--dx');
-      box.style.removeProperty('--dy');
-      box.style.removeProperty('--ox');
-      box.style.removeProperty('--oy');
-    }
-
-    function tick(){
-      raf = null;
-      // инерция: плавно приближаемся к цели
-      rx += (trX - rx) * LERP;
-      ry += (trY - ry) * LERP;
-
-      img.style.transition = 'transform .06s linear';
-      img.style.transform  = 'scale(' + SCALE + ') rotateX(' + rx + 'deg) rotateY(' + ry + 'deg)';
-
-      if (over || Math.abs(trX - rx) > 0.01 || Math.abs(trY - ry) > 0.01) {
-        raf = requestAnimationFrame(tick);
-      }
+      tx = ty = 0;                         // наклон на ноль
+      scT = BASE;                          // масштаб назад
+      img.style.transition = 'filter .22s ease-out';
+      if (!raf) raf = requestAnimationFrame(tick);
+      setTimeout(function(){ if (!over) img.style.willChange=''; }, 300);
     }
 
     box.addEventListener('mouseenter', onEnter, {passive:true});
