@@ -1538,3 +1538,15 @@ body[data-fx~="tilt"] .iso-box img{
     transition: none !important;
   }
 }
+
+/* --- FIX: убираем blur/масштаб, чтобы не было полос в Chrome --- */
+.img-blur,
+.img-blur.is-loaded { filter: none !important; transform: none !important; }
+
+.iso-box img {
+  filter: none !important;
+  backface-visibility: hidden;    /* помогает рендереру */
+}
+
+/* без базового зума: картинка статична, масштаб только при hover из JS */
+body[data-fx~="tilt"] .iso-box img { transform: none; }
