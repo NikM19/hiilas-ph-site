@@ -83,6 +83,14 @@ function softReveal(elems){
       $grid.prepend('<div class="grid-sizer"></div><div class="gutter-sizer"></div>');
     }
 
+// показываем первые 9 карточек в "All" при загрузке
+$grid.find('.iso-box').slice(0, 9).addClass('is-visible');
+
+if ($grid.find('.iso-box:not(.is-visible)').length === 0) {
+  $('#load-more').hide();
+} else {
+  $('#load-more').show();
+}
 $grid.isotope({
   itemSelector: '.iso-box',
   layoutMode: 'masonry',
@@ -127,31 +135,25 @@ $grid.off('arrangeComplete.soft').on('arrangeComplete.soft', function(e, items){
 });
 
 // перекладываем по мере загрузки каждого изображения + ставим .is-loaded
-if ($.fn.imagesLoaded) {
-  // всё, что уже в кэше — сразу считаем загруженным
-  $grid.find('img').each(function(){
+if (window.imagesLoaded) {
+  // всё, что уже в кэше — сразу помечаем
+  $grid.find('img').each(function () {
     if (this.complete && this.naturalWidth) this.classList.add('is-loaded');
   });
-  var progressScheduled = false;
-  $grid.imagesLoaded()
-    .progress(function(_, image){
-      if (image && image.img) image.img.classList.add('is-loaded');
 
-      // не перебивать свежую анимацию после клика/«показать ещё»
+  // ВАЖНО: используем ванильный конструктор imagesLoaded, а не цепочку $grid.imagesLoaded()
+  var il = imagesLoaded($grid.find('img').get());
 
-    if (Date.now() - lastInteractive < 450) return;
+  il.on('progress', function (_, image) {
+    if (image && image.img) image.img.classList.add('is-loaded');
+    requestAnimationFrame(function () {
+      silent(function () { $grid.isotope('layout'); });
+    });
+  });
 
-    if (!progressScheduled){
-      progressScheduled = true;
-      requestAnimationFrame(function(){
-        progressScheduled = false;
-        silent(function(){ $grid.isotope('layout'); });
-      });
-    }
-  })
-  .always(function(){
-    silent(function(){ $grid.isotope('layout'); });
-  })
+  il.on('always', function () {
+    silent(function () { $grid.isotope('layout'); });
+  });
 }
 
     autoCols();
@@ -161,8 +163,8 @@ if ($.fn.imagesLoaded) {
 
   function boot(){ initIso(); }
 
-if ($.fn.imagesLoaded) {
-  $grid.imagesLoaded(boot);
+if (window.imagesLoaded) {
+  imagesLoaded($grid[0], boot);          // дождёмся картинок внутри сетки
 } else {
   boot();
 }
@@ -254,67 +256,145 @@ rAF = requestAnimationFrame(function(){
   silent(function(){ $grid.isotope('layout'); });
 });
 });
-// ——— мелкая оптимизация загрузки
-$('.iso-box img').attr({ decoding:'async' });
 
+// === LOAD MORE: стабильный, без наслаиваний ===
+$('#load-more').on('click', function(e){
+  e.preventDefault();
+  if (!$grid.length || !$grid.data('isotope')) return;
+
+  var BATCH = 9;
+  var $items = $grid.find('.iso-box:not(.is-visible)').slice(0, BATCH);
+
+  if (!$items.length){
+    $(this).attr('disabled', true).hide();
+    return;
+  }
+
+  lastInteractive = Date.now();
+
+  // 1) показать новые карточки мягкой волной
+  $items
+    .addClass('is-visible')
+    .each(function(){ this.classList.remove('iso-soft-in','iso-soft-start'); });
+  softReveal($items.toArray());
+
+  // 2) пометить уже загруженные картинки
+  $items.find('img').each(function(){
+    if (this.complete && this.naturalWidth) this.classList.add('is-loaded');
+  });
+
+  // 3) переложить сетку
+  silent(function(){ $grid.isotope('arrange', { filter: currentSelector() }); });
+  autoCols();
+  requestAnimationFrame(function(){ $grid.isotope('layout'); });
+
+  // 4) когда догрузятся новые изображения — ещё раз переложить
+  if (window.imagesLoaded){
+    var ilNew = imagesLoaded($items.get());
+    ilNew.on('progress', function(){
+      silent(function(){ $grid.isotope('layout'); });
+    });
+    ilNew.on('always', function(){
+      silent(function(){ $grid.isotope('layout'); });
+    });
+  }
+
+  // 5) если скрытых больше нет — прячем кнопку
+  if ($grid.find('.iso-box:not(.is-visible)').length === 0){
+    $(this).attr('disabled', true).hide();
+  }
+});
 });
 
-  // ==== Мобильное меню ====
-  $(function(){
-    function $menus(){ return $('.list-menu'); }
+// ==== Мобильное меню ====
+$(function () {
+  // Гарантируем, что элементы есть (ставим id/aria, если забыты в HTML)
+  let $menu = $('#site-menu');
+  if (!$menu.length) {
+    $menu = $('.navicon .list-menu').first().attr({
+      id: 'site-menu',
+      role: 'dialog',
+      'aria-modal': 'true',
+      'aria-hidden': 'true'
+    });
+  }
 
-    function openMenu(){
-      $menus().addClass('reveal-modal');
-      $('html,body').addClass('no-scroll');
-    }
-    function closeMenu(){
-      $menus().removeClass('reveal-modal');
-      $('html,body').removeClass('no-scroll');
-    }
+  let $burger = $('.navicon .circle').first();
+  if (!$burger.is('[aria-controls]')) {
+    $burger.attr({
+      'aria-controls': 'site-menu',
+      'aria-expanded': 'false',
+      'aria-label': 'Open menu'
+    });
+  }
 
-    // Открыть по бургеру
-    $(document)
-      .off('click.openMenu')
-      .on('click.openMenu', '.navicon, .navicon .circle, .navicon .ion-navicon', function(e){
-        e.preventDefault(); e.stopPropagation();
-        openMenu();
-      });
+  if ($menu[0]) { $menu[0].inert = true; } // по умолчанию меню нефокусируемо
 
-    // Закрыть по X
-    $(document)
-      .off('click.closeMenu')
-      .on('click.closeMenu', '.close-iframe, .list-menu .ion-close-round', function(e){
-        e.preventDefault(); e.stopPropagation();
-        closeMenu();
-      });
+  function openMenu() {
+    if ($menu[0]) { $menu[0].inert = false; }
+    $menu.addClass('reveal-modal').attr('aria-hidden', 'false');
+    $burger.attr('aria-expanded', 'true');
+    // ВАЖНО: совпадаем с CSS
+    $('html,body').addClass('no-scroll');
 
-    // Закрыть по клику на фон
-    $(document)
-      .off('click.bgClose')
-      .on('click.bgClose', '.list-menu', function(e){
-        if (e.target === this) closeMenu();
-      });
+    const $first = $menu
+      .find('a, button, [tabindex]:not([tabindex="-1"])')
+      .filter(':visible')
+      .first();
+    setTimeout(() => { ($first[0] || $menu[0]).focus(); }, 0);
+  }
 
-    // Закрыть по клику на ссылку + гарантированный переход
-    $(document)
-      .off('click.linkClose')
-      .on('click.linkClose', '.list-menu a', function(e){
-        var href = $(this).attr('href') || '';
-        closeMenu();
-        if (href && href !== '#') {
-          e.preventDefault();
-          window.location.href = href;
-        } else {
-          e.preventDefault();
-        }
-      });
+  function closeMenu() {
+    $burger.focus();
+    if ($menu[0]) { $menu[0].inert = true; }
+    $menu.removeClass('reveal-modal').attr('aria-hidden', 'true');
+    $burger.attr('aria-expanded', 'false');
+    $('html,body').removeClass('no-scroll');
+  }
 
-    // ESC
-    $(document).on('keydown', function(e){ if (e.key === 'Escape') closeMenu(); });
+  // Открыть
+  $(document)
+    .off('click.openMenu')
+    .on('click.openMenu', '.navicon .circle, .navicon .ion-navicon', function (e) {
+      e.preventDefault(); e.stopPropagation();
+      openMenu();
+    });
 
-    // iOS хак
-    $(document).on('touchstart', '.close-iframe, .list-menu .ion-close-round, .list-menu a', function(){});
-  });
+  // Закрыть по X
+  $(document)
+    .off('click.closeMenu')
+    .on('click.closeMenu', '.close-iframe, #site-menu .ion-close-round', function (e) {
+      e.preventDefault(); e.stopPropagation();
+      closeMenu();
+    });
+
+  // Закрыть по клику на фон
+  $(document)
+    .off('click.bgClose')
+    .on('click.bgClose', '#site-menu', function (e) {
+      if (e.target === this) closeMenu();
+    });
+
+  // Закрыть по клику на пункт меню (и перейти по ссылке)
+  $(document)
+    .off('click.linkClose')
+    .on('click.linkClose', '#site-menu a', function (e) {
+      const href = $(this).attr('href') || '';
+      closeMenu();
+      if (href && href !== '#') {
+        e.preventDefault();
+        window.location.href = href;
+      } else {
+        e.preventDefault();
+      }
+    });
+
+  // ESC
+  $(document).on('keydown', function (e) { if (e.key === 'Escape') closeMenu(); });
+
+  // iOS tap hack
+  $(document).on('touchstart', '.close-iframe, #site-menu .ion-close-round, #site-menu a', function () { });
+});
 
 })(jQuery);
 
@@ -429,9 +509,6 @@ $('.iso-box img').attr({ decoding:'async' });
     }
   }
 
-  // прогресс загрузки изображений
-  $grid.imagesLoaded().progress(function(){ relayout(); }).always(function(){ relayout(); });
-
   // футер попал в зону видимости — перестроиться
   var footer = document.querySelector('footer');
   if (footer && 'IntersectionObserver' in window){
@@ -455,28 +532,3 @@ $('.iso-box img').attr({ decoding:'async' });
   }
 })(jQuery);
 
-/* === Load More: добавляем .is-visible порциями, раскладкой займётся custom.js === */
-(function () {
-  var btn   = document.getElementById('load-more');
-  var items = Array.from(document.querySelectorAll('.iso-box'));
-  if (!btn || !items.length) return;
-
-  var STEP  = matchMedia('(max-width:600px)').matches ? 9 : 12;
-  var shown = 0;
-
-  function reveal(n){
-    var slice = items.slice(shown, shown + n);
-    slice.forEach(function(el){ el.classList.add('is-visible'); });
-    shown += slice.length;
-    if (shown >= items.length) btn.hidden = true;
-  }
-
-  // первая порция
-  reveal(STEP);
-
-  btn.addEventListener('click', function(){
-    btn.classList.add('is-busy');
-    reveal(STEP);                    // классы добавили — MutationObserver в custom.js сам сделает arrange/layout
-    setTimeout(function(){ btn.classList.remove('is-busy'); }, 250);
-  });
-})();

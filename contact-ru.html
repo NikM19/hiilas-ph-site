@@ -61,57 +61,60 @@ http://www.tooplate.com/view/2082-pure-mix
 
 			<div class="navbar">
 				<div class="container">
-	      <div class="header-row">
-            <!-- ЛОГО -->
-            <div class="brand">
-              <a href="index-ru.html">
-                <span class="brand-line1"><strong>Hiilas</strong></span>
-                <span class="brand-line2">Photography</span>
-              </a>
-            </div>
+					<div class="header-row">
+						<!-- ЛОГО -->
+						<div class="brand">
+							<a href="index-ru.html">
+								<span class="brand-line1"><strong>Hiilas</strong></span>
+								<span class="brand-line2">Photography</span>
+							</a>
+						</div>
 
-            <div class="header-spacer"></div>
+						<div class="header-spacer"></div>
 
-            <!-- ГРУППА СПРАВА: языки + бургер -->
-            <div class="header-right">
-              <!-- Языки (десктоп) -->
-              <ul class="language-switch desktop-only">
-                <li><a href="contact.html">EN</a></li>
-                <li><a href="contact-fi.html">FI</a></li>
-                <li><a href="contact-ru.html">RU</a></li>
-              </ul>
+						<!-- ГРУППА СПРАВА: языки + бургер -->
+						<div class="header-right">
+							<!-- Языки (десктоп) -->
+							<ul class="language-switch desktop-only" aria-label="Выбор языка">
+								<li><a href="contact.html">EN</a></li>
+								<li><a href="contact-fi.html">FI</a></li>
+								<li><a href="contact-ru.html">RU</a></li>
+							</ul>
 
-              <!-- Бургер -->
-              <div class="navicon">
-                <div class="menu-container">
-                  <div class="circle dark inline">
-                    <i class="icon ion-navicon"></i>
-                  </div>
-                  <div class="list-menu">
-                    <!-- X -->
-                    <i class="icon ion-close-round close-iframe"></i>
-                    <ul class="language-switch mobile-only">
-                      <li><a href="contact.html">EN</a></li>
-                      <li><a href="contact-fi.html">FI</a></li>
-                      <li><a href="contact-ru.html">RU</a></li>
-                    </ul>
-                    <div class="intro-inner">
-                      <ul id="nav-menu">
-                        <li><a href="index-ru.html">Главная</a></li>
-                        <li><a href="about-ru.html">Обо мне</a></li>
-                        <li><a href="contact-ru.html">Контакты</a></li>
-                      </ul>
-                    </div>
-                  </div><!-- /.list-menu -->
-                </div><!-- /.menu-container -->
-              </div><!-- /.navicon -->
-            </div><!-- /header-right -->
-          </div><!-- /header-row -->
+							<!-- Бургер -->
+							<div class="navicon">
+								<div class="menu-container">
+									<div class="circle dark inline" role="button" tabindex="0" aria-label="Открыть меню"
+										aria-controls="site-menu" aria-expanded="false">
+										<i class="icon ion-navicon" aria-hidden="true"></i>
+									</div>
 
-        </div><!-- /.container -->
-      </div><!-- /.navbar -->
-    </nav><!-- /.nav-inner -->
-  </div><!-- /.nav-container -->
+									<div id="site-menu" class="list-menu" role="dialog" aria-modal="true"
+										aria-hidden="true" aria-label="Главное меню">
+										<i class="icon ion-close-round close-iframe" role="button" tabindex="0"
+											aria-label="Закрыть меню"></i>
+										<ul class="language-switch mobile-only" aria-label="Выбор языка">
+											<li><a href="contact.html">EN</a></li>
+											<li><a href="contact-fi.html">FI</a></li>
+											<li><a href="contact-ru.html">RU</a></li>
+										</ul>
+										<div class="intro-inner">
+											<ul id="nav-menu">
+												<li><a href="index-ru.html">Главная</a></li>
+												<li><a href="about-ru.html">Обо мне</a></li>
+												<li><a href="contact-ru.html">Контакты</a></li>
+											</ul>
+										</div>
+									</div><!-- /.list-menu -->
+								</div><!-- /.menu-container -->
+							</div><!-- /.navicon -->
+						</div><!-- /header-right -->
+					</div><!-- /header-row -->
+
+				</div><!-- /.container -->
+			</div><!-- /.navbar -->
+		</nav><!-- /.nav-inner -->
+	</div><!-- /.nav-container -->
 
 	<!-- Contact section
 ================================================== -->
@@ -124,10 +127,22 @@ http://www.tooplate.com/view/2082-pure-mix
 
 					<div class="contact-form">
 						<form id="contact-form" method="post" action="#">
-							<input name="name" type="text" class="form-control" placeholder="Ваше имя" required>
-							<input name="email" type="email" class="form-control" placeholder="Ваш e-mail" required>
-							<textarea name="message" class="form-control" placeholder="Сообщение" rows="4"
-								required></textarea>
+							<label class="sr-only" for="name">Ваше имя</label>
+							<input id="name" name="name" type="text" class="form-control"
+								placeholder="Укажите, как к вам обращаться" required aria-describedby="name-hint">
+
+
+							<label class="sr-only" for="email">Ваш e-mail</label>
+							<input id="email" name="email" type="email" class="form-control"
+								placeholder="Ваш e-mail сюда пришлём ответ" required aria-describedby="email-hint">
+
+
+							<label class="sr-only" for="message">Сообщение</label>
+							<textarea id="message" name="message" class="form-control"
+								placeholder="Расскажите пару слов о съёмке" rows="4" required
+								aria-describedby="message-hint"></textarea>
+
+
 							<div class="contact-submit">
 								<input type="submit" class="form-control submit" value="Отправить сообщение">
 							</div>
@@ -179,13 +194,76 @@ http://www.tooplate.com/view/2082-pure-mix
 
 	<!-- Javascript 
 ================================================== -->
-<script src="js/jquery.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/isotope.js"></script>
-<script src="js/imagesloaded.min.js"></script>
-<script src="js/custom.js"></script>
-<script src="js/wow.min.js"></script>
-<script src="js/loader.js"></script>
+	<script src="js/jquery.js"></script>
+	<script src="js/wow.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/custom.js"></script>
+	<script src="js/loader.js"></script>
+
+	<script>
+		(function () {
+			var openBtn = document.querySelector('.circle.inline');
+			var closeBtn = document.querySelector('.close-iframe');
+			var menu = document.getElementById('site-menu');
+			if (!openBtn || !closeBtn || !menu) return;
+
+			function openMenu() {
+				menu.classList.add('reveal-modal');
+				menu.setAttribute('aria-hidden', 'false');
+				openBtn.setAttribute('aria-expanded', 'true');
+				document.documentElement.classList.add('no-scroll');
+				document.body.classList.add('no-scroll');
+			}
+			function closeMenu() {
+				menu.classList.remove('reveal-modal');
+				menu.setAttribute('aria-hidden', 'true');
+				openBtn.setAttribute('aria-expanded', 'false');
+				document.documentElement.classList.remove('no-scroll');
+				document.body.classList.remove('no-scroll');
+			}
+
+			openBtn.addEventListener('click', openMenu);
+			openBtn.addEventListener('keydown', function (e) {
+				if (e.key === 'Enter' || e.key === ' ') {
+					e.preventDefault(); openMenu();
+				}
+			});
+			closeBtn.addEventListener('click', closeMenu);
+			closeBtn.addEventListener('keydown', function (e) {
+				if (e.key === 'Enter' || e.key === ' ') {
+					e.preventDefault(); closeMenu();
+				}
+			});
+		})();
+	</script>
+
+	<script>
+		(function () {
+			var form = document.getElementById('contact-form');
+			if (!form) return;
+
+			var fields = Array.prototype.slice.call(
+				form.querySelectorAll('input[required], textarea[required]')
+			);
+
+			function paint(f) {
+				f.classList.toggle('field-error', !f.validity.valid);
+			}
+
+			// Реакция без использования события 'invalid'
+			fields.forEach(function (f) {
+				f.addEventListener('input', function () { paint(f); }, { passive: true });
+				f.addEventListener('blur', function () { paint(f); });
+			});
+
+			form.addEventListener('submit', function (e) {
+				fields.forEach(paint);
+				if (!form.checkValidity()) {
+					e.preventDefault(); // просто не отправляем форму
+				}
+			});
+		})();
+	</script>
 
 </body>
 

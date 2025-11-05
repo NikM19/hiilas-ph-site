@@ -79,23 +79,30 @@ http://www.tooplate.com/view/2082-pure-mix
               <!-- Burger -->
               <div class="navicon">
                 <div class="menu-container">
-                  <div class="circle dark inline"><i class="icon ion-navicon"></i></div>
+                  <div class="circle dark inline" role="button" tabindex="0" aria-label="Open menu"
+                    aria-controls="site-menu" aria-expanded="false">
+                    <i class="icon ion-navicon" aria-hidden="true"></i>
+                  </div>
 
-                  <div class="list-menu">
-                    <i class="icon ion-close-round close-iframe"></i>
-                    <ul class="language-switch mobile-only">
+                  <div id="site-menu" class="list-menu" role="dialog" aria-modal="true" aria-hidden="true"
+                    aria-label="Main menu">
+                    <i class="icon ion-close-round close-iframe" role="button" tabindex="0" aria-label="Close menu"></i>
+
+                    <!-- Languages (mobile) -->
+                    <ul class="language-switch mobile-only" aria-label="Language switch">
                       <li><a href="about.html">EN</a></li>
                       <li><a href="about-fi.html">FI</a></li>
                       <li><a href="about-ru.html">RU</a></li>
                     </ul>
+
                     <div class="intro-inner">
-                      <ul id="nav-menu">
+                      <ul id="nav-menu" aria-label="Main menu links">
                         <li><a href="index.html">Home</a></li>
                         <li><a href="about.html">About</a></li>
                         <li><a href="contact.html">Contact</a></li>
                       </ul>
                     </div>
-                  </div><!-- /.list-menu -->
+                  </div><!-- /#site-menu -->
                 </div><!-- /.menu-container -->
               </div><!-- /.navicon -->
             </div><!-- /.header-right -->
@@ -132,17 +139,31 @@ http://www.tooplate.com/view/2082-pure-mix
 
         <div class="col-md-6 col-sm-6">
           <div class="about-thumb">
-            <p>Documentary photography is the art of seeing the truth. At the heart of my approach are real emotions, honest glances, and genuine stories. During a photoshoot, I try to be your friend — someone who supports, encourages, and helps you feel comfortable and confident.</p>
-            <p>Every story is unique. If you think you’re not photogenic, let me show you how beautiful you truly are.</p>
-            <p>I believe that love is not only about two people. It’s about yourself, your family, friends, pets, your passion — about the moments worth remembering.</p>
-            <p>I love people through my camera. It doesn’t matter if you have experience in front of the lens — write to me, and together we’ll create photographs where you’ll recognize yourself and feel alive.</p>
+            <h1 style="text-transform:none; letter-spacing:0">
+              Hi, I'm Anastasia Hiilas
+            </h1>
+            <p style="text-transform:none; letter-spacing:0; margin-bottom:14px">
+              Documentary photographer based in Helsinki.
+            </p>
+            <p>Documentary photography is the art of seeing the truth. At the heart of my approach are real emotions,
+              honest glances, and genuine stories. During a photoshoot, I try to be your friend — someone who supports,
+              encourages, and helps you feel comfortable and confident.</p>
+            <p>Every story is unique. If you think you’re not photogenic, let me show you how beautiful you truly are.
+            </p>
+            <p>I believe that love is not only about two people. It’s about yourself, your family, friends, pets, your
+              passion — about the moments worth remembering.</p>
+            <p>I love people through my camera. It doesn’t matter if you have experience in front of the lens — write to
+              me, and together we’ll create photographs where you’ll recognize yourself and feel alive.</p>
 
             <h3>My story</h3>
 
             <p>Photography once saved me — it became a lighthouse on the darkest day.</p>
-            <p>Like many creative people, my inspiration was built on pain. But today, my home — photography — stands on a solid foundation. I know why and for whom I create.</p>
+            <p>Like many creative people, my inspiration was built on pain. But today, my home — photography — stands on
+              a solid foundation. I know why and for whom I create.</p>
             <p>I want people to see themselves through my eyes — real, alive, and beautiful, right where they are.</p>
-            <p>I’m a documentary photographer based in Helsinki, and my work isn’t about perfection or posing — it’s about life, the kind you can print, place in an album, and return to years later, remembering yourself happy and genuine in that very moment.</p>
+            <p>I’m a documentary photographer based in Helsinki, and my work isn’t about perfection or posing — it’s
+              about life, the kind you can print, place in an album, and return to years later, remembering yourself
+              happy and genuine in that very moment.</p>
 
             <p>My purpose is to help you preserve memories and feel truly special.</p>
           </div>
@@ -172,13 +193,14 @@ http://www.tooplate.com/view/2082-pure-mix
 
   <!-- Javascript 
 ================================================== -->
-<script src="js/jquery.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/isotope.js"></script>
-<script src="js/imagesloaded.min.js"></script>
-<script src="js/custom.js"></script>
-<script src="js/wow.min.js"></script>
-<script src="js/loader.js"></script>
+  <script src="js/jquery.js"></script>
+  <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
+  <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
+  <script src="js/wow.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/custom.js"></script>
+  <script src="js/loader.js"></script>
 
 </body>
+
 </html>

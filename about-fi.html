@@ -58,16 +58,21 @@ http://www.tooplate.com/view/2082-pure-mix
                             <!-- Burger -->
                             <div class="navicon">
                                 <div class="menu-container">
-                                    <div class="circle dark inline"><i class="icon ion-navicon"></i></div>
-                                    <div class="list-menu">
-                                        <i class="icon ion-close-round close-iframe"></i>
-                                        <ul class="language-switch mobile-only">
+                                    <div class="circle dark inline" role="button" tabindex="0" aria-label="Avaa valikko"
+                                        aria-controls="site-menu" aria-expanded="false">
+                                        <i class="icon ion-navicon" aria-hidden="true"></i>
+                                    </div>
+                                    <div id="site-menu" class="list-menu" role="dialog" aria-modal="true"
+                                        aria-hidden="true" aria-label="Päävalikko">
+                                        <i class="icon ion-close-round close-iframe" role="button" tabindex="0"
+                                            aria-label="Sulje valikko"></i>
+                                        <ul class="language-switch mobile-only" aria-label="Kielen valinta">
                                             <li><a href="about.html">EN</a></li>
                                             <li><a href="about-fi.html">FI</a></li>
                                             <li><a href="about-ru.html">RU</a></li>
                                         </ul>
                                         <div class="intro-inner">
-                                            <ul id="nav-menu">
+                                            <ul id="nav-menu" aria-label="Päävalikon linkit">
                                                 <li><a href="index-fi.html">Etusivu</a></li>
                                                 <li><a href="about-fi.html">Minusta</a></li>
                                                 <li><a href="contact-fi.html">Yhteystiedot</a></li>
@@ -107,18 +112,32 @@ http://www.tooplate.com/view/2082-pure-mix
 
                 <div class="col-md-6 col-sm-6">
                     <div class="about-thumb">
-                        <p>Dokumentaarinen valokuvaus on totuuden näkemisen taitoa. Lähestymistapani ytimessä ovat aidot tunteet, katseet ja elävät tarinat. Kuvauksissa pyrin olemaan ystävä — tukemaan, rohkaisemaan ja auttamaan sinua tuntemaan olosi rennoksi ja itsevarmaksi.</p>
-                        <p>Jokainen tarina on ainutlaatuinen. Jos ajattelet, ettet ole kuvauksellinen, anna minun näyttää, kuinka kaunis olet oikeasti.</p>
-                        <p>Uskon, että rakkaus ei ole vain kahden ihmisen välinen asia. Se on myös rakkautta itseäsi, perhettäsi, ystäviäsi, lemmikkejäsi ja sinulle tärkeitä hetkiä kohtaan.</p>
-                        <p>Rakastan ihmisiä kamerani kautta. Ei ole väliä, onko sinulla kokemusta kuvauksista — kirjoita minulle, ja luodaan yhdessä kuvia, joissa näet itsesi ja tunnet elämän.</p>
+                        <h1 style="text-transform:none; letter-spacing:0">Hei, olen Anastasia Hiilas</h1>
+                        <p style="text-transform:none; letter-spacing:0; margin-bottom:14px">
+                            Helsingissä toimiva dokumentaarinen valokuvaaja.
+                        </p>
+                        <p>Dokumentaarinen valokuvaus on totuuden näkemisen taitoa. Lähestymistapani ytimessä ovat aidot
+                            tunteet, katseet ja elävät tarinat. Kuvauksissa pyrin olemaan ystävä — tukemaan,
+                            rohkaisemaan ja auttamaan sinua tuntemaan olosi rennoksi ja itsevarmaksi.</p>
+                        <p>Jokainen tarina on ainutlaatuinen. Jos ajattelet, ettet ole kuvauksellinen, anna minun
+                            näyttää, kuinka kaunis olet oikeasti.</p>
+                        <p>Uskon, että rakkaus ei ole vain kahden ihmisen välinen asia. Se on myös rakkautta itseäsi,
+                            perhettäsi, ystäviäsi, lemmikkejäsi ja sinulle tärkeitä hetkiä kohtaan.</p>
+                        <p>Rakastan ihmisiä kamerani kautta. Ei ole väliä, onko sinulla kokemusta kuvauksista — kirjoita
+                            minulle, ja luodaan yhdessä kuvia, joissa näet itsesi ja tunnet elämän.</p>
 
                         <h3>Minun tarinani</h3>
 
                         <p>Valokuvaus pelasti minut kerran — se oli majakka pimeimpänä päivänä.</p>
-                        <p>Kuten monilla luovilla ihmisillä, myös minun inspiraationi syntyi kivusta. Mutta tänään kotini, valokuvaus, seisoo vakaalla perustalla. Tiedän, miksi ja kenelle teen tätä työtä.</p>
+                        <p>Kuten monilla luovilla ihmisillä, myös minun inspiraationi syntyi kivusta. Mutta tänään
+                            kotini, valokuvaus, seisoo vakaalla perustalla. Tiedän, miksi ja kenelle teen tätä työtä.
+                        </p>
 
-                        <p>Haluan, että ihmiset näkevät itsensä minun silmieni kautta — aitoina, elävinä ja kauniina juuri siinä hetkessä, missä he ovat.</p>
-                        <p>Olen dokumentaarinen valokuvaaja Helsingistä, ja kuvaukseni eivät ole teennäisiä tai täydellisiä — ne ovat elämää, jota voi tulostaa, liittää albumiin ja palata siihen vuosien päästä — muistaen itsensä onnellisena ja aitona siinä hetkessä.</p>
+                        <p>Haluan, että ihmiset näkevät itsensä minun silmieni kautta — aitoina, elävinä ja kauniina
+                            juuri siinä hetkessä, missä he ovat.</p>
+                        <p>Olen dokumentaarinen valokuvaaja Helsingistä, ja kuvaukseni eivät ole teennäisiä tai
+                            täydellisiä — ne ovat elämää, jota voi tulostaa, liittää albumiin ja palata siihen vuosien
+                            päästä — muistaen itsensä onnellisena ja aitona siinä hetkessä.</p>
 
                         <p>Tavoitteeni on auttaa sinua säilyttämään muistot ja tuntemaan itsesi erityiseksi.</p>
                     </div>
@@ -136,7 +155,8 @@ http://www.tooplate.com/view/2082-pure-mix
             </p>
             <ul class="social-icon wow fadeInUp" data-wow-delay="0.6s">
                 <li>
-                    <a href="https://instagram.com/hiilas.ph" class="fa fa-instagram" target="_blank" title="Instagram"></a>
+                    <a href="https://instagram.com/hiilas.ph" class="fa fa-instagram" target="_blank"
+                        title="Instagram"></a>
                 </li>
                 <li>
                     <a href="mailto:ph.hiilas@gmail.com" class="fa fa-envelope" title="Email"></a>
@@ -146,13 +166,14 @@ http://www.tooplate.com/view/2082-pure-mix
     </footer>
 
     <!-- JS -->
-<script src="js/jquery.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/isotope.js"></script>
-<script src="js/imagesloaded.min.js"></script>
-<script src="js/custom.js"></script>
-<script src="js/wow.min.js"></script>
-<script src="js/loader.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
+    <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
+    <script src="js/wow.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/custom.js"></script>
+    <script src="js/loader.js"></script>
 
 </body>
+
 </html>

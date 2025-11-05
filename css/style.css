@@ -9,14 +9,15 @@ http://www.tooplate.com/view/2082-pure-mix
 /* Body 
 ------------------------------------- */
 body {
-    background: #ffffff;
-    font-family: 'Source Sans Pro', sans-serif;
-    font-style: normal;
-    font-weight: 300;
-    position: relative;
+  background: #ffffff;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  position: relative;
 }
 
-html,body {
+html,
+body {
   width: 100%;
   overflow-x: hidden;
 }
@@ -29,7 +30,10 @@ html {
 /* Typography
 ------------------------------------- */
 
-h1,h2,h3,h4 {
+h1,
+h2,
+h3,
+h4 {
   font-weight: 400;
   letter-spacing: 0.3rem;
   text-transform: uppercase;
@@ -39,6 +43,7 @@ h1 {
   color: #000;
   font-size: 1.8rem;
   font-weight: 700;
+  margin-top: 0;
 }
 
 h2 {
@@ -69,6 +74,7 @@ a {
   outline: none;
   text-decoration: none;
 }
+
 a,
 a:hover,
 a:focus {
@@ -91,17 +97,17 @@ img {
 /* preloader styles
 /* ========================================== */
 .preloader {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 99999;
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: center;
-    align-items: center;
-    background: none repeat scroll 0 0 #fff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100000;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  background: none repeat scroll 0 0 #fff;
 }
 
 .sk-spinner-pulse {
@@ -110,25 +116,34 @@ img {
   background-color: #111112;
   border-radius: 100%;
   -webkit-animation: sk-pulseScaleOut 1s infinite ease-in-out;
-          animation: sk-pulseScaleOut 1s infinite ease-in-out; }
+  animation: sk-pulseScaleOut 1s infinite ease-in-out;
+}
 
 @-webkit-keyframes sk-pulseScaleOut {
   0% {
     -webkit-transform: scale(0);
-            transform: scale(0); }
+    transform: scale(0);
+  }
+
   100% {
     -webkit-transform: scale(1);
-            transform: scale(1);
-    opacity: 0; } }
+    transform: scale(1);
+    opacity: 0;
+  }
+}
 
 @keyframes sk-pulseScaleOut {
   0% {
     -webkit-transform: scale(0);
-            transform: scale(0); }
+    transform: scale(0);
+  }
+
   100% {
     -webkit-transform: scale(1);
-            transform: scale(1);
-    opacity: 0; } }
+    transform: scale(1);
+    opacity: 0;
+  }
+}
 
 
 
@@ -166,14 +181,15 @@ nav a {
 }
 
 .brand {
-  float: left;
-  padding: 30px 0 0;
+  float: none;
+  padding: 0;
   transition: all 0.3s ease;
   -webkit-transition: all 0.3s ease;
   -moz-transition: all 0.3s ease;
   text-transform: uppercase;
   letter-spacing: 0.3rem;
 }
+
 .brand a {
   color: #333;
   font-size: 24px;
@@ -182,7 +198,7 @@ nav a {
   text-decoration: none;
 }
 
-.navicon {  
+.navicon {
   position: relative;
   right: 0;
   display: -webkit-flex;
@@ -191,7 +207,7 @@ nav a {
   -webkit-justify-content: flex-end;
   -ms-flex-pack: end;
   justify-content: flex-end;
-  padding: 20px 0 0;
+  padding: 0;
 }
 
 nav ul {
@@ -239,17 +255,21 @@ nav ul.right {
   .nav-text-light a {
     color: #555555;
   }
+
   .nav-inner {
     background: #ffffff;
   }
+
   .transparent {
     background: transparent;
   }
+
   .navicon {
     padding-right: 10px;
   }
+
   nav ul.right {
-  float: left;
+    float: left;
   }
 }
 
@@ -258,13 +278,13 @@ a.icon {
   padding-right: 20px;
 }
 
-.intro-inner {  
+.intro-inner {
   position: absolute;
   left: 50%;
   top: 50%;
   -webkit-transform: translate(-50%, -50%);
-      -ms-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
   width: 100%;
   text-align: center;
 }
@@ -275,6 +295,7 @@ a.icon {
   font-weight: 300;
   text-shadow: none;
 }
+
 .close:focus {
   outline: 0px auto -webkit-focus-ring-color;
 }
@@ -349,6 +370,7 @@ a.icon {
     height: 90px;
     margin-top: -45px;
   }
+
   .circle.large:before {
     margin-top: -14px;
     margin-left: -8px;
@@ -362,26 +384,34 @@ a.icon {
 }
 
 /* Полноэкранное оверлей-меню */
-.list-menu{
+.list-menu {
   position: fixed !important;
-  top: 0; left: 0; right: 0; bottom: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.9);
-  opacity: 0; 
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  opacity: 0;
   visibility: hidden;
   transition: opacity .3s ease, visibility .3s ease;
-  z-index: 99999;              /* оставляем высокий слой */
-  padding-top: 0 !important;   /* сброс старого отступа */
-  pointer-events: none;        /* пока скрыто — кликов нет */
+  z-index: 99999;
+  /* оставляем высокий слой */
+  padding-top: 0 !important;
+  /* сброс старого отступа */
+  pointer-events: none;
+  /* пока скрыто — кликов нет */
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.list-menu.reveal-modal{
-  opacity: 1; 
+.list-menu.reveal-modal {
+  opacity: 1;
   visibility: visible;
-  pointer-events: auto;        /* открыто — клики работают */
+  pointer-events: auto;
+  /* открыто — клики работают */
 }
 
 .list-menu .ion-close-round {
@@ -394,33 +424,37 @@ a.icon {
 }
 
 /* === Overlay menu: brighten text on hover (no glow, no bg) === */
-.list-menu #nav-menu a{
-  color: rgba(255,255,255,.78);
+.list-menu #nav-menu a {
+  color: rgba(255, 255, 255, .78);
   transition: color var(--ui-ease) ease, filter var(--ui-ease) ease;
   text-shadow: none;
 }
+
 .list-menu #nav-menu a:hover,
-.list-menu #nav-menu a:focus-visible{
+.list-menu #nav-menu a:focus-visible {
   color: #fff;
   filter: brightness(var(--hover-brightness)) contrast(1.05);
 }
-.list-menu #nav-menu a:active{
+
+.list-menu #nav-menu a:active {
   filter: brightness(calc(var(--hover-brightness) - .06)) contrast(1.05);
 }
 
 /* Мобильный "блик" при тапе: ярче текст */
-@media (hover: none) and (pointer: coarse){
-  .list-menu ul#nav-menu > li > a{
+@media (hover: none) and (pointer: coarse) {
+  .list-menu ul#nav-menu>li>a {
     transition: filter var(--ui-ease) ease, transform .1s ease, color var(--ui-ease) ease;
-    -webkit-tap-highlight-color: rgba(255,255,255,.12);
+    -webkit-tap-highlight-color: rgba(255, 255, 255, .12);
   }
-  .list-menu ul#nav-menu > li > a:active,
-  .list-menu ul#nav-menu > li > a:focus-visible{
-    filter: brightness(var(--tap-brightness)) drop-shadow(0 0 6px rgba(255,255,255,.25));
+
+  .list-menu ul#nav-menu>li>a:active,
+  .list-menu ul#nav-menu>li>a:focus-visible {
+    filter: brightness(var(--tap-brightness)) drop-shadow(0 0 6px rgba(255, 255, 255, .25));
     transform: scale(var(--tap-scale));
     outline: none;
   }
 }
+
 /* header section styles
 /* ========================================== */
 #header {
@@ -446,8 +480,10 @@ a.icon {
   padding: 32px 20px 32px 20px !important;
 }
 
-.header-one, .header-two,
-.header-three, .header-four,
+.header-one,
+.header-two,
+.header-three,
+.header-four,
 .header-five {
   height: 42vh !important;
   min-height: 420px;
@@ -457,12 +493,15 @@ a.icon {
 .header-two {
   background: url('../images/header-bg.jpg') no-repeat;
 }
+
 .header-three {
   background: url('../images/header-three-bg.jpg') no-repeat;
 }
+
 .header-four {
   background: url('../images/header-four-bg.jpg') no-repeat;
 }
+
 .header-five {
   background: url('../images/header-five-bg.jpg') no-repeat;
 }
@@ -483,7 +522,7 @@ a.icon {
   position: relative;
   overflow: hidden;
   margin: 0;
-} 
+}
 
 #portfolio .portfolio-thumb .portfolio-overlay {
   background: #141414;
@@ -504,52 +543,54 @@ a.icon {
 }
 
 #portfolio .portfolio-thumb .portfolio-overlay .portfolio-item {
-    text-align: center;
-    padding: 30% 20px 20px;
+  text-align: center;
+  padding: 30% 20px 20px;
 }
 
 #portfolio .portfolio-thumb .portfolio-overlay .fa {
-    background: #f9f9f9;
-    border-radius: 100px;
-    color: #141414;
-    font-size: 1.3rem;
-    display: inline-block;
-    width: 3.5rem;
-    height: 3.5rem;
-    line-height: 3.5rem;
-    text-align: center;
-    text-decoration: none;
-    margin-bottom: 4px;
+  background: #f9f9f9;
+  border-radius: 100px;
+  color: #141414;
+  font-size: 1.3rem;
+  display: inline-block;
+  width: 3.5rem;
+  height: 3.5rem;
+  line-height: 3.5rem;
+  text-align: center;
+  text-decoration: none;
+  margin-bottom: 4px;
 }
 
 /*filter css*/
 .filter-wrapper {
-    width: 100%;
-    margin-bottom: 32px;
-    overflow: hidden;
+  width: 100%;
+  margin-bottom: 32px;
+  overflow: hidden;
 }
 
 .filter-wrapper li {
-    display: inline-block;
-    margin: 4px;
+  display: inline-block;
+  margin: 4px;
 }
 
 .filter-wrapper li a {
-    color: #666;
-    font-size: 13px;
-    font-weight: 400;
-    letter-spacing: 2px;
-    padding: 8px 17px;
-    margin-right: 2px;
-    margin-left: 2px;
-    text-transform: uppercase;
-    display: block;
-    text-decoration: none;
-    transition: all 0.4s ease-in-out;
+  color: #666;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 2px;
+  padding: 8px 17px;
+  margin-right: 2px;
+  margin-left: 2px;
+  text-transform: uppercase;
+  display: block;
+  text-decoration: none;
+  transition: all 0.4s ease-in-out;
 }
+
 .filter-wrapper li a:active {
   background: #111112 !important;
 }
+
 .filter-wrapper li a:hover,
 .filter-wrapper li a:focus {
   background: #111112;
@@ -558,32 +599,32 @@ a.icon {
 
 /*isotope box css*/
 .iso-box-section {
-    width: 100%;
+  width: 100%;
 }
 
 .iso-box-wrapper {
-    width: 100%;
-    padding: 0;
-    clear: both;
-    position: relative;
+  width: 100%;
+  padding: 0;
+  clear: both;
+  position: relative;
 }
 
 .iso-box {
-    position: relative;
-    min-height: 50px;
-    overflow: hidden;
+  position: relative;
+  min-height: 50px;
+  overflow: hidden;
 }
 
-.iso-box > a {
-    display: block;
-    width: 100%;
-    height: auto;
-    overflow: hidden;
-} 
+.iso-box>a {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+}
 
 .fluid-img {
-    width: 100%;
-    display: block;
+  width: 100%;
+  display: block;
 }
 
 /* single project section styles
@@ -623,12 +664,43 @@ a.icon {
 }
 
 .about-thumb {
-    margin-top: 90px; /* можешь поменять если хочется больше отступ */
+  margin-top: 50px;
+  /* можешь поменять если хочется больше отступ */
+}
+
+/* === ABOUT (mobile): поднять только заголовок и подпись === */
+@media (max-width: 767px) {
+  #about .about-thumb>h1 {
+    position: relative;
+    top: -20px;
+    /* подстрой: -6…-16px */
+  }
+
+  #about .about-thumb>p:first-of-type {
+    position: relative;
+    top: -20px;
+    /* подстрой: -4…-12px */
+    margin-bottom: 12px;
+    /* чтобы не липло к следующему абзацу */
+  }
+}
+
+/* Двинем только заголовок (и при желании подпись) на десктопе */
+@media (min-width: 992px) {
+  #about .about-thumb>h1 {
+    transform: translateY(-50px);
+    /* подбери -12…-24px */
+  }
+
+  /* если нужно поднять и строку "Документальный фотограф из Хельсинки." */
+  #about .about-thumb>p:first-of-type {
+    transform: translateY(-50px);
+  }
 }
 
 /* blog & single post section styles
 /* ========================================== */
-#blog, 
+#blog,
 #single-post {
   padding-top: 4rem;
   padding-bottom: 6rem;
@@ -660,6 +732,7 @@ a.icon {
   margin-top: 22px;
   transition: all 0.4s ease-in-out;
 }
+
 #blog .blog-thumb .btn:hover {
   background: #111112;
   border-color: transparent;
@@ -727,7 +800,7 @@ a.icon {
   padding-right: 10px;
 }
 
-#contact #map-canvas  {
+#contact #map-canvas {
   border: none;
   width: 100%;
   height: 300px;
@@ -752,9 +825,13 @@ a.icon {
   border-color: #f0f0f0;
 }
 
-#contact textarea {min-height: 100px;}
+#contact textarea {
+  min-height: 100px;
+}
 
-#contact input {height: 50px;}
+#contact input {
+  height: 50px;
+}
 
 #contact input[type='submit'] {
   background: #111112;
@@ -782,38 +859,38 @@ a.icon {
 }
 
 #contact .row {
-    padding-bottom: 15px;
+  padding-bottom: 15px;
 }
 
 
 /* footer section styles
 /* ========================================== */
 footer.wide-footer {
-    width: 100%;
-    background: #141414;
-    padding-top: 80px;
-    padding-bottom: 80px;
-    text-align: center;
-    position: static;
-    box-sizing: border-box;
+  width: 100%;
+  background: #141414;
+  padding-top: 80px;
+  padding-bottom: 80px;
+  text-align: center;
+  position: static;
+  box-sizing: border-box;
 }
 
 .footer-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 16px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
 }
 
 .footer-top-row {
-    padding-left: 40px;
-    padding-right: 40px;
+  padding-left: 40px;
+  padding-right: 40px;
 }
 
 @media (max-width: 700px) {
-    .footer-top-row {
-        padding-left: 12px;
-        padding-right: 12px;
-    }
+  .footer-top-row {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
 }
 
 
@@ -822,10 +899,12 @@ footer.wide-footer {
   padding: 0;
   margin: 0;
 }
+
 .social-icon li {
   list-style: none;
   display: inline-block;
 }
+
 .social-icon li a {
   border-radius: 100px;
   border: 1px solid transparent;
@@ -845,6 +924,7 @@ footer.wide-footer {
   position: relative;
   top: 0px;
 }
+
 .social-icon li a:hover {
   background: #ffffff;
 }
@@ -854,20 +934,37 @@ footer.wide-footer {
 ------------------------------ */
 
 @media (max-width: 980px) {
-  .intro-inner { top: 30%; }
+  .intro-inner {
+    top: 30%;
+  }
+
   #contact .col-md-4 {
     padding: 62px 20px 42px 32px;
   }
-  #contact .col-md-4 p { font-size: 12px; }
-  #contact #map-canvas { margin-bottom: 60px; }
+
+  #contact .col-md-4 p {
+    font-size: 12px;
+  }
+
+  #contact #map-canvas {
+    margin-bottom: 60px;
+  }
 }
 
 @media (max-width: 768px) {
-  .brand { padding-left: 24px; }
-  .header-one, .header-two, .header-three, .header-four, .header-five {
+  .brand {
+    padding-left: 24px;
+  }
+
+  .header-one,
+  .header-two,
+  .header-three,
+  .header-four,
+  .header-five {
     min-height: 380px;
     padding-top: 80px !important;
   }
+
   #about .col-md-4,
   #single-project .col-md-3 {
     padding-bottom: 32px;
@@ -875,18 +972,36 @@ footer.wide-footer {
 }
 
 @media (max-width: 700px) {
-  h1 { font-size: 1.3rem; }
-  h3 { font-size: 13px; letter-spacing: 3px; }
-  .filter-wrapper { padding: 0; }
-  #contact { padding-bottom: 4rem; }
+  h1 {
+    font-size: 1.3rem;
+  }
+
+  h3 {
+    font-size: 13px;
+    letter-spacing: 3px;
+  }
+
+  .filter-wrapper {
+    padding: 0;
+  }
+
+  #contact {
+    padding-bottom: 4rem;
+  }
+
   #contact .col-md-4 {
     padding: 32px 20px 22px 62px;
   }
-  .contact-submit { width: 70%; }
+
+  .contact-submit {
+    width: 70%;
+  }
 }
 
 @media (max-width: 450px) {
-  .intro-inner { top: 50%; }
+  .intro-inner {
+    top: 50%;
+  }
 }
 
 /* ------------------------------
@@ -896,14 +1011,19 @@ footer.wide-footer {
 .header-one {
   position: relative;
 }
+
 .header-one::before {
   content: "";
   position: absolute;
-  top: 0; left: 0; width: 100%; height: 100%;
-  background: rgba(0,0,0,0.6);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
   z-index: 1;
   pointer-events: none;
 }
+
 .header-thumb {
   position: relative;
   z-index: 2;
@@ -915,7 +1035,7 @@ footer.wide-footer {
   align-items: center;
   justify-content: space-between;
   height: 90px;
-  padding: 0 20px;
+  padding: 0 4px;
 }
 
 /* Логотип */
@@ -930,8 +1050,8 @@ footer.wide-footer {
 /* Правая панель (языки + бургер) */
 .header-right {
   display: flex;
-  align-items: flex-start;
-  gap: 8px;
+  align-items: center;
+  gap: 16px;
 }
 
 /* Языковой переключатель */
@@ -950,7 +1070,9 @@ footer.wide-footer {
   color: #333333;
   text-decoration: none;
   transition: color 0.3s;
+  line-height: 1;
 }
+
 .language-switch li a:hover {
   color: #888;
 }
@@ -964,7 +1086,9 @@ footer.wide-footer {
 
 /* ====== MOBILE ====== */
 @media (max-width: 767px) {
-  .desktop-only { display: none !important; }
+  .desktop-only {
+    display: none !important;
+  }
 
   .header-row {
     height: 70px;
@@ -972,101 +1096,116 @@ footer.wide-footer {
   }
 
   /* крестик (X) — поверх всего */
-  .list-menu .ion-close-round{
+  .list-menu .ion-close-round {
     position: absolute;
-    top: 18px; right: 20px;
+    top: 18px;
+    right: 20px;
     font-size: 28px;
     cursor: pointer;
     z-index: 100003;
   }
 
-/* MOBILE: языки по центру сверху, ровно в линию с крестом */
+  /* MOBILE: языки по центру сверху, ровно в линию с крестом */
   /* прячем языки по умолчанию на мобилке */
-  .language-switch.mobile-only{
+  .language-switch.mobile-only {
     display: none;
   }
 
   /* когда меню открыто (у тебя в этот момент на body вешается .no-scroll) —
      показываем языки и центрируем их по горизонтали */
-  body.no-scroll .language-switch.mobile-only{
+  body.no-scroll .language-switch.mobile-only {
     display: flex !important;
-    position: fixed;              /* к окну, не к диву */
-    top: clamp(22px, calc(env(safe-area-inset-top) + 2.2vh), 40px);  /* возьми то же значение, что у крестика */
+    position: fixed;
+    /* к окну, не к диву */
+    top: clamp(22px, calc(env(safe-area-inset-top) + 2.2vh), 40px);
+    /* возьми то же значение, что у крестика */
     left: 50%;
-    transform: translateX(-50%);  /* идеальный центр по X */
+    transform: translateX(-50%);
+    /* идеальный центр по X */
     gap: 12px;
     margin: 0;
     padding: 0;
     list-style: none;
-    z-index: 100004;              /* поверх оверлея и под курсором */
+    z-index: 100004;
+    /* поверх оверлея и под курсором */
   }
 
-  body.no-scroll .language-switch.mobile-only a{
+  body.no-scroll .language-switch.mobile-only a {
     color: #fff !important;
     text-decoration: none;
   }
 }
 
 /* анимация для языков в мобильном оверлее */
-body.no-scroll .language-switch.mobile-only a{
+body.no-scroll .language-switch.mobile-only a {
   transition: color var(--ui-ease), filter var(--ui-ease), transform .12s;
-  -webkit-tap-highlight-color: rgba(255,255,255,.15);
-  opacity: .9; /* лёгкое притухание в базе, чтобы эффект был заметнее */
+  -webkit-tap-highlight-color: rgba(255, 255, 255, .15);
+  opacity: .9;
+  /* лёгкое притухание в базе, чтобы эффект был заметнее */
 }
 
 body.no-scroll .language-switch.mobile-only a:hover,
-body.no-scroll .language-switch.mobile-only a:focus-visible{
+body.no-scroll .language-switch.mobile-only a:focus-visible {
   filter: brightness(var(--hover-brightness)) contrast(1.05);
   opacity: 1;
 }
 
-@media (hover: none) and (pointer: coarse){
-  body.no-scroll .language-switch.mobile-only a:active{
+@media (hover: none) and (pointer: coarse) {
+  body.no-scroll .language-switch.mobile-only a:active {
     filter: brightness(var(--tap-brightness)) contrast(1.05);
     transform: scale(var(--tap-scale));
   }
 }
 
-  /* контент внутри оверлея — без абсолютов и на всю ширину */
-  .list-menu .intro-inner{
-    position: static !important;
-    left: auto !important;
-    top: auto !important;
-    transform: none !important;
-    width: 100% !important;
-    text-align: center !important;
-  }
+/* контент внутри оверлея — без абсолютов и на всю ширину */
+.list-menu .intro-inner {
+  position: static !important;
+  left: auto !important;
+  top: auto !important;
+  transform: none !important;
+  width: 100% !important;
+  text-align: center !important;
+}
 
-  /* список пунктов — обнуляем отступы и центрируем */
-  .list-menu ul#nav-menu{
-    margin: 0 auto !important;
-    padding: 0 !important;
-    list-style: none;
-    width: 100%;
-    max-width: 480px;         /* узкая колонка по центру */
-    text-align: center;       /* ключ к выравниванию текста */
-  }
+/* список пунктов — обнуляем отступы и центрируем */
+.list-menu ul#nav-menu {
+  margin: 0 auto !important;
+  padding: 0 !important;
+  list-style: none;
+  width: 100%;
+  max-width: 480px;
+  /* узкая колонка по центру */
+  text-align: center;
+  /* ключ к выравниванию текста */
+}
 
-  .list-menu ul#nav-menu > li{
-    display: block;
-    margin: 0 !important;
-    padding: 12px 0 !important;  /* удобная тап-зона */
-    list-style: none;
-  }
+.list-menu ul#nav-menu>li {
+  display: block;
+  margin: 0 !important;
+  padding: 12px 0 !important;
+  /* удобная тап-зона */
+  list-style: none;
+}
 
-  .list-menu ul#nav-menu > li > a{
-    display: inline-block; 
-    transform: none !important;
-  }
+.list-menu ul#nav-menu>li>a {
+  display: inline-block;
+  transform: none !important;
+}
 
-  .list-menu a{ pointer-events: auto; }
+.list-menu a {
+  pointer-events: auto;
+}
 
 
 /* блокируем прокрутку при открытом меню */
-html.no-scroll, body.no-scroll{ overflow: hidden; height: 100%; }
+html.no-scroll,
+body.no-scroll {
+  overflow: hidden;
+  height: 100%;
+}
 
 /* === MOBILE MENU ALIGNMENT FIX (final) === */
-@media (max-width: 767px){
+@media (max-width: 767px) {
   /* сам контейнер-оверлей уже flex — ок */
 
 }
@@ -1079,82 +1218,130 @@ html.no-scroll, body.no-scroll{ overflow: hidden; height: 100%; }
     display: none !important;
   }
 }
+
 @media (min-width: 768px) {
   .language-switch.desktop-only {
-    transform: translateY(41px); 
+    transform: none;
   }
 }
+
 /* Десктоп: подвинуть бургер ближе к правому краю */
 @media (min-width: 768px) {
   .navicon {
-    margin-right: -65px; /* подбери -6…-18px по вкусу */
-    margin-left: 19px;   /* чтобы сохранить небольшой зазор от языков */
-    padding-top: clamp(28px, 3.4vh, 44px);
+    margin-right: 0;
+    margin-left: 16px;
+    padding-top: 0;
+  }
+
+  .header-row {
+    padding: 0 6px;
+  }
+
+  /* Лого левее и чуть ниже */
+  .brand {
+    margin-left: -80px;
+    margin-top: 20px;
+    /* подбери 8–14px по вкусу */
+  }
+
+  /* Языки + бургер правее и чуть ниже */
+  .header-right {
+    margin-right: -60px;
+    margin-top: 20px;
+    /* подбери 8–14px по вкусу */
+  }
+
+  .language-switch {
+    margin-right: 10px;
   }
 }
+
+
+
 /* Десктоп: логотип в одну строку */
-.brand a{
-  display:inline-flex;
-  gap:6px;
-  align-items:baseline;
-  white-space:nowrap;
+.brand a {
+  display: inline-flex;
+  gap: 6px;
+  align-items: baseline;
+  white-space: nowrap;
 }
 
 /* Мобайл: логотип в две строки и бургер у правого края */
-@media (max-width: 767px){
-  .header-row{
-    height:86px;          /* чуть больше места под две строки */
-    padding-right: 10px;   /* уменьшаем правый внутренний отступ */
+@media (max-width: 767px) {
+  .header-row {
+    height: 86px;
+    /* чуть больше места под две строки */
+    padding-right: 10px;
+    /* уменьшаем правый внутренний отступ */
   }
 
-  .brand{ font-size:20px; }
-  .brand a{
-    display:flex;
-    flex-direction:column;
-    gap:0;
-    line-height:1.05;
-    white-space:normal;   /* разрешаем перенос */
+  .brand {
+    font-size: 20px;
+  }
+
+  .brand a {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    line-height: 1.05;
+    white-space: normal;
+    /* разрешаем перенос */
   }
 
   /* бургер ближе к правой кромке */
-  .header-right{ margin-left:auto; }     /* группа справа прижимается вправо */
-  .navicon{ margin-right:-2px; }         /* можно -2…-10px, если хочешь ещё правее */
+  .header-right {
+    margin-left: auto;
+  }
+
+  /* группа справа прижимается вправо */
+  .navicon {
+    margin-right: -2px;
+  }
+
+  /* можно -2…-10px, если хочешь ещё правее */
 }
 
 /* === HERO / Header-one без фоновой картинки из CSS === */
-#header.header-one{
-  position: relative;        /* для ::before и абсолютного <picture> */
-  height: auto !important;   /* как и было */
+#header.header-one {
+  position: relative;
+  /* для ::before и абсолютного <picture> */
+  height: auto !important;
+  /* как и было */
   min-height: 420px !important;
   padding-top: 150px !important;
 }
 
 /* Растягиваем <picture class="hero-bg"> как подложку */
 .hero-bg,
-.hero-bg > img{
+.hero-bg>img {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;          /* как background-size: cover */
+  object-fit: cover;
+  /* как background-size: cover */
   display: block;
-  z-index: 0;                 /* под контентом */
+  z-index: 0;
+  /* под контентом */
 }
 
 /* затемнение поверх картинки — оставляем */
-.header-one::before{
+.header-one::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,0.6);
+  background: rgba(0, 0, 0, 0.6);
   z-index: 1;
 }
 
-.header-thumb{ position: relative; z-index: 2; }
+.header-thumb {
+  position: relative;
+  z-index: 2;
+}
 
 /* Мобильная настройка шапки, если нужна пониже */
-@media (max-width: 768px){
-  #header.header-one{
+@media (max-width: 768px) {
+  #header.header-one {
     min-height: 380px !important;
     padding-top: 80px !important;
   }
@@ -1162,19 +1349,22 @@ html.no-scroll, body.no-scroll{ overflow: hidden; height: 100%; }
 
 /* --- Burger click area fix (header only) --- */
 .header-row .circle {
-  position: static !important;   /* вместо абсолютного позиционирования */
+  position: static !important;
+  /* вместо абсолютного позиционирования */
   margin: 0 !important;
   width: 45px;
   height: 45px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  z-index: 1001;                 /* поверх всего в шапке */
+  z-index: 1001;
+  /* поверх всего в шапке */
 }
 
 /* чтобы иконка не терялась */
 .header-row .circle i {
-  pointer-events: none;          /* кликаем по кругу тоже */
+  pointer-events: none;
+  /* кликаем по кругу тоже */
 }
 
 /* когда меню открыто — блокируем скролл страницы */
@@ -1191,30 +1381,38 @@ body.no-scroll {
 }
 
 /* ==== Pinterest masonry: 3 колонки + настраиваемый зазор ==== */
-:root{
-  --grid-gap: 18px;          /* твоя существующая переменная оставляем */
+:root {
+  --grid-gap: 18px;
+  /* твоя существующая переменная оставляем */
   --cols: 3;
-  --hover-brightness: 1.22;  /* сила свечения на десктопе */
-  --tap-brightness: 1.35;    /* сила свечения на таче */
-  --tap-scale: .985;         /* лёгкое «вдавливание» при тапе */
-  --ui-ease: .18s;           /* скорость анимации */
-}   
-.iso-box-wrapper{
+  --hover-brightness: 1.22;
+  /* сила свечения на десктопе */
+  --tap-brightness: 1.35;
+  /* сила свечения на таче */
+  --tap-scale: .985;
+  /* лёгкое «вдавливание» при тапе */
+  --ui-ease: .18s;
+  /* скорость анимации */
+}
+
+.iso-box-wrapper {
   max-width: 1140px !important;
   margin: 0 auto !important;
   padding: 0 0 72px !important;
   position: relative !important;
-  contain: layout paint;
 }
 
 /* ширина одной колонки — строго завязана на --cols */
-.grid-sizer{
+.grid-sizer {
   width: calc((100% - (var(--cols) - 1) * var(--grid-gap)) / var(--cols));
 }
-.gutter-sizer{ width: var(--grid-gap); }
+
+.gutter-sizer {
+  width: var(--grid-gap);
+}
 
 /* Карточка */
-.iso-box{
+.iso-box {
   width: calc((100% - (var(--cols) - 1) * var(--grid-gap)) / var(--cols)) !important;
   margin: 0 0 var(--grid-gap) 0 !important;
   box-sizing: border-box;
@@ -1226,47 +1424,75 @@ body.no-scroll {
 }
 
 /* База: не прячем картинки; «показ» делаем только iso-soft классами */
-.iso-box img{
+.iso-box img {
   opacity: 1;
   transform: none;
   display: block;
   width: 100%;
   height: auto;
-  transition: transform .28s ease; /* лёгкая плавность без лишнего fade */
-  will-change: transform;          /* без will-change:opacity — экономим память */
+  transition: transform .28s ease;
+  /* лёгкая плавность без лишнего fade */
+  will-change: transform;
+  /* без will-change:opacity — экономим память */
 }
 
-.iso-box picture { display:block; line-height:0; }
+.iso-box picture {
+  display: block;
+  line-height: 0;
+}
 
 /* если пользователь просит "меньше анимации" — уважаем */
-@media (prefers-reduced-motion: reduce){
-  .iso-box img{
+@media (prefers-reduced-motion: reduce) {
+  .iso-box img {
     transition: none !important;
     transform: none !important;
   }
 }
+
 /* 2 колонки */
-@media (max-width: 900px){
-  :root{ --cols: 2; }
+@media (max-width: 900px) {
+  :root {
+    --cols: 2;
+  }
 }
+
 /* 1 колонка */
-@media (max-width: 600px){
-  :root{ --cols: 1; }
+@media (max-width: 600px) {
+  :root {
+    --cols: 1;
+  }
 }
 
 
 /* чуть меньше пустоты над футером */
-#portfolio{ padding-bottom: 3rem; }
-@media (max-width:700px){ #portfolio{ padding-bottom: 2rem; } 
+#portfolio {
+  padding-bottom: 3rem;
+}
+
+@media (max-width:700px) {
+  #portfolio {
+    padding-bottom: 2rem;
+  }
 }
 
 /* плавное появление карточек */
-@keyframes cardFade { from{opacity:0} to{opacity:1} }
-.iso-box.is-visible{ animation: none !important; }
+@keyframes cardFade {
+  from {
+    opacity: 0
+  }
+
+  to {
+    opacity: 1
+  }
+}
+
+.iso-box.is-visible {
+  animation: none !important;
+}
 
 /* кнопка */
-.btn-more{
-  display:block;
+.btn-more {
+  display: block;
   margin: 24px auto 0;
   padding: 12px 22px;
   letter-spacing: 2px;
@@ -1277,20 +1503,31 @@ body.no-scroll {
   cursor: pointer;
   transition: opacity .2s ease, transform .1s ease;
 }
-.btn-more:hover{ opacity: .9; }
-.btn-more:active{ transform: scale(.98); }
-.btn-more[hidden]{ display:none !important; }
+
+.btn-more:hover {
+  opacity: .9;
+}
+
+.btn-more:active {
+  transform: scale(.98);
+}
+
+.btn-more[hidden] {
+  display: none !important;
+}
 
 /* Кнопка "Показать ещё" — состояние загрузки */
-.btn-more.is-busy{
+.btn-more.is-busy {
   pointer-events: none;
   opacity: .85;
   position: relative;
 }
-.btn-more.is-busy::after{
+
+.btn-more.is-busy::after {
   content: '';
   display: inline-block;
-  width: 1em; height: 1em;
+  width: 1em;
+  height: 1em;
   margin-left: .5em;
   border: 2px solid currentColor;
   border-right-color: transparent;
@@ -1298,255 +1535,427 @@ body.no-scroll {
   vertical-align: -.2em;
   animation: btnspin .6s linear infinite;
 }
-@keyframes btnspin{ to{ transform: rotate(360deg); } }
+
+@keyframes btnspin {
+  to {
+    transform: rotate(360deg);
+  }
+}
 
 /* Категорный режим: показываем все карточки без требования .is-visible */
-.mode-cat .iso-box{
+.mode-cat .iso-box {
   opacity: 1;
   transform: none;
   animation: none;
 }
 
 /* Мягкая кривая для анимаций Isotope */
-.iso-box{
-  transition-timing-function: cubic-bezier(.22,.61,.36,1);
+.iso-box {
+  transition-timing-function: cubic-bezier(.22, .61, .36, 1);
 }
 
 /* ===== BASE (один раз) ===== */
-.iso-box{ position: relative; overflow: hidden; transition: box-shadow .35s cubic-bezier(.22,.61,.36,1); }
-.iso-box img{
-  display:block; width:100%; height:auto;
+.iso-box {
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow .35s cubic-bezier(.22, .61, .36, 1);
+}
+
+.iso-box img {
+  display: block;
+  width: 100%;
+  height: auto;
   /* убрали translateZ(0) и heavy will-change */
   will-change: auto;
-  transition: transform .35s cubic-bezier(.22,.61,.36,1), filter .35s;
+  transition: transform .35s cubic-bezier(.22, .61, .36, 1), filter .35s;
 }
-@media (hover:hover){
-  .iso-box:hover{ box-shadow: 0 10px 30px rgba(0,0,0,.15); }
+
+@media (hover:hover) {
+  .iso-box:hover {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .15);
+  }
 }
 
 /* ===== РЕЖИМЫ ПО <body data-fx="..."> ===== */
 
 /* 1) gray→color + zoom (кинематографично) */
-body[data-fx="grayzoom"] .iso-box img{ filter: grayscale(22%) saturate(90%) contrast(98%); }
-@media (hover:hover){
-  body[data-fx="grayzoom"] .iso-box:hover img{ filter:none; transform: scale(1.05); }
+body[data-fx~="grayzoom"] .iso-box img {
+  filter: grayscale(22%) saturate(90%) contrast(98%);
+}
+
+@media (hover:hover) {
+  body[data-fx~="grayzoom"] .iso-box:hover img {
+    filter: none;
+    transform: scale(1.05);
+  }
 }
 
 /* 2) zoom + pan вверх на 2px */
-@media (hover:hover){
-  body[data-fx="pan"] .iso-box:hover img{ transform: scale(1.06) translateY(-2px); }
+@media (hover:hover) {
+  body[data-fx="pan"] .iso-box:hover img {
+    transform: scale(1.06) translateY(-2px);
+  }
 }
 
 /* 3) soft glow вокруг кадра */
-body[data-fx="glow"] .iso-box::after{
-  content:""; position:absolute; inset:-8%;
-  background: rgba(255,255,255,.12); filter: blur(12px);
-  opacity:0; pointer-events:none; transition: opacity .35s;
+body[data-fx="glow"] .iso-box::after {
+  content: "";
+  position: absolute;
+  inset: -8%;
+  background: rgba(255, 255, 255, .12);
+  filter: blur(12px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .35s;
 }
-@media (hover:hover){
-  body[data-fx="glow"] .iso-box:hover::after{ opacity:1; }
-  body[data-fx="glow"] .iso-box:hover img{ transform: scale(1.04); }
+
+@media (hover:hover) {
+  body[data-fx="glow"] .iso-box:hover::after {
+    opacity: 1;
+  }
+
+  body[data-fx="glow"] .iso-box:hover img {
+    transform: scale(1.04);
+  }
 }
 
 /* 4) overlay + плюс в центре */
-body[data-fx="overlay"] .iso-box::before{
-  content:""; position:absolute; inset:0;
-  background: radial-gradient(transparent 55%, rgba(0,0,0,.35));
-  opacity:0; transition: opacity .35s; pointer-events:none;
+body[data-fx="overlay"] .iso-box::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(transparent 55%, rgba(0, 0, 0, .35));
+  opacity: 0;
+  transition: opacity .35s;
+  pointer-events: none;
 }
-body[data-fx="overlay"] .iso-box::after{
-  content:"+"; position:absolute; left:50%; top:50%;
-  transform: translate(-50%,-50%) scale(.9);
-  font: 600 22px/1 system-ui, sans-serif; color:#fff; letter-spacing:.04em;
-  opacity:0; transition: transform .28s, opacity .28s; pointer-events:none;
+
+body[data-fx="overlay"] .iso-box::after {
+  content: "+";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(.9);
+  font: 600 22px/1 system-ui, sans-serif;
+  color: #fff;
+  letter-spacing: .04em;
+  opacity: 0;
+  transition: transform .28s, opacity .28s;
+  pointer-events: none;
 }
-@media (hover:hover){
-  body[data-fx="overlay"] .iso-box:hover::before{ opacity:1; }
-  body[data-fx="overlay"] .iso-box:hover::after{ opacity:1; transform: translate(-50%,-50%) scale(1); }
-  body[data-fx="overlay"] .iso-box:hover img{ transform: scale(1.04); }
+
+@media (hover:hover) {
+  body[data-fx="overlay"] .iso-box:hover::before {
+    opacity: 1;
+  }
+
+  body[data-fx="overlay"] .iso-box:hover::after {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  body[data-fx="overlay"] .iso-box:hover img {
+    transform: scale(1.04);
+  }
 }
 
 /* 5) subtle rotate (чуть-чуть «жизни») */
-@media (hover:hover){
-  body[data-fx="rotate"] .iso-box:hover img{ transform: scale(1.045) rotateZ(.4deg); }
+@media (hover:hover) {
+  body[data-fx="rotate"] .iso-box:hover img {
+    transform: scale(1.045) rotateZ(.4deg);
+  }
 }
 
 /* 6) zoom-out reveal (из лёгкого зума в 1.0 + «резкость») */
-body[data-fx~="zoomout"] .iso-box img{
+body[data-fx~="zoomout"] .iso-box img {
   transform: scale(1.08);
   filter: saturate(103%) contrast(100%) blur(.2px);
-  transition: transform .35s cubic-bezier(.22,.61,.36,1), filter .35s;
+  transition: transform .35s cubic-bezier(.22, .61, .36, 1), filter .35s;
 }
-@media (hover:hover){
-  body[data-fx~="zoomout"] .iso-box:hover img{
+
+@media (hover:hover) {
+  body[data-fx~="zoomout"] .iso-box:hover img {
     transform: scale(1.00);
     filter: none;
   }
 }
 
+/* OVERRIDE: zoomout без изменения цвета */
+body[data-fx~="zoomout"] .iso-box img,
+body[data-fx~="zoomout"] .iso-box:hover img {
+  filter: none !important;
+}
+
 /* 7) warm lift (слегка теплее и сочнее на hover) */
-@media (hover:hover){
-  body[data-fx="warm"] .iso-box:hover img{
+@media (hover:hover) {
+  body[data-fx="warm"] .iso-box:hover img {
     filter: saturate(112%) contrast(104%) sepia(8%);
     transform: scale(1.04);
   }
 }
 
 /* 8) shine sweep (диагональный блик) */
-body[data-fx="shine"] .iso-box::before{
-  content:""; position:absolute; inset:0; pointer-events:none;
-  background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,.35) 50%, transparent 70%);
-  transform: translateX(-120%); transition: transform .6s ease;
+body[data-fx="shine"] .iso-box::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(120deg, transparent 30%, rgba(255, 255, 255, .35) 50%, transparent 70%);
+  transform: translateX(-120%);
+  transition: transform .6s ease;
 }
-@media (hover:hover){
-  body[data-fx="shine"] .iso-box:hover::before{ transform: translateX(120%); }
-  body[data-fx="shine"] .iso-box:hover img{ transform: scale(1.035); }
+
+@media (hover:hover) {
+  body[data-fx="shine"] .iso-box:hover::before {
+    transform: translateX(120%);
+  }
+
+  body[data-fx="shine"] .iso-box:hover img {
+    transform: scale(1.035);
+  }
 }
 
 /* 9) границы-уголки (border reveal) */
 body[data-fx="corners"] .iso-box::before,
-body[data-fx="corners"] .iso-box::after{
-  content:""; position:absolute; width:22%; height:22%; pointer-events:none; opacity:.85;
-  border:2px solid rgba(255,255,255,.9); transform: scale(.9); transition: transform .28s, opacity .28s;
+body[data-fx="corners"] .iso-box::after {
+  content: "";
+  position: absolute;
+  width: 22%;
+  height: 22%;
+  pointer-events: none;
+  opacity: .85;
+  border: 2px solid rgba(255, 255, 255, .9);
+  transform: scale(.9);
+  transition: transform .28s, opacity .28s;
 }
-body[data-fx="corners"] .iso-box::before{ left:8px; top:8px; border-right:none; border-bottom:none; }
-body[data-fx="corners"] .iso-box::after { right:8px; bottom:8px; border-left:none; border-top:none; }
-@media (hover:hover){
+
+body[data-fx="corners"] .iso-box::before {
+  left: 8px;
+  top: 8px;
+  border-right: none;
+  border-bottom: none;
+}
+
+body[data-fx="corners"] .iso-box::after {
+  right: 8px;
+  bottom: 8px;
+  border-left: none;
+  border-top: none;
+}
+
+@media (hover:hover) {
+
   body[data-fx="corners"] .iso-box:hover::before,
-  body[data-fx="corners"] .iso-box:hover::after{ transform: scale(1); }
-  body[data-fx="corners"] .iso-box:hover img{ transform: scale(1.035); }
+  body[data-fx="corners"] .iso-box:hover::after {
+    transform: scale(1);
+  }
+
+  body[data-fx="corners"] .iso-box:hover img {
+    transform: scale(1.035);
+  }
 }
 
 /* 10) vignette мягкая (центр светлее) */
-body[data-fx="vignette"] .iso-box::before{
-  content:""; position:absolute; inset:0; pointer-events:none;
-  background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,.28));
-  opacity:0; transition: opacity .35s;
+body[data-fx="vignette"] .iso-box::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 55%, rgba(0, 0, 0, .28));
+  opacity: 0;
+  transition: opacity .35s;
 }
-@media (hover:hover){
-  body[data-fx="vignette"] .iso-box:hover::before{ opacity:1; }
-  body[data-fx="vignette"] .iso-box:hover img{ transform: scale(1.04); }
+
+@media (hover:hover) {
+  body[data-fx="vignette"] .iso-box:hover::before {
+    opacity: 1;
+  }
+
+  body[data-fx="vignette"] .iso-box:hover img {
+    transform: scale(1.04);
+  }
+}
+
+/* 11) Простой zoom-in без изменения цвета */
+body[data-fx~="zoomin"] .iso-box img {
+  transform: none;
+}
+
+@media (hover:hover) {
+  body[data-fx~="zoomin"] .iso-box:hover img {
+    transform: scale(1.06);
+  }
 }
 
 /* 3D-tilt режим (включается, когда на <body data-fx="tilt">) */
-@media (hover:hover){
-  body[data-fx~="tilt"] .iso-box{ perspective: 950px; } /* перспектива для ребёнка */
+@media (hover:hover) {
+  body[data-fx~="tilt"] .iso-box {
+    perspective: 950px;
+  }
+
+  /* перспектива для ребёнка */
 }
 
 /* Гибрид: tilt + мягкий zoom-out при hover */
-body[data-fx~="tilt"] .iso-box img{
-  transform-origin: var(--ox,50%) var(--oy,50%);
-  transition: transform .35s cubic-bezier(.22,.61,.36,1), filter .22s ease-out;
+body[data-fx~="tilt"] .iso-box img {
+  transform-origin: var(--ox, 50%) var(--oy, 50%);
+  transition: transform .35s cubic-bezier(.22, .61, .36, 1), filter .22s ease-out;
 }
 
-@media (hover:hover){
-  body[data-fx~="tilt"] .iso-box:hover img{
-    transform: scale(1.00); /* «отпускаем» назад при наведении */
+@media (hover:hover) {
+  body[data-fx~="tilt"] .iso-box:hover img {
+    transform: scale(1.00);
+    /* «отпускаем» назад при наведении */
   }
 }
 
 /* если у пользователя Reduce Motion — ничего не дёргаем */
-@media (prefers-reduced-motion: reduce){
-  body[data-fx~="tilt"].iso-box img{ transition: none !important; }
+@media (prefers-reduced-motion: reduce) {
+  body[data-fx~="tilt"].iso-box img {
+    transition: none !important;
+  }
 }
 
-@media (hover:hover){
+@media (hover:hover) {
+
   /* Зум происходит "к месту" наведения курсора */
-  body[data-fx~="tilt"] .iso-box img{
+  body[data-fx~="tilt"] .iso-box img {
     transform-origin: var(--ox, 50%) var(--oy, 50%);
   }
 }
 
 /* === TILT: блик + динамическая тень (по CSS-переменным из JS) === */
-@media (hover:hover){
-  body[data-fx~="tilt"] .iso-box{
+@media (hover:hover) {
+  body[data-fx~="tilt"] .iso-box {
     /* позиция блика и направление тени — JS проставит */
-    --x:50%; --y:50%;   /* где блик */
-    --dx:0;  --dy:0;    /* куда смещать тень */
+    --x: 50%;
+    --y: 50%;
+    /* где блик */
+    --dx: 0;
+    --dy: 0;
+    /* куда смещать тень */
     position: relative;
   }
 
   /* блик сверху */
-  body[data-fx~="tilt"] .iso-box::before{
-    content:"";
-    position:absolute; inset:0; pointer-events:none;
+  body[data-fx~="tilt"] .iso-box::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
     background: radial-gradient(circle at var(--x) var(--y),
-                 rgba(255,255,255,.25), rgba(255,255,255,0) 55%);
-    opacity:0; transition: opacity .25s;
+        rgba(255, 255, 255, .25), rgba(255, 255, 255, 0) 55%);
+    opacity: 0;
+    transition: opacity .25s;
   }
 
   /* мягкая тень под карточкой */
-  body[data-fx~="tilt"] .iso-box::after{
-    content:"";
-    position:absolute; left:0; right:0; bottom:-6px; height:24px; pointer-events:none;
+  body[data-fx~="tilt"] .iso-box::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -6px;
+    height: 24px;
+    pointer-events: none;
     filter: blur(8px);
     background: radial-gradient(60% 40% at calc(50% + var(--dx)*20px) 0%,
-                 rgba(0,0,0,.35), rgba(0,0,0,0) 70%);
-    opacity:0; transition: opacity .25s;
+        rgba(0, 0, 0, .35), rgba(0, 0, 0, 0) 70%);
+    opacity: 0;
+    transition: opacity .25s;
   }
 
   body[data-fx~="tilt"] .iso-box:hover::before,
-  body[data-fx~="tilt"] .iso-box:hover::after{ opacity:1; }
+  body[data-fx~="tilt"] .iso-box:hover::after {
+    opacity: 1;
+  }
 }
 
 /* старт: лёгкий blur и небольшой масштаб */
-.img-blur{
+.img-blur {
   filter: blur(12px);
   transform: scale(1.02);
 }
 
 /* когда загрузилось — плавно убираем эффекты */
-.img-blur.is-loaded{
+.img-blur.is-loaded {
   filter: none;
   transform: none;
   transition: filter .35s, transform .35s;
 }
 
 /* Микро-мягкость в момент входа курсора */
-@media (hover:hover){
+@media (hover:hover) {
+
   /* немного ускорим фильтр, чтобы мягко погасить "софт" */
-  body[data-fx~="tilt"].iso-box img{
-    transition: transform .35s cubic-bezier(.22,.61,.36,1), filter .22s ease-out;
+  body[data-fx~="tilt"].iso-box img {
+    transition: transform .35s cubic-bezier(.22, .61, .36, 1), filter .22s ease-out;
   }
+
   /* пока курсор только вошёл — слегка софтим картинку */
-  body[data-fx~="tilt"] .iso-box.is-entering img{
+  body[data-fx~="tilt"] .iso-box.is-entering img {
     filter: blur(.35px);
   }
 }
 
 /* === МЯГКОЕ ВЫПЛЫВАНИЕ КАРТОЧЕК (для фильтров и "Показать ещё") === */
 /* Анимируем IMG внутри карточки, чтобы не конфликтовать с transform Isotope */
-.iso-box.iso-soft-start img{
+.iso-box.iso-soft-start img {
   opacity: 0;
   transform: translateY(10px) scale(.985);
 }
-.iso-box.iso-soft-in img{
+
+.iso-box.iso-soft-in img {
   opacity: 1;
   transform: none;
   transition:
     opacity .45s ease,
-    transform .45s cubic-bezier(.22,.61,.36,1);
-  transition-delay: var(--st, 0ms); /* задержка для «волны» */
+    transform .45s cubic-bezier(.22, .61, .36, 1);
+  transition-delay: var(--st, 0ms);
+  /* задержка для «волны» */
 }
 
 /* уважаем Reduce Motion */
-@media (prefers-reduced-motion: reduce){
+@media (prefers-reduced-motion: reduce) {
+
   .iso-box.iso-soft-start img,
-  .iso-box.iso-soft-in img{
+  .iso-box.iso-soft-in img {
     opacity: 1 !important;
     transform: none !important;
     transition: none !important;
   }
 }
 
-/* --- FIX: убираем blur/масштаб, чтобы не было полос в Chrome --- */
-.img-blur,
-.img-blur.is-loaded { filter: none !important; transform: none !important; }
-
 .iso-box img {
-  filter: none !important;
-  backface-visibility: hidden;    /* помогает рендереру */
+  backface-visibility: hidden;
+  /* помогает рендереру */
 }
 
 /* без базового зума: картинка статична, масштаб только при hover из JS */
-body[data-fx~="tilt"] .iso-box img { transform: none; }
+body[data-fx~="tilt"] .iso-box img {
+  transform: none;
+}
+
+
+/* Подсказки под полями */
+.form-group {
+  margin-bottom: 22px;
+}
+
+.form-hint {
+  display: block;
+  margin-top: 6px;
+  font-size: 12px;
+  line-height: 1.2;
+  color: #888;
+}
+
+.form-hint.error {
+  color: #d33;
+}
+
+/* Красная рамка при ошибке */
+.form-control.field-error {
+  border-color: #d33 !important;
+  outline: none;
+}
