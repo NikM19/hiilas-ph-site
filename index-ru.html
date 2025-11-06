@@ -5,20 +5,8 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=Edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
   <title>Hiilas Photography - Главная</title>
 
-  <!-- SEO (можно оставить) -->
-  <meta name="keywords" content="фотограф, Хельсинки, портрет, love story, семья, камерная свадьба">
-  <meta name="description"
-    content="Фотограф в Хельсинки: портреты, пары, семьи и камерные свадьбы — Hiilas Photography. Снимки, к которым хочется возвращаться.">
-  <link rel="canonical" href="https://your-domain.tld/index-ru.html">
-  <link rel="alternate" href="https://your-domain.tld/index.html" hreflang="en">
-  <link rel="alternate" href="https://your-domain.tld/index-fi.html" hreflang="fi">
-  <link rel="alternate" href="https://your-domain.tld/index-ru.html" hreflang="ru">
-  <link rel="alternate" href="https://your-domain.tld/index.html" hreflang="x-default">
-
-  <!-- CSS (как в эталоне) -->
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/animate.min.css">
   <link rel="stylesheet" href="css/font-awesome.min.css">
@@ -27,6 +15,103 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;700&display=swap" rel="stylesheet">
+  <!-- HERO preload (AVIF only, по брейкпоинтам) -->
+  <link rel="preload" as="image" type="image/avif" imagesrcset="images/header-bg-800.avif 800w" imagesizes="100vw"
+    media="(max-width: 767.98px)">
+
+  <link rel="preload" as="image" type="image/avif" imagesrcset="images/header-bg-1400.avif 1400w" imagesizes="100vw"
+    media="(min-width: 768px) and (max-width: 1199.98px)">
+
+  <link rel="preload" as="image" type="image/avif" imagesrcset="images/header-bg-2000.avif 2000w" imagesizes="100vw"
+    media="(min-width: 1200px)">
+  <!-- SEO + Social (RU) -->
+  <link rel="canonical" href="https://YOUR-DOMAIN.tld/index-ru.html">
+
+  <link rel="alternate" href="https://YOUR-DOMAIN.tld/index.html" hreflang="en">
+  <link rel="alternate" href="https://YOUR-DOMAIN.tld/index-fi.html" hreflang="fi">
+  <link rel="alternate" href="https://YOUR-DOMAIN.tld/index-ru.html" hreflang="ru">
+  <link rel="alternate" href="https://YOUR-DOMAIN.tld/index.html" hreflang="x-default">
+
+  <meta name="description"
+    content="Тёплая документальная фотография в Хельсинки и не только: камерные свадьбы, пары, семьи и портреты. Забота, лёгкость и живой свет.">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Hiilas Photography">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:locale:alternate" content="fi_FI">
+  <meta property="og:title" content="Hiilas Photography — Документальный фотограф в Хельсинки">
+  <meta property="og:description"
+    content="Документальная съёмка с теплом и любовью: свадьбы, love story, семьи и портреты. Запись: ph.hiilas@gmail.com">
+  <meta property="og:url" content="https://YOUR-DOMAIN.tld/index-ru.html">
+  <meta property="og:image" content="https://YOUR-DOMAIN.tld/images/og/og-cover-ru.jpg">
+  <meta property="og:image:alt" content="Тёплая и искренняя фотография — Hiilas Photography">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Hiilas Photography — Документальный фотограф в Хельсинки">
+  <meta name="twitter:description"
+    content="Камерные свадьбы, пары, семьи, портреты — тёплая документальная съёмка в Хельсинки и рядом.">
+  <meta name="twitter:image" content="https://YOUR-DOMAIN.tld/images/og/og-cover-ru.jpg">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://YOUR-DOMAIN.tld/#website",
+      "url": "https://YOUR-DOMAIN.tld/",
+      "name": "Hiilas Photography",
+      "publisher": { "@id": "https://YOUR-DOMAIN.tld/#organization" },
+      "inLanguage": "ru"
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://YOUR-DOMAIN.tld/#organization",
+      "name": "Hiilas Photography",
+      "url": "https://YOUR-DOMAIN.tld/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://YOUR-DOMAIN.tld/images/og/og-cover-ru.jpg"
+      },
+      "sameAs": ["https://instagram.com/hiilas.ph"],
+      "contactPoint": [
+        {
+          "@type": "ContactPoint",
+          "contactType": "booking",
+          "email": "ph.hiilas@gmail.com",
+          "availableLanguage": ["ru","fi","en"],
+          "areaServed": "FI"
+        }
+      ]
+    },
+    {
+      "@type": "Person",
+      "@id": "https://YOUR-DOMAIN.tld/#person",
+      "name": "Anastasia Hiilas",
+      "jobTitle": "Documentary Photographer",
+      "url": "https://YOUR-DOMAIN.tld/",
+      "worksFor": { "@id": "https://YOUR-DOMAIN.tld/#organization" },
+      "knowsLanguage": ["ru","fi","en"]
+    },
+    {
+      "@type": "ProfessionalService",
+      "@id": "https://YOUR-DOMAIN.tld/#business",
+      "name": "Hiilas Photography",
+      "url": "https://YOUR-DOMAIN.tld/",
+      "image": "https://YOUR-DOMAIN.tld/images/og/og-cover-ru.jpg",
+      "areaServed": ["Helsinki","Uusimaa","Finland"],
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Helsinki",
+        "addressCountry": "FI"
+      },
+      "priceRange": "€€",
+      "sameAs": ["https://instagram.com/hiilas.ph"],
+      "founder": { "@id": "https://YOUR-DOMAIN.tld/#person" }
+    }
+  ]
+}
+</script>
 </head>
 
 <body data-fx="zoomout">
@@ -141,7 +226,7 @@
             </ul>
 
             <!-- iso box section -->
-            <div class="iso-box-section wow fadeInUp" data-wow-delay="1s">
+            <div class="iso-box-section">
               <div class="iso-box-wrapper col4-iso-box">
                 <div class="grid-sizer"></div>
                 <div class="gutter-sizer"></div>
@@ -155,8 +240,8 @@
                       srcset="images/portrait1-480.webp 480w, images/portrait1-740.webp 740w, images/portrait1-900.webp 900w, images/portrait1-1120.webp 1120w">
                     <img src="images/portrait1-740.jpg"
                       srcset="images/portrait1-480.jpg 480w, images/portrait1-740.jpg 740w, images/portrait1-900.jpg 900w, images/portrait1-1120.jpg 1120w"
-                      sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Portrait 1" loading="lazy"
-                      decoding="async">
+                      sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Portrait 1" decoding="async"
+                      fetchpriority="high" class=" " width="1189" height="1783">
                   </picture>
                 </div>
                 <div class="iso-box graphic">
@@ -167,8 +252,8 @@
                       srcset="images/portrait2-480.webp 480w, images/portrait2-740.webp 740w, images/portrait2-900.webp 900w, images/portrait2-1120.webp 1120w">
                     <img src="images/portrait2-740.jpg"
                       srcset="images/portrait2-480.jpg 480w, images/portrait2-740.jpg 740w, images/portrait2-900.jpg 900w, images/portrait2-1120.jpg 1120w"
-                      sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Portrait 2" loading="lazy"
-                      decoding="async">
+                      sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Portrait 2" decoding="async"
+                      fetchpriority="high" class=" " width="1189" height="1783">
                   </picture>
                 </div>
                 <div class="iso-box graphic">
@@ -179,8 +264,8 @@
                       srcset="images/portrait3-480.webp 480w, images/portrait3-740.webp 740w, images/portrait3-900.webp 900w, images/portrait3-1120.webp 1120w">
                     <img src="images/portrait3-740.jpg"
                       srcset="images/portrait3-480.jpg 480w, images/portrait3-740.jpg 740w, images/portrait3-900.jpg 900w, images/portrait3-1120.jpg 1120w"
-                      sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Portrait 3" loading="lazy"
-                      decoding="async">
+                      sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Portrait 3" decoding="async"
+                      fetchpriority="high" class=" " width="1189" height="1783">
                   </picture>
                 </div>
                 <div class="iso-box graphic">
@@ -191,8 +276,8 @@
                       srcset="images/portrait4-480.webp 480w, images/portrait4-740.webp 740w, images/portrait4-900.webp 900w, images/portrait4-1120.webp 1120w">
                     <img src="images/portrait4-740.jpg"
                       srcset="images/portrait4-480.jpg 480w, images/portrait4-740.jpg 740w, images/portrait4-900.jpg 900w, images/portrait4-1120.jpg 1120w"
-                      sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Portrait 4" loading="lazy"
-                      decoding="async">
+                      sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Portrait 4" decoding="async"
+                      fetchpriority="high" class=" " width="1189" height="1783">
                   </picture>
                 </div>
                 <div class="iso-box graphic">
@@ -203,8 +288,8 @@
                       srcset="images/portrait5-480.webp 480w, images/portrait5-740.webp 740w, images/portrait5-900.webp 900w, images/portrait5-1120.webp 1120w">
                     <img src="images/portrait5-740.jpg"
                       srcset="images/portrait5-480.jpg 480w, images/portrait5-740.jpg 740w, images/portrait5-900.jpg 900w, images/portrait5-1120.jpg 1120w"
-                      sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Portrait 5" loading="lazy"
-                      decoding="async">
+                      sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Portrait 5" decoding="async"
+                      fetchpriority="high" class=" " width="1189" height="1783">
                   </picture>
                 </div>
                 <div class="iso-box graphic">
@@ -215,8 +300,8 @@
                       srcset="images/portrait6-480.webp 480w, images/portrait6-740.webp 740w, images/portrait6-900.webp 900w, images/portrait6-1120.webp 1120w">
                     <img src="images/portrait6-740.jpg"
                       srcset="images/portrait6-480.jpg 480w, images/portrait6-740.jpg 740w, images/portrait6-900.jpg 900w, images/portrait6-1120.jpg 1120w"
-                      sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Portrait 6" loading="lazy"
-                      decoding="async">
+                      sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Portrait 6" decoding="async"
+                      fetchpriority="high" class=" " width="1189" height="1783">
                   </picture>
                 </div>
                 <div class="iso-box graphic">
@@ -227,8 +312,8 @@
                       srcset="images/portrait7-480.webp 480w, images/portrait7-740.webp 740w, images/portrait7-900.webp 900w, images/portrait7-1120.webp 1120w">
                     <img src="images/portrait7-740.jpg"
                       srcset="images/portrait7-480.jpg 480w, images/portrait7-740.jpg 740w, images/portrait7-900.jpg 900w, images/portrait7-1120.jpg 1120w"
-                      sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Portrait 7" loading="lazy"
-                      decoding="async">
+                      sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Portrait 7" decoding="async"
+                      fetchpriority="high" class=" " width="1189" height="1783">
                   </picture>
                 </div>
                 <div class="iso-box graphic">
@@ -239,8 +324,8 @@
                       srcset="images/portrait8-480.webp 480w, images/portrait8-740.webp 740w, images/portrait8-900.webp 900w, images/portrait8-1120.webp 1120w">
                     <img src="images/portrait8-740.jpg"
                       srcset="images/portrait8-480.jpg 480w, images/portrait8-740.jpg 740w, images/portrait8-900.jpg 900w, images/portrait8-1120.jpg 1120w"
-                      sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Portrait 8" loading="lazy"
-                      decoding="async">
+                      sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Portrait 8" decoding="async"
+                      fetchpriority="high" class=" " width="1189" height="1783">
                   </picture>
                 </div>
                 <div class="iso-box graphic">
@@ -251,8 +336,8 @@
                       srcset="images/portrait9-480.webp 480w, images/portrait9-740.webp 740w, images/portrait9-900.webp 900w, images/portrait9-1120.webp 1120w">
                     <img src="images/portrait9-740.jpg"
                       srcset="images/portrait9-480.jpg 480w, images/portrait9-740.jpg 740w, images/portrait9-900.jpg 900w, images/portrait9-1120.jpg 1120w"
-                      sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Portrait 9" loading="lazy"
-                      decoding="async">
+                      sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Portrait 9" decoding="async"
+                      fetchpriority="high" class=" " width="1189" height="1783">
                   </picture>
                 </div>
                 <div class="iso-box graphic">
@@ -263,8 +348,8 @@
                       srcset="images/portrait10-480.webp 480w, images/portrait10-740.webp 740w, images/portrait10-900.webp 900w, images/portrait10-1120.webp 1120w">
                     <img src="images/portrait10-740.jpg"
                       srcset="images/portrait10-480.jpg 480w, images/portrait10-740.jpg 740w, images/portrait10-900.jpg 900w, images/portrait10-1120.jpg 1120w"
-                      sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Portrait 10" loading="lazy"
-                      decoding="async">
+                      sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Portrait 10" decoding="async"
+                      fetchpriority="high" class=" " width="1189" height="791">
                   </picture>
                 </div>
                 <div class="iso-box graphic">
@@ -275,8 +360,8 @@
                       srcset="images/portrait11-480.webp 480w, images/portrait11-740.webp 740w, images/portrait11-900.webp 900w, images/portrait11-1120.webp 1120w">
                     <img src="images/portrait11-740.jpg"
                       srcset="images/portrait11-480.jpg 480w, images/portrait11-740.jpg 740w, images/portrait11-900.jpg 900w, images/portrait11-1120.jpg 1120w"
-                      sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Portrait 11" loading="lazy"
-                      decoding="async">
+                      sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Portrait 11" decoding="async"
+                      fetchpriority="high" class=" " width="1189" height="1783">
                   </picture>
                 </div>
                 <div class="iso-box graphic">
@@ -287,8 +372,8 @@
                       srcset="images/portrait12-480.webp 480w, images/portrait12-740.webp 740w, images/portrait12-900.webp 900w, images/portrait12-1120.webp 1120w">
                     <img src="images/portrait12-740.jpg"
                       srcset="images/portrait12-480.jpg 480w, images/portrait12-740.jpg 740w, images/portrait12-900.jpg 900w, images/portrait12-1120.jpg 1120w"
-                      sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Portrait 12" loading="lazy"
-                      decoding="async">
+                      sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Portrait 12" decoding="async"
+                      fetchpriority="high" class=" " width="1189" height="1783">
                   </picture>
                 </div>
                 <div class="iso-box graphic">
@@ -300,7 +385,7 @@
                     <img src="images/portrait13-740.jpg"
                       srcset="images/portrait13-480.jpg 480w, images/portrait13-740.jpg 740w, images/portrait13-900.jpg 900w, images/portrait13-1120.jpg 1120w"
                       sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Portrait 13" loading="lazy"
-                      decoding="async">
+                      decoding="async" class=" " width="1189" height="791">
                   </picture>
                 </div>
                 <div class="iso-box graphic">
@@ -312,7 +397,7 @@
                     <img src="images/portrait14-740.jpg"
                       srcset="images/portrait14-480.jpg 480w, images/portrait14-740.jpg 740w, images/portrait14-900.jpg 900w, images/portrait14-1120.jpg 1120w"
                       sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Portrait 14" loading="lazy"
-                      decoding="async">
+                      decoding="async" class=" " width="1189" height="1685">
                   </picture>
                 </div>
                 <div class="iso-box graphic">
@@ -324,7 +409,7 @@
                     <img src="images/portrait15-740.jpg"
                       srcset="images/portrait15-480.jpg 480w, images/portrait15-740.jpg 740w, images/portrait15-900.jpg 900w, images/portrait15-1120.jpg 1120w"
                       sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Portrait 15" loading="lazy"
-                      decoding="async">
+                      decoding="async" class=" " width="1189" height="1783">
                   </picture>
                 </div>
                 <div class="iso-box graphic">
@@ -336,7 +421,7 @@
                     <img src="images/portrait16-740.jpg"
                       srcset="images/portrait16-480.jpg 480w, images/portrait16-740.jpg 740w, images/portrait16-900.jpg 900w, images/portrait16-1120.jpg 1120w"
                       sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Portrait 16" loading="lazy"
-                      decoding="async">
+                      decoding="async" class=" " width="1189" height="1783">
                   </picture>
                 </div>
                 <div class="iso-box graphic">
@@ -348,7 +433,7 @@
                     <img src="images/portrait17-740.jpg"
                       srcset="images/portrait17-480.jpg 480w, images/portrait17-740.jpg 740w, images/portrait17-900.jpg 900w, images/portrait17-1120.jpg 1120w"
                       sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Portrait 17" loading="lazy"
-                      decoding="async">
+                      decoding="async" class=" " width="1189" height="1783">
                   </picture>
                 </div>
                 <div class="iso-box graphic">
@@ -360,7 +445,7 @@
                     <img src="images/portrait18-740.jpg"
                       srcset="images/portrait18-480.jpg 480w, images/portrait18-740.jpg 740w, images/portrait18-900.jpg 900w, images/portrait18-1120.jpg 1120w"
                       sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Portrait 18" loading="lazy"
-                      decoding="async">
+                      decoding="async" class=" " width="1189" height="1783">
                   </picture>
                 </div>
                 <div class="iso-box graphic">
@@ -372,7 +457,7 @@
                     <img src="images/portrait19-740.jpg"
                       srcset="images/portrait19-480.jpg 480w, images/portrait19-740.jpg 740w, images/portrait19-900.jpg 900w, images/portrait19-1120.jpg 1120w"
                       sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Portrait 19" loading="lazy"
-                      decoding="async">
+                      decoding="async" class=" " width="1189" height="1783">
                   </picture>
                 </div>
                 <div class="iso-box graphic">
@@ -384,7 +469,7 @@
                     <img src="images/portrait20-740.jpg"
                       srcset="images/portrait20-480.jpg 480w, images/portrait20-740.jpg 740w, images/portrait20-900.jpg 900w, images/portrait20-1120.jpg 1120w"
                       sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Portrait 20" loading="lazy"
-                      decoding="async">
+                      decoding="async" class=" " width="1189" height="1783">
                   </picture>
                 </div>
                 <div class="iso-box graphic">
@@ -396,7 +481,7 @@
                     <img src="images/portrait21-740.jpg"
                       srcset="images/portrait21-480.jpg 480w, images/portrait21-740.jpg 740w, images/portrait21-900.jpg 900w, images/portrait21-1120.jpg 1120w"
                       sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Portrait 21" loading="lazy"
-                      decoding="async">
+                      decoding="async" class=" " width="1189" height="1783">
                   </picture>
                 </div>
                 <div class="iso-box graphic">
@@ -408,7 +493,7 @@
                     <img src="images/portrait22-740.jpg"
                       srcset="images/portrait22-480.jpg 480w, images/portrait22-740.jpg 740w, images/portrait22-900.jpg 900w, images/portrait22-1120.jpg 1120w"
                       sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Portrait 22" loading="lazy"
-                      decoding="async">
+                      decoding="async" class=" " width="1189" height="1783">
                   </picture>
                 </div>
                 <div class="iso-box graphic">
@@ -420,7 +505,7 @@
                     <img src="images/portrait23-740.jpg"
                       srcset="images/portrait23-480.jpg 480w, images/portrait23-740.jpg 740w, images/portrait23-900.jpg 900w, images/portrait23-1120.jpg 1120w"
                       sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Portrait 23" loading="lazy"
-                      decoding="async">
+                      decoding="async" class=" " width="1189" height="1783">
                   </picture>
                 </div>
                 <div class="iso-box graphic">
@@ -432,7 +517,7 @@
                     <img src="images/portrait24-740.jpg"
                       srcset="images/portrait24-480.jpg 480w, images/portrait24-740.jpg 740w, images/portrait24-900.jpg 900w, images/portrait24-1120.jpg 1120w"
                       sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Portrait 24" loading="lazy"
-                      decoding="async">
+                      decoding="async" class=" " width="1189" height="1783">
                   </picture>
                 </div>
                 <div class="iso-box graphic">
@@ -444,7 +529,7 @@
                     <img src="images/portrait25-740.jpg"
                       srcset="images/portrait25-480.jpg 480w, images/portrait25-740.jpg 740w, images/portrait25-900.jpg 900w, images/portrait25-1120.jpg 1120w"
                       sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Portrait 25" loading="lazy"
-                      decoding="async">
+                      decoding="async" class=" " width="1189" height="1783">
                   </picture>
                 </div>
                 <div class="iso-box graphic">
@@ -456,7 +541,7 @@
                     <img src="images/portrait26-740.jpg"
                       srcset="images/portrait26-480.jpg 480w, images/portrait26-740.jpg 740w, images/portrait26-900.jpg 900w, images/portrait26-1120.jpg 1120w"
                       sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Portrait 26" loading="lazy"
-                      decoding="async">
+                      decoding="async" class=" " width="1189" height="1783">
                   </picture>
                 </div>
                 <div class="iso-box graphic">
@@ -466,7 +551,7 @@
                     <img src="images/portrait27-740.jpg"
                       srcset="images/portrait27-480.jpg 480w, images/portrait27-740.jpg 740w"
                       sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Portrait 27" loading="lazy"
-                      decoding="async">
+                      decoding="async" class=" " width="1189" height="1783">
                   </picture>
                 </div>
                 <div class="iso-box graphic">
@@ -476,7 +561,7 @@
                     <img src="images/portrait28-740.jpg"
                       srcset="images/portrait28-480.jpg 480w, images/portrait28-740.jpg 740w"
                       sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Portrait 28" loading="lazy"
-                      decoding="async">
+                      decoding="async" class=" " width="1189" height="1783">
                   </picture>
                 </div>
 
@@ -490,7 +575,7 @@
                     <img src="images/couples1-740.jpg"
                       srcset="images/couples1-480.jpg 480w, images/couples1-740.jpg 740w, images/couples1-900.jpg 900w, images/couples1-1120.jpg 1120w"
                       sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Couples 1" loading="lazy"
-                      decoding="async">
+                      decoding="async" class=" " width="1189" height="1783">
                   </picture>
                 </div>
                 <div class="iso-box template">
@@ -502,7 +587,7 @@
                     <img src="images/couples2-740.jpg"
                       srcset="images/couples2-480.jpg 480w, images/couples2-740.jpg 740w, images/couples2-900.jpg 900w, images/couples2-1120.jpg 1120w"
                       sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Couples 2" loading="lazy"
-                      decoding="async">
+                      decoding="async" class=" " width="1189" height="1783">
                   </picture>
                 </div>
                 <div class="iso-box template">
@@ -514,7 +599,7 @@
                     <img src="images/couples3-740.jpg"
                       srcset="images/couples3-480.jpg 480w, images/couples3-740.jpg 740w, images/couples3-900.jpg 900w, images/couples3-1120.jpg 1120w"
                       sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Couples 3" loading="lazy"
-                      decoding="async">
+                      decoding="async" class=" " width="1189" height="1783">
                   </picture>
                 </div>
                 <div class="iso-box template">
@@ -526,7 +611,7 @@
                     <img src="images/couples4-740.jpg"
                       srcset="images/couples4-480.jpg 480w, images/couples4-740.jpg 740w, images/couples4-900.jpg 900w, images/couples4-1120.jpg 1120w"
                       sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Couples 4" loading="lazy"
-                      decoding="async">
+                      decoding="async" class=" " width="1189" height="1783">
                   </picture>
                 </div>
                 <div class="iso-box template">
@@ -538,7 +623,7 @@
                     <img src="images/couples5-740.jpg"
                       srcset="images/couples5-480.jpg 480w, images/couples5-740.jpg 740w, images/couples5-900.jpg 900w, images/couples5-1120.jpg 1120w"
                       sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Couples 5" loading="lazy"
-                      decoding="async">
+                      decoding="async" class=" " width="1189" height="1783">
                   </picture>
                 </div>
                 <div class="iso-box template">
@@ -550,7 +635,7 @@
                     <img src="images/couples6-740.jpg"
                       srcset="images/couples6-480.jpg 480w, images/couples6-740.jpg 740w, images/couples6-900.jpg 900w, images/couples6-1120.jpg 1120w"
                       sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Couples 6" loading="lazy"
-                      decoding="async">
+                      decoding="async" class=" " width="1189" height="774">
                   </picture>
                 </div>
                 <div class="iso-box template">
@@ -562,7 +647,7 @@
                     <img src="images/couples7-740.jpg"
                       srcset="images/couples7-480.jpg 480w, images/couples7-740.jpg 740w, images/couples7-900.jpg 900w, images/couples7-1120.jpg 1120w"
                       sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Couples 7" loading="lazy"
-                      decoding="async">
+                      decoding="async" class=" " width="1189" height="1782">
                   </picture>
                 </div>
                 <div class="iso-box template">
@@ -574,7 +659,7 @@
                     <img src="images/couples8-740.jpg"
                       srcset="images/couples8-480.jpg 480w, images/couples8-740.jpg 740w, images/couples8-900.jpg 900w, images/couples8-1120.jpg 1120w"
                       sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Couples 8" loading="lazy"
-                      decoding="async">
+                      decoding="async" class=" " width="1189" height="1783">
                   </picture>
                 </div>
 
@@ -588,7 +673,7 @@
                     <img src="images/family1-740.jpg"
                       srcset="images/family1-480.jpg 480w, images/family1-740.jpg 740w, images/family1-900.jpg 900w, images/family1-1120.jpg 1120w"
                       sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Family 1" loading="lazy"
-                      decoding="async">
+                      decoding="async" class=" " width="1189" height="1783">
                   </picture>
                 </div>
                 <div class="iso-box photoshop">
@@ -600,7 +685,7 @@
                     <img src="images/family2-740.jpg"
                       srcset="images/family2-480.jpg 480w, images/family2-740.jpg 740w, images/family2-900.jpg 900w, images/family2-1120.jpg 1120w"
                       sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Family 2" loading="lazy"
-                      decoding="async">
+                      decoding="async" class=" " width="1189" height="791">
                   </picture>
                 </div>
                 <div class="iso-box photoshop">
@@ -612,7 +697,7 @@
                     <img src="images/family3-740.jpg"
                       srcset="images/family3-480.jpg 480w, images/family3-740.jpg 740w, images/family3-900.jpg 900w, images/family3-1120.jpg 1120w"
                       sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Family 3" loading="lazy"
-                      decoding="async">
+                      decoding="async" class=" " width="1189" height="1783">
                   </picture>
                 </div>
                 <div class="iso-box photoshop">
@@ -624,7 +709,7 @@
                     <img src="images/family4-740.jpg"
                       srcset="images/family4-480.jpg 480w, images/family4-740.jpg 740w, images/family4-900.jpg 900w, images/family4-1120.jpg 1120w"
                       sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Family 4" loading="lazy"
-                      decoding="async">
+                      decoding="async" class=" " width="1189" height="1783">
                   </picture>
                 </div>
                 <div class="iso-box photoshop">
@@ -636,7 +721,7 @@
                     <img src="images/family5-740.jpg"
                       srcset="images/family5-480.jpg 480w, images/family5-740.jpg 740w, images/family5-900.jpg 900w, images/family5-1120.jpg 1120w"
                       sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Family 5" loading="lazy"
-                      decoding="async">
+                      decoding="async" class=" " width="1189" height="1783">
                   </picture>
                 </div>
                 <div class="iso-box photoshop">
@@ -648,7 +733,7 @@
                     <img src="images/family6-740.jpg"
                       srcset="images/family6-480.jpg 480w, images/family6-740.jpg 740w, images/family6-900.jpg 900w, images/family6-1120.jpg 1120w"
                       sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Family 6" loading="lazy"
-                      decoding="async">
+                      decoding="async" class=" " width="1189" height="1783">
                   </picture>
                 </div>
                 <div class="iso-box photoshop">
@@ -660,7 +745,7 @@
                     <img src="images/family7-740.jpg"
                       srcset="images/family7-480.jpg 480w, images/family7-740.jpg 740w, images/family7-900.jpg 900w, images/family7-1120.jpg 1120w"
                       sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Family 7" loading="lazy"
-                      decoding="async">
+                      decoding="async" class=" " width="1189" height="1783">
                   </picture>
                 </div>
                 <div class="iso-box photoshop">
@@ -672,7 +757,7 @@
                     <img src="images/family8-740.jpg"
                       srcset="images/family8-480.jpg 480w, images/family8-740.jpg 740w, images/family8-900.jpg 900w, images/family8-1120.jpg 1120w"
                       sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Family 8" loading="lazy"
-                      decoding="async">
+                      decoding="async" class=" " width="1189" height="1783">
                   </picture>
                 </div>
                 <div class="iso-box photoshop">
@@ -684,7 +769,7 @@
                     <img src="images/family9-740.jpg"
                       srcset="images/family9-480.jpg 480w, images/family9-740.jpg 740w, images/family9-900.jpg 900w, images/family9-1120.jpg 1120w"
                       sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Family 9" loading="lazy"
-                      decoding="async">
+                      decoding="async" class=" " width="1189" height="1783">
                   </picture>
                 </div>
                 <div class="iso-box photoshop">
@@ -696,7 +781,7 @@
                     <img src="images/family10-740.jpg"
                       srcset="images/family10-480.jpg 480w, images/family10-740.jpg 740w, images/family10-900.jpg 900w, images/family10-1120.jpg 1120w"
                       sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Family 10" loading="lazy"
-                      decoding="async">
+                      decoding="async" class=" " width="1189" height="1783">
                   </picture>
                 </div>
                 <div class="iso-box photoshop">
@@ -708,7 +793,7 @@
                     <img src="images/family11-740.jpg"
                       srcset="images/family11-480.jpg 480w, images/family11-740.jpg 740w, images/family11-900.jpg 900w, images/family11-1120.jpg 1120w"
                       sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Family 11" loading="lazy"
-                      decoding="async">
+                      decoding="async" class=" " width="1189" height="791">
                   </picture>
                 </div>
                 <div class="iso-box photoshop">
@@ -718,7 +803,7 @@
                     <img src="images/family12-740.jpg"
                       srcset="images/family12-480.jpg 480w, images/family12-740.jpg 740w"
                       sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Family 12" loading="lazy"
-                      decoding="async">
+                      decoding="async" class=" " width="1189" height="1783">
                   </picture>
                 </div>
 
@@ -732,7 +817,7 @@
                     <img src="images/elopement1-740.jpg"
                       srcset="images/elopement1-480.jpg 480w, images/elopement1-740.jpg 740w, images/elopement1-900.jpg 900w, images/elopement1-1120.jpg 1120w"
                       sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Elopement 1" loading="lazy"
-                      decoding="async">
+                      decoding="async" class=" " width="1189" height="791">
                   </picture>
                 </div>
                 <div class="iso-box branding">
@@ -744,7 +829,7 @@
                     <img src="images/elopement2-740.jpg"
                       srcset="images/elopement2-480.jpg 480w, images/elopement2-740.jpg 740w, images/elopement2-900.jpg 900w, images/elopement2-1120.jpg 1120w"
                       sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Elopement 2" loading="lazy"
-                      decoding="async">
+                      decoding="async" class=" " width="1189" height="791">
                   </picture>
                 </div>
                 <div class="iso-box branding">
@@ -756,7 +841,7 @@
                     <img src="images/elopement3-740.jpg"
                       srcset="images/elopement3-480.jpg 480w, images/elopement3-740.jpg 740w, images/elopement3-900.jpg 900w, images/elopement3-1120.jpg 1120w"
                       sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Elopement 3" loading="lazy"
-                      decoding="async">
+                      decoding="async" class=" " width="1189" height="1783">
                   </picture>
                 </div>
                 <div class="iso-box branding">
@@ -768,7 +853,7 @@
                     <img src="images/elopement4-740.jpg"
                       srcset="images/elopement4-480.jpg 480w, images/elopement4-740.jpg 740w, images/elopement4-900.jpg 900w, images/elopement4-1120.jpg 1120w"
                       sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Elopement 4" loading="lazy"
-                      decoding="async">
+                      decoding="async" class=" " width="1189" height="1783">
                   </picture>
                 </div>
                 <div class="iso-box branding">
@@ -780,7 +865,7 @@
                     <img src="images/elopement5-740.jpg"
                       srcset="images/elopement5-480.jpg 480w, images/elopement5-740.jpg 740w, images/elopement5-900.jpg 900w, images/elopement5-1120.jpg 1120w"
                       sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Elopement 5" loading="lazy"
-                      decoding="async">
+                      decoding="async" class=" " width="1189" height="791">
                   </picture>
                 </div>
                 <div class="iso-box branding">
@@ -792,7 +877,7 @@
                     <img src="images/elopement6-740.jpg"
                       srcset="images/elopement6-480.jpg 480w, images/elopement6-740.jpg 740w, images/elopement6-900.jpg 900w, images/elopement6-1120.jpg 1120w"
                       sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Elopement 6" loading="lazy"
-                      decoding="async">
+                      decoding="async" class=" " width="1189" height="1783">
                   </picture>
                 </div>
                 <div class="iso-box branding">
@@ -804,21 +889,22 @@
                     <img src="images/elopement7-740.jpg"
                       srcset="images/elopement7-480.jpg 480w, images/elopement7-740.jpg 740w, images/elopement7-900.jpg 900w, images/elopement7-1120.jpg 1120w"
                       sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Elopement 7" loading="lazy"
-                      decoding="async">
+                      decoding="async" class=" " width="1189" height="1783">
                   </picture>
                 </div>
 
-              </div><!-- /.iso-box-wrapper -->
+              </div>
             </div><!-- /.iso-box-section -->
-          </div><!-- /.iso-section -->
+          </div><!-- /.iso-box-section -->
+        </div><!-- /.iso-section -->
 
-          <!-- Кнопка "Показать ещё" -->
-          <button id="load-more" class="btn-more" type="button" aria-live="polite">
-            Показать ещё
-          </button>
+        <!-- Кнопка "Показать ещё" -->
+        <button id="load-more" class="btn-more" type="button" aria-live="polite">
+          Показать ещё
+        </button>
 
-        </div><!-- /.col -->
-      </div><!-- /.row -->
+      </div><!-- /.col -->
+    </div><!-- /.row -->
     </div><!-- /.container -->
   </section>
 
@@ -830,8 +916,9 @@
       </p>
       <ul class="social-icon wow fadeInUp" data-wow-delay="0.6s">
         <li>
-          <a href="https://instagram.com/hiilas.ph" class="fa fa-instagram" target="_blank" rel="noopener noreferrer"
-            title="Instagram"></a>
+          <a href="https://instagram.com/hiilas.ph" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <i class="fa fa-instagram" aria-hidden="true"></i>
+          </a>
         </li>
         <li>
           <a href="mailto:ph.hiilas@gmail.com" class="fa fa-envelope" title="Email"></a>
@@ -847,9 +934,7 @@
   <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
   <script src="js/wow.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
-  <script src="js/custom.js"></script>
   <script src="js/loader.js"></script>
-
 </body>
 
 </html>

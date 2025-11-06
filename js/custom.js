@@ -163,11 +163,7 @@ if (window.imagesLoaded) {
 
   function boot(){ initIso(); }
 
-if (window.imagesLoaded) {
-  imagesLoaded($grid[0], boot);          // дождёмся картинок внутри сетки
-} else {
-  boot();
-}
+boot(); // запускаем сразу, без ожидания lazy-изображений
 
   // ——— когда карточке ДОБАВИЛИ .is-visible (кнопка «Показать ещё»)
 var obsPaused = false;
