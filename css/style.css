@@ -5,6 +5,14 @@ Template 2082 Pure Mix
 http://www.tooplate.com/view/2082-pure-mix
 
 */
+/* === TAN Moonlight (локальный) === */
+@font-face {
+  font-family: "TAN Moonlight";
+  src: url("../fonts/tan-moonlight.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
 
 /* Body 
 ------------------------------------- */
@@ -108,6 +116,52 @@ img {
   justify-content: center;
   align-items: center;
   background: none repeat scroll 0 0 #fff;
+}
+
+/* Logo as preloader */
+.preloader {
+  display: flex;
+  /* уже есть, но дублирование не навредит */
+  align-items: center;
+  justify-content: center;
+}
+
+.loader-logo {
+  display: block;
+  width: auto;
+  height: 64px;
+  /* подбери 56–72px по вкусу */
+  opacity: .96;
+  animation: loaderPulse 1.2s ease-in-out infinite;
+}
+
+/* мягкий «пульс» логотипа */
+@keyframes loaderPulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: .96;
+  }
+
+  50% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+}
+
+/* мобильная высота логотипа */
+@media (max-width:600px) {
+  .loader-logo {
+    height: 48px;
+  }
+}
+
+/* уважение к настройке «меньше анимаций» */
+@media (prefers-reduced-motion: reduce) {
+  .loader-logo {
+    animation: none;
+  }
 }
 
 .sk-spinner-pulse {
@@ -478,6 +532,15 @@ a.icon {
 .header-four .header-thumb,
 .header-five .header-thumb {
   padding: 32px 20px 32px 20px !important;
+}
+
+/* OVERRIDE: карточка героя (header-one) – тоньше рамка и мягкая тень */
+#header.header-one .header-thumb {
+  padding: 24px 24px !important;
+  /* было 32px */
+  border: 6px solid #f1f1f1;
+  /* перебивает 'border: 10px solid …' */
+  box-shadow: 0 8px 22px rgba(0, 0, 0, .14);
 }
 
 .header-one,
@@ -1019,7 +1082,7 @@ footer.wide-footer {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.50);
   z-index: 1;
   pointer-events: none;
 }
@@ -1027,6 +1090,30 @@ footer.wide-footer {
 .header-thumb {
   position: relative;
   z-index: 2;
+}
+
+/* Hero title — TAN Moonlight (полировка) */
+.header-one .header-thumb h1 {
+  font-family: "TAN Moonlight", "Source Sans Pro", system-ui, -apple-system, sans-serif;
+  font-weight: 400;
+  /* шрифт подключён с весом 400 */
+  font-size: clamp(32px, 4.4vw, 64px);
+  line-height: 1.22;
+  letter-spacing: .006em;
+  /* ПЛЮС, не минус */
+  text-transform: none;
+  text-wrap: balance;
+  color: #111;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* на больших экранах можно чуть сильнее раздвинуть буквы */
+@media (min-width: 1200px) {
+  .header-one .header-thumb h1 {
+    letter-spacing: .01em;
+  }
 }
 
 /* ====== HEADER ====== */
@@ -1323,15 +1410,6 @@ body.no-scroll {
   display: block;
   z-index: 0;
   /* под контентом */
-}
-
-/* затемнение поверх картинки — оставляем */
-.header-one::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.6);
-  z-index: 1;
 }
 
 .header-thumb {
@@ -1958,4 +2036,112 @@ body[data-fx~="tilt"] .iso-box img {
 .form-control.field-error {
   border-color: #d33 !important;
   outline: none;
+}
+
+/* ==== Logo sizing ==== */
+:root {
+  --logo-h-mobile: 82px;
+  /* высота на мобильных */
+  --logo-h-desktop: 140px;
+  /* высота на десктопе */
+}
+
+.site-logo {
+  display: block;
+  height: var(--logo-h-mobile);
+  width: auto;
+  /* сохраняем пропорции */
+  image-rendering: auto;
+  /* на всякий случай */
+}
+
+/* десктоп */
+@media (min-width: 768px) {
+  .site-logo {
+    height: var(--logo-h-desktop);
+  }
+}
+
+/* если логотипу тесно — можно немного увеличить высоту шапки */
+.navbar {
+  max-height: 110px;
+  height: 110px;
+}
+
+/* чуть опустить/поднять, если нужно выравнивание по вертикали */
+.brand {
+  margin-top: 40px;
+  /* подстрой: 0…18px по вкусу */
+}
+
+/* ==== Logo: сместить левее ==== */
+
+/* Чуть уменьшаем левый внутренний отступ контейнера шапки */
+.navbar .container {
+  padding-left: 8px;
+  /* можно 0–12px, подбери */
+}
+
+/* Десктоп: двигаем только блок с логотипом левее */
+@media (min-width: 768px) {
+  .brand {
+    margin-left: -150px;
+    /* подбери -10…-60px */
+  }
+}
+
+/* Мобилка: убираем лишний padding слева у .brand */
+@media (max-width: 767px) {
+  .brand {
+    padding-left: 8px !important;
+    /* вместо 24px */
+  }
+}
+
+.preloader .loader-logo {
+  width: 700px;
+  /* подбери размер */
+  height: auto;
+}
+
+/* === Helpers === */
+.nobr {
+  white-space: nowrap;
+}
+
+/* === Hero title: ширина и центрирование на десктопе === */
+@media (min-width: 768px) {
+  .header-one .header-thumb h1 {
+    max-width: 1000px;
+    /* подбери 820–960 по вкусу */
+    margin: 0 auto;
+  }
+}
+
+/* Hero title: две строки (вторая строка чуть меньше) */
+.header-one .header-thumb h1 .line1,
+.header-one .header-thumb h1 .line2 {
+  display: block;
+}
+
+.header-one .header-thumb h1 .line1 {
+  letter-spacing: .006em;
+  margin-bottom: .06em;
+}
+
+.header-one .header-thumb h1 .line2 {
+  font-size: .88em;
+  /* было .90em — теперь всего на ~4% меньше первой */
+  letter-spacing: .008em;
+  /* можно оставить .014em, как тебе больше нравится */
+  margin-top: .01em;
+  white-space: nowrap;
+  /* не переносить вторую строку */
+}
+
+@media (max-width:700px) {
+  .header-one .header-thumb h1 .line2 {
+    font-size: .96em;
+    /* на мобилке уменьшение всего ~2% */
+  }
 }

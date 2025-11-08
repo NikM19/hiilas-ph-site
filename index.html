@@ -15,6 +15,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="preload" as="font" href="fonts/tan-moonlight.woff2" type="font/woff2" crossorigin>
   <!-- HERO preload (AVIF only, по брейкпоинтам) -->
   <link rel="preload" as="image" type="image/avif" imagesrcset="images/header-bg-800.avif 800w" imagesizes="100vw"
     media="(max-width: 767.98px)">
@@ -117,7 +118,7 @@
 <body data-fx="zoomout">
 
   <div class="preloader">
-    <div class="sk-spinner sk-spinner-pulse"></div>
+    <img src="images/brand/hiilas-logo.svg" alt="" class="loader-logo" aria-hidden="true">
   </div>
 
   <div class="nav-container">
@@ -127,9 +128,8 @@
           <div class="header-row">
             <!-- ЛОГО -->
             <div class="brand">
-              <a href="index.html">
-                <span class="brand-line1"><strong>Hiilas</strong></span>
-                <span class="brand-line2">Photography</span>
+              <a href="index.html" aria-label="Hiilas Photography — home">
+                <img src="images/brand/hiilas-logo.svg" alt="Hiilas Photography — with love & lämpö" class="site-logo">
               </a>
             </div>
 
@@ -206,7 +206,10 @@
       <div class="row">
         <div class="col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8">
           <div class="header-thumb">
-            <h1 class="wow fadeIn" data-wow-delay="0.8s">Photographing with love & lämpö</h1>
+            <h1 class="wow fadeIn" data-wow-delay="0.8s">
+              <span class="line1">Photographing</span>
+              <span class="line2">with love <span class="nobr">&amp; lämpö</span></span>
+            </h1>
           </div>
         </div>
       </div>
