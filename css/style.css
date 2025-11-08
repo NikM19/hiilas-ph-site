@@ -14,6 +14,14 @@ http://www.tooplate.com/view/2082-pure-mix
   font-display: swap;
 }
 
+@font-face {
+  font-family: "MotterFixed";
+  src: url("../fonts/dsmotterstylefixed.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* Body 
 ------------------------------------- */
 body {
@@ -536,11 +544,12 @@ a.icon {
 
 /* OVERRIDE: карточка героя (header-one) – тоньше рамка и мягкая тень */
 #header.header-one .header-thumb {
-  padding: 24px 24px !important;
+  padding: 24px 20px !important;
   /* было 32px */
   border: 6px solid #f1f1f1;
   /* перебивает 'border: 10px solid …' */
-  box-shadow: 0 8px 22px rgba(0, 0, 0, .14);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, .12);
+  border-radius: clamp(10px, 1.2vw, 18px);
 }
 
 .header-one,
@@ -629,35 +638,6 @@ a.icon {
   width: 100%;
   margin-bottom: 32px;
   overflow: hidden;
-}
-
-.filter-wrapper li {
-  display: inline-block;
-  margin: 4px;
-}
-
-.filter-wrapper li a {
-  color: #666;
-  font-size: 13px;
-  font-weight: 400;
-  letter-spacing: 2px;
-  padding: 8px 17px;
-  margin-right: 2px;
-  margin-left: 2px;
-  text-transform: uppercase;
-  display: block;
-  text-decoration: none;
-  transition: all 0.4s ease-in-out;
-}
-
-.filter-wrapper li a:active {
-  background: #111112 !important;
-}
-
-.filter-wrapper li a:hover,
-.filter-wrapper li a:focus {
-  background: #111112;
-  color: #ffffff;
 }
 
 /*isotope box css*/
@@ -1097,7 +1077,7 @@ footer.wide-footer {
   font-family: "TAN Moonlight", "Source Sans Pro", system-ui, -apple-system, sans-serif;
   font-weight: 400;
   /* шрифт подключён с весом 400 */
-  font-size: clamp(32px, 4.4vw, 64px);
+  font-size: clamp(26px, 3.2vw, 52px);
   line-height: 1.22;
   letter-spacing: .006em;
   /* ПЛЮС, не минус */
@@ -1471,6 +1451,7 @@ body.no-scroll {
   /* лёгкое «вдавливание» при тапе */
   --ui-ease: .18s;
   /* скорость анимации */
+  --radius-soft: clamp(10px, 1.2vw, 18px);
 }
 
 .iso-box-wrapper {
@@ -1517,6 +1498,27 @@ body.no-scroll {
 .iso-box picture {
   display: block;
   line-height: 0;
+}
+
+/* Мягкие углы карточек портфолио */
+.iso-box,
+.portfolio-thumb {
+  border-radius: var(--radius-soft);
+  overflow: hidden;
+  /* чтобы содержимое не вылезало за уголки */
+}
+
+.iso-box img,
+.portfolio-thumb img {
+  border-radius: inherit;
+  /* картинка повторяет скругление */
+  display: block;
+}
+
+/* чтобы псевдо-оверлеи тоже повторяли скругление */
+.iso-box::before,
+.iso-box::after {
+  border-radius: inherit;
 }
 
 /* если пользователь просит "меньше анимации" — уважаем */
@@ -1568,26 +1570,54 @@ body.no-scroll {
   animation: none !important;
 }
 
-/* кнопка */
+/* === Friendlier "Показать ещё" button === */
 .btn-more {
-  display: block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .55em;
+
   margin: 24px auto 0;
-  padding: 12px 22px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  border: 1px solid #333;
+  padding: 12px 18px;
+  min-height: 44px;
+  /* комфортная тап-зона */
+  border: 1px solid #2a2a2a;
+  border-radius: var(--radius-soft);
+  /* тот же радиус, что у карточек */
   background: #111;
   color: #fff;
+
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  /* мягче, чем 2px */
+  text-transform: none;
+  /* без КАПСА — дружелюбнее */
   cursor: pointer;
-  transition: opacity .2s ease, transform .1s ease;
+
+  transition:
+    background-color .2s ease,
+    transform .1s ease,
+    opacity .2s ease,
+    box-shadow .2s ease;
+
+  box-shadow: 0 8px 22px rgba(0, 0, 0, .12);
 }
 
 .btn-more:hover {
-  opacity: .9;
+  opacity: .96;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, .14);
 }
 
 .btn-more:active {
-  transform: scale(.98);
+  transform: translateY(1px) scale(.99);
+}
+
+.btn-more:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 3px rgba(17, 17, 17, .35), 0 8px 22px rgba(0, 0, 0, .12);
+
 }
 
 .btn-more[hidden] {
@@ -1650,7 +1680,7 @@ body.no-scroll {
 
 @media (hover:hover) {
   .iso-box:hover {
-    box-shadow: 0 10px 30px rgba(0, 0, 0, .15);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, .12);
   }
 }
 
@@ -2112,7 +2142,7 @@ body[data-fx~="tilt"] .iso-box img {
 /* === Hero title: ширина и центрирование на десктопе === */
 @media (min-width: 768px) {
   .header-one .header-thumb h1 {
-    max-width: 1000px;
+    max-width: 1700px;
     /* подбери 820–960 по вкусу */
     margin: 0 auto;
   }
@@ -2130,9 +2160,9 @@ body[data-fx~="tilt"] .iso-box img {
 }
 
 .header-one .header-thumb h1 .line2 {
-  font-size: .88em;
+  font-size: 1em;
   /* было .90em — теперь всего на ~4% меньше первой */
-  letter-spacing: .008em;
+  letter-spacing: .006em;
   /* можно оставить .014em, как тебе больше нравится */
   margin-top: .01em;
   white-space: nowrap;
@@ -2143,5 +2173,207 @@ body[data-fx~="tilt"] .iso-box img {
   .header-one .header-thumb h1 .line2 {
     font-size: .96em;
     /* на мобилке уменьшение всего ~2% */
+  }
+}
+
+/* === FILTER as CHIPS (современный вид) === */
+.filter-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  /* расстояние между «чипами» */
+  justify-content: center;
+  margin: 0 0 24px;
+  padding: 0;
+  list-style: none;
+}
+
+.filter-wrapper li {
+  margin: 0;
+  /* убираем старые отступы li */
+}
+
+.filter-wrapper li a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  /* удобная высота */
+  padding: 0 14px;
+  /* горизонтальный внутренний отступ */
+  border: none;
+  box-shadow: none;
+  border-radius: 999px;
+  /* именно «пилюля», не мягкий угол */
+  background: #fff;
+  color: #222;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: .3px;
+  /* аккуратнее, чем 2px */
+  text-transform: none;
+  /* без КАПСА — читабельнее */
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background-color .2s ease,
+    color .2s ease,
+    border-color .2s ease,
+    box-shadow .2s ease,
+    transform .08s ease;
+}
+
+/* hover / active / focus */
+.filter-wrapper li a:hover {
+  background: #111;
+  color: #fff;
+}
+
+.filter-wrapper li a:active {
+  transform: translateY(1px);
+}
+
+.filter-wrapper li a:focus-visible {
+  outline: 2px solid #111;
+  outline-offset: 2px;
+}
+
+/* текущее состояние фильтра (Isotope обычно даёт .is-checked) */
+.filter-wrapper li a.is-checked,
+.filter-wrapper li a.active,
+.filter-wrapper li a[aria-pressed="true"] {
+  background: #111;
+  color: #fff;
+  border: none;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, .12);
+}
+
+/* мобильная настройка: чуть больше кнопки */
+@media (max-width: 480px) {
+  .filter-wrapper li a {
+    height: 40px;
+    padding: 0 16px;
+    font-size: 15px;
+  }
+}
+
+/* уважение Reduce Motion */
+@media (prefers-reduced-motion: reduce) {
+  .filter-wrapper li a {
+    transition: none;
+  }
+}
+
+/* === Reusable hero style (как на index) === */
+#header.hero-index-style {
+  position: relative;
+}
+
+#header.hero-index-style::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, .50);
+  z-index: 1;
+  pointer-events: none;
+}
+
+#header.hero-index-style .header-thumb {
+  position: relative;
+  z-index: 2;
+  background: #fff;
+  border: 6px solid #f1f1f1;
+  border-radius: clamp(10px, 1.2vw, 18px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, .12);
+  padding: 24px 20px !important;
+}
+
+#header.hero-index-style .header-thumb h1 {
+  font-family: "TAN Moonlight", "Source Sans Pro", system-ui, -apple-system, sans-serif;
+  font-weight: 400;
+  font-size: clamp(32px, 4.4vw, 64px);
+  line-height: 1.22;
+  letter-spacing: .006em;
+  text-transform: none;
+  color: #111;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+@media (min-width:768px) {
+  #header.hero-index-style .header-thumb h1 {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+}
+
+/* === ABOUT-RU: центр + шрифт Motter для заголовка в белой карточке === */
+html[lang="ru"] #header.hero-index-style .header-thumb {
+  display: grid;
+  place-items: center;
+  /* центр по вертикали и горизонтали */
+  text-align: center;
+  min-height: 140px;
+  padding: 24px 20px !important;
+}
+
+html[lang="ru"] #header.hero-index-style .header-thumb h1 {
+  font-family: "MotterFixed", "Source Sans Pro", system-ui, -apple-system, sans-serif !important;
+  font-weight: 400;
+  text-transform: none;
+  /* не принудительно в капс */
+  letter-spacing: .02em;
+  /* при желании 0…0.04em */
+  font-size: clamp(32px, 4.2vw, 62px);
+  line-height: 1.12;
+  margin: 0;
+}
+
+
+/* на мобилке — помягче */
+@media (max-width: 767px) {
+  html[lang="ru"] #header.hero-index-style .header-thumb {
+    margin-top: 14px;
+    /* подстрой: 8–22px */
+  }
+}
+
+/* 2) опустить сам текст внутри карточки (баланс верх/низ) */
+html[lang="ru"] #header.hero-index-style .header-thumb {
+  padding-top: 55px !important;
+  /* ↑ больше сверху — текст ниже */
+  padding-bottom: 14px !important;
+  /* ↓ чуть меньше снизу */
+}
+
+html[lang="ru"] #header.hero-index-style .header-thumb h1 {
+  font-family: "MotterFixed", "Source Sans Pro", system-ui, -apple-system, sans-serif !important;
+  font-weight: 400;
+  letter-spacing: .02em;
+  font-size: clamp(32px, 4.2vw, 62px);
+  line-height: 1.12;
+  margin: 0;
+}
+
+/* Home only: сделать такой же размер, как в index-fi (.header-one) */
+.page-home #header.hero-index-style .header-thumb h1 {
+  font-size: clamp(26px, 3.2vw, 52px);
+  letter-spacing: .006em;
+  line-height: 1.22;
+  text-transform: none;
+}
+
+.page-home #header.hero-index-style .header-thumb h1 .line2 {
+  font-size: .90em;
+  letter-spacing: .014em;
+  margin-top: .01em;
+  white-space: nowrap;
+}
+
+@media (min-width: 768px) {
+  .page-home #header.hero-index-style .header-thumb h1 {
+    max-width: 1000px;
+    margin: 0 auto;
   }
 }

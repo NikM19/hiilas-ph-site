@@ -239,8 +239,9 @@ $(document).on('click', '.filter-wrapper a', function(e){
   lastInteractive = Date.now();
   requestAnimationFrame(function(){ $grid.isotope('layout'); });
 
-  $('.filter-wrapper a').removeClass('selected');
-  $(this).addClass('selected');
+var $chips = $('.filter-wrapper a');
+$chips.removeClass('selected is-checked active').attr('aria-pressed','false');
+$(this).addClass('selected is-checked').attr('aria-pressed','true');
 });
 
   // ——— ресайз (с дебаунсом)
