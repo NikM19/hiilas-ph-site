@@ -3,7 +3,7 @@
 
   // ==== Preloader ====
   $(window).on('load', function(){
-    $('.preloader').fadeOut(600);
+    $('.preloader').fadeOut(1300);
   });
 
   // ==== WOW (если подключён) ====
