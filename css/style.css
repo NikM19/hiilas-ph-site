@@ -3203,3 +3203,127 @@ body[data-card="glass"] #header .header-thumb::before {
 body[data-card="glass"] .header-one::before {
   background: rgba(0, 0, 0, .40);
 }
+
+/* --- Easter egg: heart rain --- */
+@keyframes heartFall {
+  0% {
+    transform: translateY(-12vh) translateX(0) rotate(-12deg);
+    opacity: 0;
+  }
+
+  12% {
+    opacity: .9;
+  }
+
+  100% {
+    transform: translateY(110vh) translateX(6vw) rotate(20deg);
+    opacity: .95;
+  }
+}
+
+.heart-drop {
+  position: fixed;
+  top: -10vh;
+  left: 0;
+  pointer-events: none;
+  color: var(--rose-6, #ff7aa6);
+  text-shadow: 0 2px 6px rgba(0, 0, 0, .12);
+  z-index: 100000;
+  animation-name: heartFall;
+  animation-timing-function: cubic-bezier(.22, .61, .36, 1);
+  animation-fill-mode: forwards;
+}
+
+#contact-heart {
+  cursor: pointer;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .heart-drop {
+    display: none !important;
+  }
+}
+
+/* === Contact: confetti hearts (на отправке формы) === */
+.heart-cf {
+  position: fixed;
+  pointer-events: none;
+  left: 0;
+  top: 0;
+  transform: translate(-50%, -50%);
+  will-change: transform, opacity;
+  animation: heartFly 900ms ease-out forwards;
+  z-index: 99999;
+  /* чтобы сердечки были поверх всего */
+}
+
+@keyframes heartFly {
+  to {
+    transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(.9);
+    opacity: 0;
+  }
+}
+
+/* === Logo long-press: sparkles + camera flash === */
+.sparkle {
+  position: fixed;
+  left: 0;
+  top: 0;
+  transform: translate(-50%, -50%) scale(.9) rotate(var(--rot, 0deg));
+  will-change: transform, opacity, filter;
+  pointer-events: none;
+  font-size: var(--fs, 18px);
+  line-height: 1;
+  color: #fff;
+  text-shadow: 0 0 10px rgba(255, 255, 255, .55), 0 0 18px rgba(255, 170, 200, .35);
+  animation: sparkleFly 800ms ease-out forwards;
+  z-index: 100002;
+}
+
+@keyframes sparkleFly {
+  from {
+    opacity: .96;
+    transform: translate(-50%, -50%) scale(.8) rotate(var(--rot, 0deg));
+  }
+
+  to {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.1) rotate(var(--rotEnd, 0deg));
+  }
+}
+
+/* «Вспышка» поверх страницы */
+.flash-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 100001;
+  background: radial-gradient(circle at 50% 50%,
+      rgba(255, 255, 255, .96) 0%,
+      rgba(255, 255, 255, .45) 45%,
+      rgba(255, 255, 255, 0) 70%);
+  animation: cameraFlash 480ms ease-out forwards;
+}
+
+@keyframes cameraFlash {
+  0% {
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Уважаем "меньше анимаций": отключаем салют, оставим только лёгкий пульс логотипа из JS */
+@media (prefers-reduced-motion: reduce) {
+
+  .sparkle,
+  .flash-overlay {
+    animation: none !important;
+  }
+}
