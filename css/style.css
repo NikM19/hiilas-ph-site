@@ -907,12 +907,32 @@ a.icon {
 /* ========================================== */
 #contact {
   padding-top: 5rem;
-  padding-bottom: 0rem;
+  padding-bottom: 4rem;
 }
 
 #contact .fa {
   font-size: 32px;
   padding-right: 10px;
+}
+
+/* Кликабельные иконки в контактных карточках */
+#contact .contact-info-block .icon-link {
+  display: inline-block;
+  line-height: 1;
+  padding: 6px;
+  /* увеличиваем зону клика */
+  border-radius: 999px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+#contact .contact-info-block .icon-link:hover,
+#contact .contact-info-block .icon-link:focus-visible {
+  background: transparent;
+  outline: none;
+}
+
+#contact .contact-info-block .icon-link i {
+  pointer-events: none;
 }
 
 #contact #map-canvas {
@@ -928,16 +948,25 @@ a.icon {
 
 #contact .form-control {
   background: transparent;
-  border: 1px solid #eee;
-  border-radius: 0px;
+  border: 1px solid #e7d2da;
+  /* мягкий розоватый базовый */
+  border-radius: 0;
   box-shadow: none;
   font-size: 16px;
   margin-bottom: 16px;
-  transition: all 0.4s ease-in-out;
+  transition: border-color .25s ease, box-shadow .25s ease;
 }
 
 #contact .form-control:hover {
-  border-color: #f0f0f0;
+  border-color: #dab9c6;
+  /* при hover чуть насыщеннее */
+}
+
+#contact .form-control:focus {
+  border-color: #111112;
+  /* контраст для доступности */
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 120, 150, .12);
 }
 
 #contact textarea {
@@ -948,29 +977,72 @@ a.icon {
   height: 50px;
 }
 
+/* Contact CTA — брендовый ghost-pill */
 #contact input[type='submit'] {
-  background: #111112;
-  color: #ffffff;
-  font-size: 15px;
-  font-weight: 400;
-  letter-spacing: 2px;
-  transition: all 0.4s ease-in-out;
-  margin-top: 10px;
+  appearance: none;
+  cursor: pointer;
+
+  display: block;
+  width: 100%;
+  min-height: 54px;
+  height: auto;
+
+  background: transparent;
+  /* ghost */
+  color: #111;
+  /* читаемый текст */
+  border: 2px solid color-mix(in srgb, var(--rose-6, #ff7aa6) 55%, #fff);
+  border-radius: 999px;
+  /* пилюля */
+  letter-spacing: .5px;
+  font-weight: 500;
+
+  margin: 0 auto;
+  /* центр в .contact-submit */
+  transition: background-color .2s ease, border-color .2s ease,
+    box-shadow .2s ease, transform .06s ease, color .2s ease;
+  box-shadow: 0 3px 0 rgba(0, 0, 0, .04), 0 10px 24px rgba(255, 160, 190, .14);
 }
 
 #contact input[type='submit']:hover {
-  background: #444;
+  background: color-mix(in srgb, var(--rose-2, #ffe6ee) 40%, #fff);
+  border-color: color-mix(in srgb, var(--rose-6, #ff7aa6) 68%, #fff);
+  box-shadow: 0 12px 28px rgba(255, 160, 190, .22);
+}
+
+#contact input[type='submit']:active {
+  transform: translateY(1px) scale(.99);
+}
+
+#contact input[type='submit']:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--rose-6, #ff7aa6) 60%, #fff);
+  outline-offset: 2px;
+}
+
+/* Фолбэк, если нет color-mix */
+@supports not (background: color-mix(in srgb, #fff, #000)) {
+  #contact input[type='submit'] {
+    border-color: #ff8fb1;
+  }
 }
 
 .contact-submit {
   width: 50%;
+  margin: 28px auto 0;
+  /* было 0 — теперь есть воздух сверху */
+  text-align: center;
 }
 
 #contact .col-md-4 {
-  background: #fff;
-  padding: 62px 0px 32px 42px;
-  position: relative;
-  bottom: -50px;
+  background: transparent;
+  /* один цвет со страницей */
+  padding: 28px 16px;
+  /* аккуратные отступы */
+  position: static;
+  /* снимаем позиционирование */
+  text-align: center;
+  /* иконки и текст по центру */
+  margin-top: 200px;
 }
 
 #contact .row {
@@ -1007,7 +1079,6 @@ footer.wide-footer {
     padding-right: 12px;
   }
 }
-
 
 /* social icon */
 .social-icon {
@@ -1054,7 +1125,9 @@ footer.wide-footer {
   }
 
   #contact .col-md-4 {
-    padding: 62px 20px 42px 32px;
+    padding: 24px 16px;
+    text-align: center;
+    margin-top: 80px;
   }
 
   #contact .col-md-4 p {
@@ -1105,11 +1178,13 @@ footer.wide-footer {
   }
 
   #contact .col-md-4 {
-    padding: 32px 20px 22px 62px;
+    padding: 20px 16px;
+    margin-top: 40px;
   }
 
   .contact-submit {
-    width: 70%;
+    width: 72%;
+    margin-top: 18px;
   }
 }
 
