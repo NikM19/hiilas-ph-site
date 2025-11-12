@@ -1,10 +1,37 @@
 // custom.js — мобильное меню + Isotope (masonry, imagesLoaded, resize)
 (function($){
 
-  // ==== Preloader ====
-  $(window).on('load', function(){
-    $('.preloader').fadeOut(1300);
-  });
+ // ==== Preloader ==== (class-based + min/max timing + safe remove)
+(function(){
+  var pre = document.querySelector('.preloader');
+  if (!pre) return;
+
+  var MIN = 800;   // минимальная видимость (мс), чтобы не «мигало»
+  var MAX = 3500;  // максимум ожидания на очень медленных соединениях
+  var start = Date.now();
+  var doneCalled = false;
+
+  function finish(){
+    if (doneCalled) return;
+    doneCalled = true;
+    var wait = Math.max(0, MIN - (Date.now() - start));
+    setTimeout(function(){
+      pre.classList.add('is-done'); // плавная CSS-прозрачность
+      pre.addEventListener('transitionend', function(){ pre.remove(); }, { once:true });
+    }, wait);
+  }
+
+  // 1) обычная «полная загрузка»
+  window.addEventListener('load', finish, { once:true });
+
+  // 2) шрифты (убираем рывок заголовка, когда TAN/Motter догружаются)
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(function(){ /* no-op, просто даём браузеру догрузить */ });
+  }
+
+  // 3) предохранитель по времени
+  setTimeout(finish, MAX);
+})();
 
   // ==== WOW (если подключён) ====
   try { new WOW().init(); } catch(e){}
