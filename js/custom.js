@@ -529,3 +529,35 @@ $(function () {
   }
 })(jQuery);
 
+// Autopopulate package from ?pkg=... into the Contact form
+(function pkgAutoFill(){
+  document.addEventListener('DOMContentLoaded', function(){
+    var form = document.getElementById('contact-form');
+    if (!form) return;
+
+    var params = new URLSearchParams(window.location.search);
+    var pkg = params.get('pkg');
+    if (!pkg) return;
+
+    var message = form.querySelector('#message');
+    if (!message) return;
+
+    var lang = (document.documentElement.lang || 'en').toLowerCase();
+    var pre = {
+      en: "Package I’m interested in: ",
+      fi: "Kiinnostava paketti: ",
+      ru: "Интересующий пакет: "
+    }[lang] || "Package I’m interested in: ";
+
+    var addon = pre + pkg + "\n";
+    message.value = message.value
+      ? (addon + "\n" + message.value)
+      : (addon + "\nTell me a few words about your idea");
+
+    message.classList.add('is-highlighted');
+    setTimeout(function(){ message.classList.remove('is-highlighted'); }, 1200);
+
+    var contact = document.getElementById('contact');
+    if (contact) contact.scrollIntoView({behavior:'smooth', block:'start'});
+  });
+})();

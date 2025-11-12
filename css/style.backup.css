@@ -58,34 +58,18 @@ http://www.tooplate.com/view/2082-pure-mix
   /* подберёшь +-0.02 */
 }
 
+/* === Page background base (v2) === */
 :root {
-  /* Page background base */
   --page-bg-color: #ffffff;
   --page-bg-img: none;
+  /* можно несколько слоёв через запятую */
   --page-bg-size: auto;
+  /* для каждого слоя при необходимости */
   --page-bg-pos: center;
   --page-bg-repeat: repeat;
+  /* для больших градиентов можно no-repeat */
   --page-bg-attach: scroll;
-
-  /* UI curves & masonry */
-  --grid-gap: 18px;
-  --cols: 3;
-  --hover-brightness: 1.22;
-  --tap-brightness: 1.35;
-  --tap-scale: .985;
-  --ui-ease: .18s;
-  --radius-soft: clamp(10px, 1.2vw, 18px);
-
-  /* Logo sizing */
-  --logo-h-mobile: 84px;
-  --logo-h-desktop: 140px;
-
-  /* Preloader glass/glow */
-  --pre-glass-alpha: .8500;
-  --pre-glass-blur: 500px;
-  --pre-glow-alpha: .22;
-  --pre-glow-size: 62%;
-  --pre-glow-y: 38%;
+  /* fixed = лёгкий «параллакс» шума */
 }
 
 body {
@@ -168,6 +152,19 @@ img {
 
 /* preloader styles
 /* ========================================== */
+.preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100000;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
 .loader-logo {
   display: block;
   width: auto;
@@ -717,6 +714,12 @@ a.icon {
   padding: 0;
   clear: both;
   position: relative;
+}
+
+.iso-box {
+  position: relative;
+  min-height: 50px;
+  overflow: hidden;
 }
 
 .iso-box>a {
@@ -1444,6 +1447,13 @@ body.no-scroll {
     padding: 0 6px;
   }
 
+  /* Лого левее и чуть ниже */
+  .brand {
+    margin-left: -80px;
+    margin-top: 20px;
+    /* подбери 8–14px по вкусу */
+  }
+
   /* Языки + бургер правее и чуть ниже */
   .header-right {
     margin-right: -60px;
@@ -1573,6 +1583,22 @@ body.no-scroll {
   pointer-events: auto;
 }
 
+/* ==== Pinterest masonry: 3 колонки + настраиваемый зазор ==== */
+:root {
+  --grid-gap: 18px;
+  /* твоя существующая переменная оставляем */
+  --cols: 3;
+  --hover-brightness: 1.22;
+  /* сила свечения на десктопе */
+  --tap-brightness: 1.35;
+  /* сила свечения на таче */
+  --tap-scale: .985;
+  /* лёгкое «вдавливание» при тапе */
+  --ui-ease: .18s;
+  /* скорость анимации */
+  --radius-soft: clamp(10px, 1.2vw, 18px);
+}
+
 .iso-box-wrapper {
   max-width: 1140px !important;
   margin: 0 auto !important;
@@ -1595,9 +1621,23 @@ body.no-scroll {
   margin: 0 0 var(--grid-gap) 0 !important;
   box-sizing: border-box;
   overflow: hidden;
+  /* Isotope сам двигает карточки через transform — 
+     оставляем легкий transition только для его анимации */
   transition: transform .22s ease, opacity .18s ease;
+  will-change: transform, left, top;
+}
+
+/* База: не прячем картинки; «показ» делаем только iso-soft классами */
+.iso-box img {
+  opacity: 1;
+  transform: none;
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform .28s ease;
+  /* лёгкая плавность без лишнего fade */
   will-change: transform;
-  /* убрали left/top */
+  /* без will-change:opacity — экономим память */
 }
 
 .iso-box picture {
@@ -2173,6 +2213,14 @@ body[data-fx~="tilt"] .iso-box img {
   outline: none;
 }
 
+/* ==== Logo sizing ==== */
+:root {
+  --logo-h-mobile: 84px;
+  /* высота на мобильных */
+  --logo-h-desktop: 140px;
+  /* высота на десктопе */
+}
+
 .site-logo {
   display: block;
   height: var(--logo-h-mobile);
@@ -2224,6 +2272,12 @@ body[data-fx~="tilt"] .iso-box img {
     padding-left: 0 !important;
     margin-left: -27px;
   }
+}
+
+.preloader .loader-logo {
+  width: 700px;
+  /* подбери размер */
+  height: auto;
 }
 
 /* === Helpers === */
@@ -2868,6 +2922,18 @@ body[data-bg="rose-vert"] #header.header-one .header-thumb {
   box-shadow: 0 18px 44px rgba(255, 160, 190, .18);
 }
 
+/* === rose-vert палитра (если не вставлено раньше) === */
+body[data-bg="rose-vert"] {
+  --rose-1: #fff1f6;
+  /* верх градиента */
+  --rose-2: #ffe6ee;
+  /* середина */
+  --rose-3: #ffd6e4;
+  /* низ */
+  --rose-6: #ff7aa6;
+  /* активный акцент */
+}
+
 /* === GLASS CHIPS (стеклянные чипы под rose-vert) === */
 body[data-bg="rose-vert"][data-ui~="chips-glass"] .filter-wrapper li a {
   background: color-mix(in srgb, var(--rose-1) 45%, transparent);
@@ -2918,6 +2984,20 @@ body[data-bg="rose-vert"][data-ui~="band"] .filter-wrapper {
   box-shadow: 0 12px 30px rgba(255, 160, 190, .16);
 }
 
+/* Чуть связать рамку карточки-героя с палитрой */
+body[data-bg="rose-vert"] #header.header-one .header-thumb {
+  border-color: color-mix(in srgb, var(--rose-2) 55%, #fff);
+  box-shadow: 0 18px 44px rgba(255, 160, 190, .18);
+}
+
+/* палитра для rose-vert (если ещё не задала) */
+body[data-bg="rose-vert"] {
+  --rose-1: #fff1f6;
+  --rose-2: #ffe6ee;
+  --rose-3: #ffd6e4;
+  --rose-6: #ff7aa6;
+}
+
 /* GHOST: прозрачная, розовая обводка */
 body[data-ui~="btn-ghost"] .btn-more {
   background: transparent;
@@ -2959,35 +3039,23 @@ body[data-ui~="btn-ghost-strong"] .btn-more {
   }
 }
 
-/* === Preloader (единый) === */
+/* === Preloader: прозрачная база (не копирует градиент страницы) === */
 .preloader {
   position: fixed;
   inset: 0;
   z-index: 100000;
   display: flex;
-  flex-flow: row nowrap;
   align-items: center;
   justify-content: center;
+
   background: transparent;
+  /* теперь база прозрачная */
   transition: opacity 1.2s ease;
 }
 
-/* логотип */
+/* логотип читаемее на светлом/стеклянном фоне */
 .preloader .loader-logo {
-  display: block;
-  width: auto;
-  height: 64px;
-  opacity: .96;
-  animation: loaderPulse 1.2s ease-in-out infinite;
-  /* можно оставить твой drop-shadow из файла: */
   filter: drop-shadow(0 2px 6px rgba(0, 0, 0, .12));
-}
-
-/* уважение reduce motion */
-@media (prefers-reduced-motion: reduce) {
-  .preloader .loader-logo {
-    animation: none;
-  }
 }
 
 /* мягкий ореол под логотипом */
@@ -3002,6 +3070,20 @@ body[data-ui~="preload-glow"] .preloader::before {
       transparent 70%);
   filter: blur(18px);
   pointer-events: none;
+}
+
+/* === Preloader: glass & glow (оверлеи над фоном) === */
+:root {
+  --pre-glass-alpha: .8500;
+  /* «молочность» стёкла */
+  --pre-glass-blur: 500px;
+  /* размытие задника */
+  --pre-glow-alpha: .22;
+  /* сила свечения */
+  --pre-glow-size: 62%;
+  /* радиус пятна */
+  --pre-glow-y: 38%;
+  /* вертикаль центра свечения */
 }
 
 /* стеклянная вуаль отдельным слоем */
