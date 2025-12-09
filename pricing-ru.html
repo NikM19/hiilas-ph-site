@@ -26,193 +26,159 @@
     </div>
 
     <div class="nav-container">
-        <nav class="nav-inner transparent">
+        <nav class="nav-inner">
             <div class="navbar">
                 <div class="container">
                     <div class="header-row">
+
                         <div class="brand">
-                            <a href="index.html" aria-label="Hiilas Photography — главная">
-                                <img src="images/brand/hiilas-logo.svg" alt="Hiilas Photography — with love & lämpö"
+                            <a href="index-ru.html" aria-label="Hiilas Photography — главная">
+                                <img src="images/brand/hiilas-logo.svg" alt="Hiilas Photography — с любовью и теплом"
                                     class="site-logo">
                             </a>
                         </div>
 
                         <div class="header-right">
-                            <ul class="language-switch desktop-only" aria-label="Язык">
-                                <li><a href="pricing.html">EN</a></li>
-                                <li><a href="pricing-fi.html">FI</a></li>
-                                <li><a href="pricing-ru.html">RU</a></li>
+                            <button class="mobile-nav-toggle" type="button" aria-expanded="false">
+                                <span class="mobile-nav-label">Цены</span>
+                            </button>
+
+                            <ul class="main-menu">
+                                <li><a href="index-ru.html">Главная</a></li>
+                                <li><a href="about-ru.html">Обо мне</a></li>
+                                <li><a href="pricing-ru.html" class="is-current">Цены</a></li>
+                                <li><a href="contact-ru.html">Контакты</a></li>
                             </ul>
 
-                            <div class="navicon">
-                                <div class="menu-container">
-                                    <div class="circle dark inline" role="button" tabindex="0" aria-label="Открыть меню"
-                                        aria-controls="site-menu" aria-expanded="false">
-                                        <i class="icon ion-navicon" aria-hidden="true"></i>
-                                    </div>
+                            <ul class="lang-menu" aria-label="Язык">
+                                <li><a href="pricing.html">EN</a></li>
+                                <li><a href="pricing-fi.html">FI</a></li>
+                                <li><span class="is-current-lang">RU</span></li>
+                            </ul>
+                        </div>
 
-                                    <div id="site-menu" class="list-menu" role="dialog" aria-modal="true"
-                                        aria-hidden="true" aria-label="Главное меню">
-                                        <i class="icon ion-close-round close-iframe" role="button" tabindex="0"
-                                            aria-label="Закрыть меню"></i>
-                                        <ul class="language-switch mobile-only" aria-label="Язык">
-                                            <li><a href="pricing.html">EN</a></li>
-                                            <li><a href="pricing-fi.html">FI</a></li>
-                                            <li><a href="pricing-ru.html">RU</a></li>
-                                        </ul>
-                                        <div class="intro-inner">
-                                            <ul id="nav-menu">
-                                                <li><a href="index.html">Главная</a></li>
-                                                <li><a href="about.html">Обо мне</a></li>
-                                                <li><a href="pricing-ru.html">Цены</a></li>
-                                                <li><a href="contact-ru.html">Контакты</a></li>
-                                            </ul>
-                                        </div>
-                                    </div><!-- /.list-menu -->
-                                </div>
-                            </div>
-                        </div><!-- /.header-right -->
                     </div>
                 </div>
             </div>
         </nav>
     </div>
 
-    <header id="header" class="header-one">
+    <!-- Header section – как на index/about, но с коллажем -->
+    <section id="header" class="header-one header-pricing">
+        <!-- Фон-фотография во всю ширину -->
+        <picture class="hero-bg">
+            <img src="images/pricing-hero-collage1.jpg" alt="Hiilas Photography – collage" decoding="async"
+                fetchpriority="high">
+        </picture>
+
         <div class="container">
-            <div class="header-thumb wow fadeInUp" data-wow-delay="0.3s">
-                <h1>
-                    <span class="line1">Цены</span>
-                    <span class="line2">Простые пакеты · гибкие опции · с&nbsp;теплом&nbsp;и&nbsp;заботой ♥</span>
-                </h1>
+            <!-- Если не нужен текст поверх фото, оставляем пусто -->
+            <!--
+            <div class="row">
+                <div class="col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8">
+                    <div class="header-thumb">
+                        <h1 class="wow fadeIn" data-wow-delay="0.8s">
+                            <span class="line1">Цены</span>
+                            <span class="line2">простые пакеты с теплом</span>
+                        </h1>
+                    </div>
+                </div>
+            </div>
+            -->
+        </div>
+    </section>
+
+    <!-- Надпись под коллажем -->
+    <section class="pricing-hero-text">
+        <div class="container">
+            <div class="pricing-hero-title">
+                <h1>ЦЕНЫ</h1>
+                <div class="pricing-hero-heart">♥</div>
+                <p>ПРОСТЫЕ ПАКЕТЫ · ГИБКИЕ ОПЦИИ · С ТЕПЛОМ И ЗАБОТОЙ</p>
             </div>
         </div>
-    </header>
+    </section>
 
-    <section id="pricing" style="padding-top:3rem; padding-bottom:3rem;">
+    <!-- PRICING RU — письмо с ценами -->
+    <section id="pricing" class="pricing-simple pricing-letter" style="padding-top:5rem; padding-bottom:3rem;">
         <div class="container">
             <div class="wow fadeInUp col-md-10 col-md-offset-1 col-sm-12" data-wow-delay="0.2s">
 
-                <ul class="filter-wrapper" aria-label="Категории" style="margin-bottom:22px;">
-                    <li><a class="is-checked" data-group="all">Все</a></li>
-                    <li><a data-group="couples">Пары</a></li>
-                    <li><a data-group="family">Семья</a></li>
-                    <li><a data-group="wedding">Свадьба</a></li>
-                    <li><a data-group="events">События</a></li>
-                    <li><a data-group="portrait">Портреты</a></li>
-                    <li><a data-group="other">Другое</a></li>
-                </ul>
+                <h2 class="pricing-kicker">Фотосессии и пакеты</h2>
 
-                <div class="row">
-                    <div class="col-sm-6">
-                        <article class="price-card" data-group="portrait">
-                            <h3>Портретная съёмка</h3>
-                            <p class="price">от 100 € + ALV</p>
-                            <ul class="feat">
-                                <li>В студии, у вас дома или на улице</li>
-                                <li>Авторская обработка и лёгкая ретушь</li>
-                                <li>Помощь с позами и образом</li>
-                                <li>Аренда студии — отдельно (порекомендую уютные студии)</li>
-                            </ul>
-                            <a class="btn-book" href="contact-ru.html?pkg=Портрет#contact">Записаться на портрет</a>
-                        </article>
-                    </div>
+                <p>
+                    Моя главная задача — сделать вас счастливее и подарить тёплые воспоминания. Мне важно, чтобы с
+                    ценами было спокойно и понятно, поэтому ниже — ориентиры по моим услугам. Финальная стоимость может
+                    меняться в зависимости от формата, времени и локации — мы всё обсуждаем заранее, и я подбираю лучший
+                    вариант именно для вас.
+                </p>
 
-                    <div class="col-sm-6">
-                        <article class="price-card" data-group="couples">
-                            <h3>Love Story</h3>
-                            <p class="price">от 150 € + ALV</p>
-                            <ul class="feat">
-                                <li>Живая и тёплая атмосфера</li>
-                                <li>Поддержка и советы во время съёмки</li>
-                                <li>Обработка в фирменном стиле</li>
-                            </ul>
-                            <a class="btn-book" href="contact-ru.html?pkg=Love%20Story#contact">Записаться на Love
-                                Story</a>
-                        </article>
-                    </div>
+                <p>
+                    Если вам нужна портретная съёмка — это отличный способ сохранить важный момент жизни. Только вы, я и
+                    моя камера. Время съёмки — от 1,5 часов, готовых фотографий — от 50 штук. Базовая стоимость по
+                    Хельсинки —
+                    <a class="pricing-link" href="contact-ru.html?pkg=Портрет#contact">
+                        <strong>Портретная съёмка — 100 € (с ALV 25,5%)</strong>
+                    </a>.
+                </p>
 
-                    <div class="col-sm-6">
-                        <article class="price-card" data-group="wedding">
-                            <h3>Роспись в ЗАГС + прогулка</h3>
-                            <p class="price">от 120 € + ALV</p>
-                            <ul class="feat">
-                                <li>Роспись и прогулка вдвоём</li>
-                                <li>Живые кадры без постановки</li>
-                                <li>Подарок — короткое видео-воспоминание</li>
-                            </ul>
-                            <a class="btn-book"
-                                href="contact-ru.html?pkg=Роспись%20+%20прогулка#contact">Забронировать</a>
-                        </article>
-                    </div>
+                <p>
+                    Если хочется сохранить чувства между двумя людьми — прогулку, объятия, моменты нежности — подойдёт
+                    парная съёмка / love story. Время — от 1,5 часов, готовых фотографий — от 100 штук.
+                    <a class="pricing-link" href="contact-ru.html?pkg=Love%20Story#contact">
+                        <strong>Парная съёмка / Love Story — 150 € (с ALV 25,5%)</strong>
+                    </a>.
+                </p>
 
-                    <div class="col-sm-6">
-                        <article class="price-card" data-group="wedding">
-                            <h3>Камерная свадьба (до 5 часов)</h3>
-                            <p class="price">от 450 € + ALV</p>
-                            <ul class="feat">
-                                <li>каждый доп. час — 20 €</li>
-                                <li>Формат до ~15 гостей</li>
-                                <li>Церемония, прогулка и ужин</li>
-                                <li>Консультация по маршруту и таймингу</li>
-                                <li>Естественная цветокоррекция и художественная обработка</li>
-                            </ul>
-                            <a class="btn-book" href="contact-ru.html?pkg=Камерная%20свадьба#contact">Забронировать
-                                свадьбу</a>
-                        </article>
-                    </div>
+                <p>
+                    Когда важно, чтобы все были в кадре, — семейная съёмка. Семья — самое ценное, что у нас есть.
+                    Съёмка до четырёх человек, время — от 1,5 часов, готовых фотографий — около 200.
+                    <a class="pricing-link" href="contact-ru.html?pkg=Семейная%20съёмка#contact">
+                        <strong>Семейная съёмка — 170 € (с ALV 25,5%)</strong>
+                    </a>.
+                </p>
 
-                    <div class="col-sm-6">
-                        <article class="price-card" data-group="family">
-                            <h3>Семейная съёмка</h3>
-                            <p class="price">от 150 € + ALV</p>
-                            <ul class="feat">
-                                <li>Семья, дети, ожидание или «домашние истории»</li>
-                                <li>Тёплая, естественная атмосфера</li>
-                                <li>Обработка в авторском стиле</li>
-                                <li>Дома, на природе или в студии (аренда — отдельно)</li>
-                            </ul>
-                            <a class="btn-book" href="contact-ru.html?pkg=Семейная%20съёмка#contact">Записаться на
-                                семью</a>
-                        </article>
-                    </div>
+                <p>
+                    Если у вас праздник, мероприятие или особенный день, который хочется сохранить целиком, подойдёт
+                    репортажная съёмка. Я ловлю атмосферу, детали и эмоции. Время — от 1,5 часов, готовых фотографий —
+                    от 200.
+                    <a class="pricing-link" href="contact-ru.html?pkg=Репортаж#contact">
+                        <strong>Репортажная съёмка — от 150 € (с ALV 25,5%)</strong>
+                    </a>.
+                </p>
 
-                    <div class="col-sm-6">
-                        <article class="price-card" data-group="events">
-                            <h3>Репортажная съёмка (праздники, события)</h3>
-                            <p class="price">от 120 € + ALV</p>
-                            <ul class="feat">
-                                <li>Естественная передача атмосферы</li>
-                                <li>Эмоции, детали, взаимодействие</li>
-                                <li>Подходит для дней рождения, крестин, камерных вечеров</li>
-                            </ul>
-                            <a class="btn-book" href="contact-ru.html?pkg=Репортаж#contact">Забронировать репортаж</a>
-                        </article>
-                    </div>
+                <p>
+                    Если в голове живёт особенная идея: творческий проект, контент для бизнеса или что-то, что сложно
+                    сразу сформулировать словами, — давайте придумаем это вместе.
+                    <a class="pricing-link" href="contact-ru.html?pkg=Творческие%20съёмки#contact">
+                        <strong>Творческие съёмки — от 100 € (с ALV 25,5%)</strong>
+                    </a>.
+                </p>
 
-                    <div class="col-sm-6">
-                        <article class="price-card" data-group="other">
-                            <h3>Другие форматы</h3>
-                            <p class="price">от 100 € + ALV</p>
-                            <ul class="feat">
-                                <li>Творческие и контент-съёмки, бьюти-портреты, подарочные проекты</li>
-                                <li>Расскажите идею — подберу стиль и формат</li>
-                            </ul>
-                            <a class="btn-book" href="contact-ru.html?pkg=Другое#contact">Обсудить идею</a>
-                        </article>
-                    </div>
-                </div>
+                <p>
+                    Для тех, кто планирует тёплый, небольшой праздник — камерная свадьба, когда рядом только вы вдвоём и
+                    самые близкие люди, до 15 гостей. Время съёмки — до 5 часов, готовых фотографий — от 400.
+                    <a class="pricing-link" href="contact-ru.html?pkg=Камерная%20свадьба#contact">
+                        <strong>Камерная свадьба — от 450 € (с ALV 25,5%)</strong>
+                    </a>.
+                </p>
 
-                <div class="addons">
-                    <h4>Важно</h4>
-                    <ul>
-                        <li>Все съёмки включают авторскую обработку и лёгкую ретушь</li>
-                        <li>Если не использовать фото в портфолио: +20 €</li>
-                        <li>Среднее время съёмки — от ~1,5 часа</li>
-                        <li>Выезд за пределы Хельсинки/Эспоо/Вантаа — по договорённости</li>
-                        <li>Готовность фотографий — до 14 дней</li>
-                    </ul>
-                    <p class="note">Цены в EUR, + ALV (НДС). Детали — по договорённости.</p>
+                <p>
+                    Покупая у меня услугу, вы соглашаетесь на мою авторскую обработку и лёгкую ретушь. Пожалуйста,
+                    внимательно изучите моё портфолио, чтобы точно понять стиль. Я не делаю глубокую ретушь и не отдаю
+                    оригиналы (RAW). Готовые фотографии я отдаю в течение 14 дней для обычных съёмок и до 30 дней для
+                    камерных свадеб.
+                </p>
+
+                <p>
+                    Если вы хотите съёмку у меня — просто напишите, и мы всё обсудим. Спасибо за ваше внимание и
+                    доверие.
+                </p>
+
+                <div class="pricing-letter-cta">
+                    <a class="btn-book btn-book-letter" href="contact-ru.html#contact">
+                        Обсудить съёмку
+                    </a>
                 </div>
 
             </div>
@@ -247,6 +213,7 @@
     <script src="js/wow.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/loader.js"></script>
+    <script src="js/custom.js"></script>
     <script>
         (function () {
             var openBtn = document.querySelector('.circle.inline');
@@ -270,7 +237,7 @@
                     var g = card.getAttribute('data-group');
                     var tags = (card.getAttribute('data-tags') || '').split(/\s+/);
                     var show = (group === 'all') || (g ? g === group : (tags.length ? tags.includes(group) : true));
-                    card.parentElement.style.display = show ? '' : 'none';
+                    card.style.display = show ? '' : 'none';
                 });
             }
             chips.forEach(function (a) {

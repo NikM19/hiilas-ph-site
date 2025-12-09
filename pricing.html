@@ -18,7 +18,8 @@
 </head>
 
 <body class="page-pricing" data-bg="rose-vert-ultra" data-fx="zoomout"
-    data-ui="chips-glass preload-glass preload-glow btn-ghost" data-card="glass">
+    data-ui="chips-glass preload-glass preload-glow btn-ghost" data-card="glass" data-card-shape="chunky"
+    data-layout="doc">
 
     <!-- Preloader -->
     <div class="preloader">
@@ -27,197 +28,164 @@
 
     <!-- NAV -->
     <div class="nav-container">
-        <nav class="nav-inner transparent">
+        <nav class="nav-inner">
             <div class="navbar">
                 <div class="container">
                     <div class="header-row">
-                        <!-- Brand -->
+
                         <div class="brand">
                             <a href="index.html" aria-label="Hiilas Photography — home">
-                                <img src="images/brand/hiilas-logo.svg" alt="Hiilas Photography — with love & lämpö"
+                                <img src="images/brand/hiilas-logo.svg" alt="Hiilas Photography — with love & warmth"
                                     class="site-logo">
                             </a>
                         </div>
 
-                        <div class="header-spacer"></div>
-
-                        <!-- Right group -->
                         <div class="header-right">
-                            <!-- Languages (desktop) -->
-                            <ul class="language-switch desktop-only" aria-label="Language">
-                                <li><a href="pricing.html">EN</a></li>
+                            <button class="mobile-nav-toggle" type="button" aria-expanded="false">
+                                <span class="mobile-nav-label">Pricing</span>
+                            </button>
+
+                            <ul class="main-menu">
+                                <li><a href="index.html">Home</a></li>
+                                <li><a href="about.html">About</a></li>
+                                <li><a href="pricing.html" class="is-current">Pricing</a></li>
+                                <li><a href="contact.html">Contact</a></li>
+                            </ul>
+
+                            <ul class="lang-menu" aria-label="Language">
+                                <li><span class="is-current-lang">EN</span></li>
                                 <li><a href="pricing-fi.html">FI</a></li>
                                 <li><a href="pricing-ru.html">RU</a></li>
                             </ul>
+                        </div>
 
-                            <!-- Burger -->
-                            <div class="navicon">
-                                <div class="menu-container">
-                                    <div class="circle dark inline" role="button" tabindex="0" aria-label="Open menu"
-                                        aria-controls="site-menu" aria-expanded="false">
-                                        <i class="icon ion-navicon" aria-hidden="true"></i>
-                                    </div>
-
-                                    <div id="site-menu" class="list-menu" role="dialog" aria-modal="true"
-                                        aria-hidden="true" aria-label="Main menu">
-                                        <i class="icon ion-close-round close-iframe" role="button" tabindex="0"
-                                            aria-label="Close menu"></i>
-                                        <ul class="language-switch mobile-only" aria-label="Language">
-                                            <li><a href="pricing.html">EN</a></li>
-                                            <li><a href="pricing-fi.html">FI</a></li>
-                                            <li><a href="pricing-ru.html">RU</a></li>
-                                        </ul>
-                                        <div class="intro-inner">
-                                            <ul id="nav-menu">
-                                                <li><a href="index.html">Home</a></li>
-                                                <li><a href="about.html">About</a></li>
-                                                <li><a href="pricing.html">Pricing</a></li>
-                                                <li><a href="contact.html">Contact</a></li>
-                                            </ul>
-                                        </div>
-                                    </div><!-- /.list-menu -->
-                                </div><!-- /.menu-container -->
-                            </div><!-- /.navicon -->
-                        </div><!-- /.header-right -->
-                    </div><!-- /.header-row -->
-                </div><!-- /.container -->
-            </div><!-- /.navbar -->
+                    </div>
+                </div>
+            </div>
         </nav>
     </div>
 
     <!-- HERO -->
-    <header id="header" class="header-one">
+    <!-- Header section – collage like RU -->
+    <section id="header" class="header-one header-pricing">
+        <picture class="hero-bg">
+            <img src="images/pricing-hero-collage1.jpg" alt="Hiilas Photography – pricing collage" decoding="async"
+                fetchpriority="high">
+        </picture>
+
         <div class="container">
-            <div class="header-thumb wow fadeInUp" data-wow-delay="0.3s">
-                <h1>
-                    <span class="line1">Pricing</span>
-                    <span class="line2">Simple packages · flexible add-ons · always with warmth ♥</span>
-                </h1>
+            <!-- no overlay text here -->
+        </div>
+    </section>
+
+    <!-- Text under collage -->
+    <section class="pricing-hero-text">
+        <div class="container">
+            <div class="pricing-hero-title">
+                <h1>PRICING</h1>
+                <div class="pricing-hero-heart">♥</div>
+                <p>SIMPLE PACKAGES · FLEXIBLE ADD-ONS · ALWAYS WITH WARMTH</p>
             </div>
         </div>
-    </header>
+    </section>
 
-    <!-- PRICING -->
-    <section id="pricing" style="padding-top:3rem; padding-bottom:3rem;">
+    <!-- PRICING EN — journeys / choose your story -->
+    <section id="pricing" class="pricing-simple pricing-letter" style="padding-top:3rem; padding-bottom:3rem;">
         <div class="container">
             <div class="wow fadeInUp col-md-10 col-md-offset-1 col-sm-12" data-wow-delay="0.2s">
 
-                <ul class="filter-wrapper" aria-label="Categories" style="margin-bottom:22px;">
-                    <li><a class="is-checked" data-group="all">All</a></li>
-                    <li><a data-group="couples">Couples</a></li>
-                    <li><a data-group="family">Family</a></li>
-                    <li><a data-group="wedding">Wedding</a></li>
-                    <li><a data-group="events">Events</a></li>
-                    <li><a data-group="portrait">Portraits</a></li>
-                    <li><a data-group="other">Other</a></li>
-                </ul>
+                <h2 class="pricing-kicker">Sessions &amp; packages</h2>
+                <p class="pricing-intro">
+                    My main goal is to make you a little happier and to create warm memories for you. I want the pricing
+                    to feel clear and calm, so here you can find an outline of my services. The final price may vary
+                    depending on the format, timing and location — we always talk everything through in advance, and I
+                    choose the best option for you personally.
+                </p>
 
-                <div class="row">
-                    <div class="col-sm-6">
-                        <article class="price-card" data-group="portrait">
-                            <h3>Portrait Session</h3>
-                            <p class="price">from €100 + ALV</p>
-                            <ul class="feat">
-                                <li>Studio, home or outdoors</li>
-                                <li>Artistic edit + light retouch</li>
-                                <li>Posing support & styling tips</li>
-                                <li>Studio rent is paid separately (I can recommend cozy studios)</li>
-                            </ul>
-                            <a class="btn-book" href="contact.html?pkg=Portrait%20Session#contact">Book portrait</a>
-                        </article>
-                    </div>
+                <div class="pricing-letter-body">
 
-                    <div class="col-sm-6">
-                        <article class="price-card" data-group="couples">
-                            <h3>Love Story (Couple)</h3>
-                            <p class="price">from €150 + ALV</p>
-                            <ul class="feat">
-                                <li>Warm, relaxed atmosphere</li>
-                                <li>Support & guidance during the shoot</li>
-                                <li>Signature color edit</li>
-                            </ul>
-                            <a class="btn-book" href="contact.html?pkg=Love%20Story#contact">Book Love Story</a>
-                        </article>
-                    </div>
+                    <p>
+                        If you need
+                        <a href="contact.html?pkg=Portrait%20session#contact" class="pricing-link">a portrait
+                            session</a>,
+                        it’s a beautiful way to capture an important moment of your life. Just you, me and my camera.
+                        Shooting time starts from 1.5 hours, with at least 50 edited photos delivered.
+                        <a href="contact.html?pkg=Portrait%20session#contact" class="pricing-link">Price: 100&nbsp;€</a>
+                        (incl. VAT 25.5%).
+                    </p>
 
-                    <div class="col-sm-6">
-                        <article class="price-card" data-group="wedding">
-                            <h3>City Hall Ceremony + Walk</h3>
-                            <p class="price">from €120 + ALV</p>
-                            <ul class="feat">
-                                <li>Ceremony and a walk together</li>
-                                <li>Natural, candid shots</li>
-                                <li>Gift: a short video keepsake</li>
-                            </ul>
-                            <a class="btn-book" href="contact.html?pkg=City%20Hall%20+%20Walk#contact">Book ceremony +
-                                walk</a>
-                        </article>
-                    </div>
+                    <p>
+                        If you want to capture the feelings between two people — a walk, a hug, a quiet moment together
+                        —
+                        <a href="contact.html?pkg=Couple%20session%20/%20love%20story#contact" class="pricing-link">
+                            a couple session / love story
+                        </a>
+                        is perfect. Shooting time from 1.5 hours, with at least 100 photos delivered.
+                        <a href="contact.html?pkg=Couple%20session%20/%20love%20story#contact" class="pricing-link">
+                            Price: 150&nbsp;€
+                        </a>
+                        (incl. VAT 25.5%).
+                    </p>
 
-                    <div class="col-sm-6">
-                        <article class="price-card" data-group="wedding">
-                            <h3>Intimate Wedding (up to 5 h)</h3>
-                            <p class="price">from €450 + ALV</p>
-                            <ul class="feat">
-                                <li>+€20 per each extra hour</li>
-                                <li>Up to ~15 guests</li>
-                                <li>Ceremony, walk & dinner coverage</li>
-                                <li>Timeline / route consultation</li>
-                                <li>Natural color + artistic edit</li>
-                            </ul>
-                            <a class="btn-book" href="contact.html?pkg=Intimate%20Wedding#contact">Book wedding</a>
-                        </article>
-                    </div>
+                    <p>
+                        When you want everyone to be in the frame —
+                        <a href="contact.html?pkg=Family%20session#contact" class="pricing-link">a family session</a>.
+                        Family is the most precious thing we have. Up to four people, shooting time from 1.5 hours,
+                        around 200 photos delivered.
+                        <a href="contact.html?pkg=Family%20session#contact" class="pricing-link">Price: 170&nbsp;€</a>
+                        (incl. VAT 25.5%).
+                    </p>
 
-                    <div class="col-sm-6">
-                        <article class="price-card" data-group="family">
-                            <h3>Family Session</h3>
-                            <p class="price">from €150 + ALV</p>
-                            <ul class="feat">
-                                <li>Family, kids, maternity or home stories</li>
-                                <li>Warm, natural atmosphere</li>
-                                <li>Signature edit</li>
-                                <li>Home, nature or studio (studio rent separately)</li>
-                            </ul>
-                            <a class="btn-book" href="contact.html?pkg=Family%20Session#contact">Book family</a>
-                        </article>
-                    </div>
+                    <p>
+                        If you are celebrating something special — a birthday, event or any meaningful day —
+                        <a href="contact.html?pkg=Reportage%20session#contact" class="pricing-link">a reportage
+                            session</a>
+                        will capture the full atmosphere. I focus on emotions, details and natural moments.
+                        Shooting time from 1.5 hours, with at least 200 photos delivered.
+                        <a href="contact.html?pkg=Reportage%20session#contact" class="pricing-link">Price:
+                            150&nbsp;€</a>
+                        (incl. VAT 25.5%).
+                    </p>
 
-                    <div class="col-sm-6">
-                        <article class="price-card" data-group="events">
-                            <h3>Event / Reportage</h3>
-                            <p class="price">from €120 + ALV</p>
-                            <ul class="feat">
-                                <li>Real atmosphere, emotions & details</li>
-                                <li>Perfect for birthdays, christenings, cozy evenings</li>
-                            </ul>
-                            <a class="btn-book" href="contact.html?pkg=Event%20Reportage#contact">Book event</a>
-                        </article>
-                    </div>
+                    <p>
+                        If you have a special idea in mind: a creative project, business content, or something that’s
+                        hard to describe at first — let’s create it together.
+                        <a href="contact.html?pkg=Creative%20project#contact" class="pricing-link">
+                            Price starts from 100&nbsp;€
+                        </a>
+                        (incl. VAT 25.5%).
+                    </p>
 
-                    <div class="col-sm-6">
-                        <article class="price-card" data-group="other">
-                            <h3>Other formats</h3>
-                            <p class="price">from €100 + ALV</p>
-                            <ul class="feat">
-                                <li>Creative & content shoots, beauty portraits, gifts</li>
-                                <li>Tell me your idea — we’ll shape the style</li>
-                            </ul>
-                            <a class="btn-book" href="contact.html?pkg=Other#contact">Ask about your idea</a>
-                        </article>
-                    </div>
+                    <p>
+                        For small, intimate celebrations —
+                        <a href="contact.html?pkg=Elopement#contact" class="pricing-link">an elopement</a>,
+                        when it’s just the two of you and your closest people, up to 15 guests.
+                        Shooting up to 5 hours, with at least 400 photos delivered.
+                        <a href="contact.html?pkg=Elopement#contact" class="pricing-link">
+                            Price starts from 450&nbsp;€
+                        </a>
+                        (incl. VAT 25.5%).
+                    </p>
+
+                    <p>
+                        By booking my services, you agree to my artistic editing style and light retouching. Please take
+                        some time to look through my portfolio to make sure my style resonates with you. I do not
+                        provide
+                        heavy retouching or RAW files. Final photos are delivered within 14 days for regular sessions
+                        and
+                        up to 30 days for elopements.
+                    </p>
+
                 </div>
 
-                <div class="addons">
-                    <h4>Important</h4>
-                    <ul>
-                        <li>All shoots include artistic edit & light retouch</li>
-                        <li>Privacy option (no portfolio use): +€20</li>
-                        <li>Typical shooting time from ~1.5 hours</li>
-                        <li>Travel outside Helsinki/Espoo/Vantaa — by agreement</li>
-                        <li>Delivery time: up to 14 days</li>
-                    </ul>
-                    <p class="note">All prices in EUR, + ALV (VAT). Details — upon agreement.</p>
+                <div class="pricing-letter-cta">
+                    <p>
+                        If you would like to book a session with me, feel free to write — we will talk everything
+                        through. Thank you for your time and your trust.
+                    </p>
+                    <a class="btn-book btn-book-letter" href="contact.html#contact">
+                        Let’s talk about your shoot
+                    </a>
                 </div>
 
             </div>
@@ -229,11 +197,14 @@
         <div class="container">
             <div class="wow fadeInUp col-md-10 col-md-offset-1 col-sm-12" data-wow-delay="0.2s">
                 <h3 style="letter-spacing:1px; text-transform:none; margin-bottom:10px;">FAQ</h3>
-                <p><strong>How do I book?</strong> Choose a package and send a message — I’ll get back with available
+                <p><strong>How do I book?</strong> Choose a package and send a message — I’ll get back with
+                    available
                     dates and a short questionnaire.</p>
-                <p><strong>Do you travel?</strong> Yes! Travel within Helsinki area is included. Outside Uusimaa —
+                <p><strong>Do you travel?</strong> Yes! Travel within Helsinki area is included. Outside
+                    Uusimaa —
                     travel fee as listed above.</p>
-                <p><strong>When do I receive photos?</strong> Standard delivery - up to 14 days, express option is
+                <p><strong>When do I receive photos?</strong> Standard delivery - up to 14 days, express
+                    option is
                     available.
                 </p>
             </div>
@@ -257,6 +228,7 @@
     <script src="js/wow.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/loader.js"></script>
+    <script src="js/custom.js"></script>
     <script>
         (function () {
             var openBtn = document.querySelector('.circle.inline');
@@ -282,7 +254,7 @@
                     var tags = (card.getAttribute('data-tags') || '').split(/\s+/);
                     var show = (group === 'all')
                         || (g ? g === group : (tags.length ? tags.includes(group) : true));
-                    card.parentElement.style.display = show ? '' : 'none';
+                    card.style.display = show ? '' : 'none';
                 });
             }
             chips.forEach(function (a) {

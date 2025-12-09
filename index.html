@@ -118,79 +118,61 @@
   <link rel="mask-icon" href="images/favicon-ah.svg" color="#111111"> <!-- для Safari pinned tab -->
 </head>
 
-<body data-bg="rose-vert-ultra" data-fx="zoomout"
-  data-ui="chips-glass btn-ghost btn-ghost-strong preload-glass preload-glow" data-card="glass">
+<body data-bg="rose-vert-ultra" data-fx="zoomout" data-ui="chips-glass btn-ghost preload-glass preload-glow"
+  data-card="glass">
 
   <div class="preloader">
     <img src="images/brand/hiilas-logo.svg" alt="" class="loader-logo" aria-hidden="true">
   </div>
 
   <div class="nav-container">
-    <nav class="nav-inner transparent">
+    <nav class="nav-inner">
       <div class="navbar">
         <div class="container">
           <div class="header-row">
-            <!-- ЛОГО -->
+
+            <!-- Logo -->
             <div class="brand">
               <a href="index.html" aria-label="Hiilas Photography — home">
-                <img src="images/brand/hiilas-logo.svg" alt="Hiilas Photography — with love & lämpö" class="site-logo">
+                <img src="images/brand/hiilas-logo.svg" alt="Hiilas Photography — with love & warmth" class="site-logo">
               </a>
             </div>
 
-            <div class="header-spacer"></div>
-
-            <!-- ГРУППА СПРАВА: языки + бургер -->
+            <!-- HOME + меню + языки в одном блоке -->
             <div class="header-right">
-              <!-- Языки (десктоп) -->
-              <ul class="language-switch desktop-only">
-                <li><a href="index.html">EN</a></li>
+
+              <!-- Кнопка HOME (мобильная) -->
+              <button class="mobile-nav-toggle" type="button" aria-expanded="false">
+                <span class="mobile-nav-label">Home</span>
+              </button>
+
+              <!-- Main menu (EN) -->
+              <ul class="main-menu">
+                <li><a href="index.html" class="is-current">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="pricing.html">Pricing</a></li>
+                <li><a href="contact.html">Contact</a></li>
+              </ul>
+
+              <!-- Languages -->
+              <ul class="lang-menu" aria-label="Language">
+                <li><span class="is-current-lang">EN</span></li>
                 <li><a href="index-fi.html">FI</a></li>
                 <li><a href="index-ru.html">RU</a></li>
               </ul>
 
-              <!-- Бургер -->
-              <div class="navicon">
-                <div class="menu-container">
-                  <!-- КНОПКА-БУРГЕР -->
-                  <div class="circle dark inline" role="button" tabindex="0" aria-label="Open menu"
-                    aria-controls="site-menu" aria-expanded="false">
-                    <i class="icon ion-navicon"></i>
-                  </div>
+            </div><!-- /.header-right -->
 
-                  <!-- ОВЕРЛЕЙ-МЕНЮ -->
-                  <div id="site-menu" class="list-menu" role="dialog" aria-modal="true" aria-hidden="true"
-                    aria-label="Main menu">
-                    <i class="icon ion-close-round close-iframe" role="button" tabindex="0" aria-label="Close menu"></i>
-
-                    <ul class="language-switch mobile-only" aria-label="Language switcher">
-                      <li><a href="index.html">EN</a></li>
-                      <li><a href="index-fi.html">FI</a></li>
-                      <li><a href="index-ru.html">RU</a></li>
-                    </ul>
-
-                    <div class="intro-inner">
-                      <ul id="nav-menu" aria-label="Primary navigation">
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="about.html">About</a></li>
-                        <li><a href="pricing.html">Pricing</a></li>
-                        <li><a href="contact.html">Contact</a></li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div><!-- /header-right -->
-          </div><!-- /header-row -->
-        </div>
-      </div>
+          </div><!-- /.header-row -->
+        </div><!-- /.container -->
+      </div><!-- /.navbar -->
     </nav>
   </div>
 
-
   <!-- Header section
 ================================================== -->
-  <section id="header" class="header-one">
-    <!-- responsive background -->
+  <section id="header" class="header-one hero-index-style page-home-header">
+    <!-- только фон-фото, без капсулы -->
     <picture class="hero-bg">
       <!-- ≥1200px -->
       <source type="image/avif" media="(min-width:1200px)" srcset="images/header-bg-2000.avif">
@@ -198,7 +180,7 @@
       <!-- ≥768px -->
       <source type="image/avif" media="(min-width:768px)" srcset="images/header-bg-1400.avif">
       <source type="image/webp" media="(min-width:768px)" srcset="images/header-bg-1400.webp">
-      <!-- мобильные + fallback -->
+      <!-- mobile + fallback -->
       <source type="image/avif" srcset="images/header-bg-800.avif">
       <source type="image/webp" srcset="images/header-bg-800.webp">
 
@@ -206,20 +188,18 @@
         srcset="images/header-bg-800.jpg 800w, images/header-bg-1400.jpg 1400w, images/header-bg-2000.jpg 2000w"
         sizes="100vw" decoding="async" fetchpriority="high" alt="" aria-hidden="true" width="1400" height="933">
     </picture>
+  </section>
 
+  <!-- Подпись под главным фото -->
+  <section class="index-hero-text">
     <div class="container">
-      <div class="row">
-        <div class="col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8">
-          <div class="header-thumb">
-            <h1 class="wow fadeIn" data-wow-delay="0.8s">
-              <span class="line1">Photographing</span>
-              <span class="line2">with love <span class="nobr">&amp; lämpö</span></span>
-            </h1>
-          </div>
-        </div>
+      <div class="index-hero-title">
+        <h1>Photography with love &amp; lämpö</h1>
+        <p>Documentary, warm & honest photography in Helsinki and nearby.</p>
       </div>
     </div>
   </section>
+
   <!-- Portfolio section
 ================================================== -->
   <section id="portfolio">
@@ -441,18 +421,6 @@
                 <div class="iso-box graphic">
                   <picture>
                     <source type="image/avif"
-                      srcset="images/portrait17-480.avif 480w, images/portrait17-740.avif 740w, images/portrait17-900.avif 900w, images/portrait17-1120.avif 1120w">
-                    <source type="image/webp"
-                      srcset="images/portrait17-480.webp 480w, images/portrait17-740.webp 740w, images/portrait17-900.webp 900w, images/portrait17-1120.webp 1120w">
-                    <img src="images/portrait17-740.jpg"
-                      srcset="images/portrait17-480.jpg 480w, images/portrait17-740.jpg 740w, images/portrait17-900.jpg 900w, images/portrait17-1120.jpg 1120w"
-                      sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Portrait 17" loading="lazy"
-                      decoding="async" class=" " width="1189" height="1783">
-                  </picture>
-                </div>
-                <div class="iso-box graphic">
-                  <picture>
-                    <source type="image/avif"
                       srcset="images/portrait18-480.avif 480w, images/portrait18-740.avif 740w, images/portrait18-900.avif 900w, images/portrait18-1120.avif 1120w">
                     <source type="image/webp"
                       srcset="images/portrait18-480.webp 480w, images/portrait18-740.webp 740w, images/portrait18-900.webp 900w, images/portrait18-1120.webp 1120w">
@@ -510,7 +478,7 @@
                       decoding="async" class=" " width="1189" height="1783">
                   </picture>
                 </div>
-                <div class="iso-box graphic">
+                <!--<div class="iso-box graphic">
                   <picture>
                     <source type="image/avif"
                       srcset="images/portrait23-480.avif 480w, images/portrait23-740.avif 740w, images/portrait23-900.avif 900w, images/portrait23-1120.avif 1120w">
@@ -521,7 +489,7 @@
                       sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Portrait 23" loading="lazy"
                       decoding="async" class=" " width="1189" height="1783">
                   </picture>
-                </div>
+                </div>-->
                 <div class="iso-box graphic">
                   <picture>
                     <source type="image/avif"
@@ -531,18 +499,6 @@
                     <img src="images/portrait24-740.jpg"
                       srcset="images/portrait24-480.jpg 480w, images/portrait24-740.jpg 740w, images/portrait24-900.jpg 900w, images/portrait24-1120.jpg 1120w"
                       sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Portrait 24" loading="lazy"
-                      decoding="async" class=" " width="1189" height="1783">
-                  </picture>
-                </div>
-                <div class="iso-box graphic">
-                  <picture>
-                    <source type="image/avif"
-                      srcset="images/portrait25-480.avif 480w, images/portrait25-740.avif 740w, images/portrait25-900.avif 900w, images/portrait25-1120.avif 1120w">
-                    <source type="image/webp"
-                      srcset="images/portrait25-480.webp 480w, images/portrait25-740.webp 740w, images/portrait25-900.webp 900w, images/portrait25-1120.webp 1120w">
-                    <img src="images/portrait25-740.jpg"
-                      srcset="images/portrait25-480.jpg 480w, images/portrait25-740.jpg 740w, images/portrait25-900.jpg 900w, images/portrait25-1120.jpg 1120w"
-                      sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Portrait 25" loading="lazy"
                       decoding="async" class=" " width="1189" height="1783">
                   </picture>
                 </div>
@@ -579,7 +535,7 @@
                   </picture>
                 </div>
 
-                <!-- Couples (8 фото) -->
+                <!-- Couples (17 фото) -->
                 <div class="iso-box template">
                   <picture>
                     <source type="image/avif"
@@ -676,7 +632,167 @@
                       decoding="async" class=" " width="1189" height="1783">
                   </picture>
                 </div>
+                <div class="iso-box template">
+                  <picture>
+                    <source type="image/avif" srcset="images/couples9-480.avif 480w,
+              images/couples9-740.avif 740w,
+              images/couples9-900.avif 900w,
+              images/couples9-1120.avif 1120w">
+                    <source type="image/webp" srcset="images/couples9-480.webp 480w,
+              images/couples9-740.webp 740w,
+              images/couples9-900.webp 900w,
+              images/couples9-1120.webp 1120w">
+                    <img src="images/couples9-740.jpg" srcset="images/couples9-480.jpg 480w,
+              images/couples9-740.jpg 740w,
+              images/couples9-900.jpg 900w,
+              images/couples9-1120.jpg 1120w" sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px"
+                      alt="Couples 9" loading="lazy" decoding="async" width="1189" height="1783">
+                  </picture>
+                </div>
 
+                <div class="iso-box template">
+                  <picture>
+                    <source type="image/avif" srcset="images/couples10-480.avif 480w,
+              images/couples10-740.avif 740w,
+              images/couples10-900.avif 900w,
+              images/couples10-1120.avif 1120w">
+                    <source type="image/webp" srcset="images/couples10-480.webp 480w,
+              images/couples10-740.webp 740w,
+              images/couples10-900.webp 900w,
+              images/couples10-1120.webp 1120w">
+                    <img src="images/couples10-740.jpg" srcset="images/couples10-480.jpg 480w,
+              images/couples10-740.jpg 740w,
+              images/couples10-900.jpg 900w,
+              images/couples10-1120.jpg 1120w" sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px"
+                      alt="Couples 10" loading="lazy" decoding="async" width="1189" height="1783">
+                  </picture>
+                </div>
+
+                <div class="iso-box template">
+                  <picture>
+                    <source type="image/avif" srcset="images/couples11-480.avif 480w,
+              images/couples11-740.avif 740w,
+              images/couples11-900.avif 900w,
+              images/couples11-1120.avif 1120w">
+                    <source type="image/webp" srcset="images/couples11-480.webp 480w,
+              images/couples11-740.webp 740w,
+              images/couples11-900.webp 900w,
+              images/couples11-1120.webp 1120w">
+                    <img src="images/couples11-740.jpg" srcset="images/couples11-480.jpg 480w,
+              images/couples11-740.jpg 740w,
+              images/couples11-900.jpg 900w,
+              images/couples11-1120.jpg 1120w" sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px"
+                      alt="Couples 11" loading="lazy" decoding="async" width="1189" height="1783">
+                  </picture>
+                </div>
+
+                <div class="iso-box template">
+                  <picture>
+                    <source type="image/avif" srcset="images/couples12-480.avif 480w,
+              images/couples12-740.avif 740w,
+              images/couples12-900.avif 900w,
+              images/couples12-1120.avif 1120w">
+                    <source type="image/webp" srcset="images/couples12-480.webp 480w,
+              images/couples12-740.webp 740w,
+              images/couples12-900.webp 900w,
+              images/couples12-1120.webp 1120w">
+                    <img src="images/couples12-740.jpg" srcset="images/couples12-480.jpg 480w,
+              images/couples12-740.jpg 740w,
+              images/couples12-900.jpg 900w,
+              images/couples12-1120.jpg 1120w" sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px"
+                      alt="Couples 12" loading="lazy" decoding="async" width="1189" height="1783">
+                  </picture>
+                </div>
+
+                <div class="iso-box template">
+                  <picture>
+                    <source type="image/avif" srcset="images/couples13-480.avif 480w,
+              images/couples13-740.avif 740w,
+              images/couples13-900.avif 900w,
+              images/couples13-1120.avif 1120w">
+                    <source type="image/webp" srcset="images/couples13-480.webp 480w,
+              images/couples13-740.webp 740w,
+              images/couples13-900.webp 900w,
+              images/couples13-1120.webp 1120w">
+                    <img src="images/couples13-740.jpg" srcset="images/couples13-480.jpg 480w,
+              images/couples13-740.jpg 740w,
+              images/couples13-900.jpg 900w,
+              images/couples13-1120.jpg 1120w" sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px"
+                      alt="Couples 13" loading="lazy" decoding="async" width="1189" height="1783">
+                  </picture>
+                </div>
+
+                <div class="iso-box template">
+                  <picture>
+                    <source type="image/avif" srcset="images/couples14-480.avif 480w,
+              images/couples14-740.avif 740w,
+              images/couples14-900.avif 900w,
+              images/couples14-1120.avif 1120w">
+                    <source type="image/webp" srcset="images/couples14-480.webp 480w,
+              images/couples14-740.webp 740w,
+              images/couples14-900.webp 900w,
+              images/couples14-1120.webp 1120w">
+                    <img src="images/couples14-740.jpg" srcset="images/couples14-480.jpg 480w,
+              images/couples14-740.jpg 740w,
+              images/couples14-900.jpg 900w,
+              images/couples14-1120.jpg 1120w" sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px"
+                      alt="Couples 14" loading="lazy" decoding="async" width="1189" height="1783">
+                  </picture>
+                </div>
+
+                <div class="iso-box template">
+                  <picture>
+                    <source type="image/avif" srcset="images/couples15-480.avif 480w,
+              images/couples15-740.avif 740w,
+              images/couples15-900.avif 900w,
+              images/couples15-1120.avif 1120w">
+                    <source type="image/webp" srcset="images/couples15-480.webp 480w,
+              images/couples15-740.webp 740w,
+              images/couples15-900.webp 900w,
+              images/couples15-1120.webp 1120w">
+                    <img src="images/couples15-740.jpg" srcset="images/couples15-480.jpg 480w,
+              images/couples15-740.jpg 740w,
+              images/couples15-900.jpg 900w,
+              images/couples15-1120.jpg 1120w" sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px"
+                      alt="Couples 15" loading="lazy" decoding="async" width="1189" height="1783">
+                  </picture>
+                </div>
+
+                <div class="iso-box template">
+                  <picture>
+                    <source type="image/avif" srcset="images/couples16-480.avif 480w,
+              images/couples16-740.avif 740w,
+              images/couples16-900.avif 900w,
+              images/couples16-1120.avif 1120w">
+                    <source type="image/webp" srcset="images/couples16-480.webp 480w,
+              images/couples16-740.webp 740w,
+              images/couples16-900.webp 900w,
+              images/couples16-1120.webp 1120w">
+                    <img src="images/couples16-740.jpg" srcset="images/couples16-480.jpg 480w,
+              images/couples16-740.jpg 740w,
+              images/couples16-900.jpg 900w,
+              images/couples16-1120.jpg 1120w" sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px"
+                      alt="Couples 16" loading="lazy" decoding="async" width="1189" height="1783">
+                  </picture>
+                </div>
+
+                <div class="iso-box template">
+                  <picture>
+                    <source type="image/avif" srcset="images/couples17-480.avif 480w,
+              images/couples17-740.avif 740w,
+              images/couples17-900.avif 900w,
+              images/couples17-1120.avif 1120w">
+                    <source type="image/webp" srcset="images/couples17-480.webp 480w,
+              images/couples17-740.webp 740w,
+              images/couples17-900.webp 900w,
+              images/couples17-1120.webp 1120w">
+                    <img src="images/couples17-740.jpg" srcset="images/couples17-480.jpg 480w,
+              images/couples17-740.jpg 740w,
+              images/couples17-900.jpg 900w,
+              images/couples17-1120.jpg 1120w" sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px"
+                      alt="Couples 17" loading="lazy" decoding="async" width="1189" height="1783">
+                  </picture>
+                </div>
                 <!-- Families (12 фото) -->
                 <div class="iso-box photoshop">
                   <picture>
@@ -820,8 +936,110 @@
                       decoding="async" class=" " width="1189" height="1783">
                   </picture>
                 </div>
+                <div class="iso-box photoshop">
+                  <picture>
+                    <source type="image/avif"
+                      srcset="images/family13-480.avif 480w, images/family13-740.avif 740w, images/family13-900.avif 900w, images/family13-1120.avif 1120w">
+                    <source type="image/webp"
+                      srcset="images/family13-480.webp 480w, images/family13-740.webp 740w, images/family13-900.webp 900w, images/family13-1120.webp 1120w">
+                    <img src="images/family13-740.jpg"
+                      srcset="images/family13-480.jpg 480w, images/family13-740.jpg 740w, images/family13-900.jpg 900w, images/family13-1120.jpg 1120w"
+                      sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Family 13" loading="lazy"
+                      decoding="async" class=" " width="1189" height="1783">
+                  </picture>
+                </div>
 
-                <!-- Elopements (7 фото) -->
+                <div class="iso-box photoshop">
+                  <picture>
+                    <source type="image/avif"
+                      srcset="images/family14-480.avif 480w, images/family14-740.avif 740w, images/family14-900.avif 900w, images/family14-1120.avif 1120w">
+                    <source type="image/webp"
+                      srcset="images/family14-480.webp 480w, images/family14-740.webp 740w, images/family14-900.webp 900w, images/family14-1120.webp 1120w">
+                    <img src="images/family14-740.jpg"
+                      srcset="images/family14-480.jpg 480w, images/family14-740.jpg 740w, images/family14-900.jpg 900w, images/family14-1120.jpg 1120w"
+                      sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Family 14" loading="lazy"
+                      decoding="async" class=" " width="1189" height="791">
+                  </picture>
+                </div>
+
+                <div class="iso-box photoshop">
+                  <picture>
+                    <source type="image/avif"
+                      srcset="images/family15-480.avif 480w, images/family15-740.avif 740w, images/family15-900.avif 900w, images/family15-1120.avif 1120w">
+                    <source type="image/webp"
+                      srcset="images/family15-480.webp 480w, images/family15-740.webp 740w, images/family15-900.webp 900w, images/family15-1120.webp 1120w">
+                    <img src="images/family15-740.jpg"
+                      srcset="images/family15-480.jpg 480w, images/family15-740.jpg 740w, images/family15-900.jpg 900w, images/family15-1120.jpg 1120w"
+                      sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Family 15" loading="lazy"
+                      decoding="async" class=" " width="1189" height="1783">
+                  </picture>
+                </div>
+
+                <div class="iso-box photoshop">
+                  <picture>
+                    <source type="image/avif"
+                      srcset="images/family16-480.avif 480w, images/family16-740.avif 740w, images/family16-900.avif 900w, images/family16-1120.avif 1120w">
+                    <source type="image/webp"
+                      srcset="images/family16-480.webp 480w, images/family16-740.webp 740w, images/family16-900.webp 900w, images/family16-1120.webp 1120w">
+                    <img src="images/family16-740.jpg"
+                      srcset="images/family16-480.jpg 480w, images/family16-740.jpg 740w, images/family16-900.jpg 900w, images/family16-1120.jpg 1120w"
+                      sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Family 16" loading="lazy"
+                      decoding="async" class=" " width="1189" height="1783">
+                  </picture>
+                </div>
+
+                <div class="iso-box photoshop">
+                  <picture>
+                    <source type="image/avif"
+                      srcset="images/family17-480.avif 480w, images/family17-740.avif 740w, images/family17-900.avif 900w, images/family17-1120.avif 1120w">
+                    <source type="image/webp"
+                      srcset="images/family17-480.webp 480w, images/family17-740.webp 740w, images/family17-900.webp 900w, images/family17-1120.webp 1120w">
+                    <img src="images/family17-740.jpg"
+                      srcset="images/family17-480.jpg 480w, images/family17-740.jpg 740w, images/family17-900.jpg 900w, images/family17-1120.jpg 1120w"
+                      sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Family 17" loading="lazy"
+                      decoding="async" class=" " width="1189" height="1783">
+                  </picture>
+                </div>
+
+                <div class="iso-box photoshop">
+                  <picture>
+                    <source type="image/avif"
+                      srcset="images/family18-480.avif 480w, images/family18-740.avif 740w, images/family18-900.avif 900w, images/family18-1120.avif 1120w">
+                    <source type="image/webp"
+                      srcset="images/family18-480.webp 480w, images/family18-740.webp 740w, images/family18-900.webp 900w, images/family18-1120.webp 1120w">
+                    <img src="images/family18-740.jpg"
+                      srcset="images/family18-480.jpg 480w, images/family18-740.jpg 740w, images/family18-900.jpg 900w, images/family18-1120.jpg 1120w"
+                      sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Family 18" loading="lazy"
+                      decoding="async" class=" " width="1189" height="791">
+                  </picture>
+                </div>
+
+                <div class="iso-box photoshop">
+                  <picture>
+                    <source type="image/avif"
+                      srcset="images/family19-480.avif 480w, images/family19-740.avif 740w, images/family19-900.avif 900w, images/family19-1120.avif 1120w">
+                    <source type="image/webp"
+                      srcset="images/family19-480.webp 480w, images/family19-740.webp 740w, images/family19-900.webp 900w, images/family19-1120.webp 1120w">
+                    <img src="images/family19-740.jpg"
+                      srcset="images/family19-480.jpg 480w, images/family19-740.jpg 740w, images/family19-900.jpg 900w, images/family19-1120.jpg 1120w"
+                      sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Family 19" loading="lazy"
+                      decoding="async" class=" " width="1189" height="1783">
+                  </picture>
+                </div>
+
+                <div class="iso-box photoshop">
+                  <picture>
+                    <source type="image/avif"
+                      srcset="images/family20-480.avif 480w, images/family20-740.avif 740w, images/family20-900.avif 900w, images/family20-1120.avif 1120w">
+                    <source type="image/webp"
+                      srcset="images/family20-480.webp 480w, images/family20-740.webp 740w, images/family20-900.webp 900w, images/family20-1120.webp 1120w">
+                    <img src="images/family20-740.jpg"
+                      srcset="images/family20-480.jpg 480w, images/family20-740.jpg 740w, images/family20-900.jpg 900w, images/family20-1120.jpg 1120w"
+                      sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Family 20" loading="lazy"
+                      decoding="async" class=" " width="1189" height="1783">
+                  </picture>
+                </div>
+                <!-- Elopements (22 фото) -->
                 <div class="iso-box branding">
                   <picture>
                     <source type="image/avif"
@@ -844,18 +1062,6 @@
                       srcset="images/elopement2-480.jpg 480w, images/elopement2-740.jpg 740w, images/elopement2-900.jpg 900w, images/elopement2-1120.jpg 1120w"
                       sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Elopement 2" loading="lazy"
                       decoding="async" class=" " width="1189" height="791">
-                  </picture>
-                </div>
-                <div class="iso-box branding">
-                  <picture>
-                    <source type="image/avif"
-                      srcset="images/elopement3-480.avif 480w, images/elopement3-740.avif 740w, images/elopement3-900.avif 900w, images/elopement3-1120.avif 1120w">
-                    <source type="image/webp"
-                      srcset="images/elopement3-480.webp 480w, images/elopement3-740.webp 740w, images/elopement3-900.webp 900w, images/elopement3-1120.webp 1120w">
-                    <img src="images/elopement3-740.jpg"
-                      srcset="images/elopement3-480.jpg 480w, images/elopement3-740.jpg 740w, images/elopement3-900.jpg 900w, images/elopement3-1120.jpg 1120w"
-                      sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Elopement 3" loading="lazy"
-                      decoding="async" class=" " width="1189" height="1783">
                   </picture>
                 </div>
                 <div class="iso-box branding">
@@ -906,17 +1112,205 @@
                       decoding="async" class=" " width="1189" height="1783">
                   </picture>
                 </div>
+                <div class="iso-box branding">
+                  <picture>
+                    <source type="image/avif"
+                      srcset="images/elopement8-480.avif 480w, images/elopement8-740.avif 740w, images/elopement8-900.avif 900w, images/elopement8-1120.avif 1120w">
+                    <source type="image/webp"
+                      srcset="images/elopement8-480.webp 480w, images/elopement8-740.webp 740w, images/elopement8-900.webp 900w, images/elopement8-1120.webp 1120w">
+                    <img src="images/elopement8-740.jpg"
+                      srcset="images/elopement8-480.jpg 480w, images/elopement8-740.jpg 740w, images/elopement8-900.jpg 900w, images/elopement8-1120.jpg 1120w"
+                      sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Elopement 8" loading="lazy"
+                      decoding="async" width="1189" height="1783">
+                  </picture>
+                </div>
 
+                <div class="iso-box branding">
+                  <picture>
+                    <source type="image/avif"
+                      srcset="images/elopement9-480.avif 480w, images/elopement9-740.avif 740w, images/elopement9-900.avif 900w, images/elopement9-1120.avif 1120w">
+                    <source type="image/webp"
+                      srcset="images/elopement9-480.webp 480w, images/elopement9-740.webp 740w, images/elopement9-900.webp 900w, images/elopement9-1120.webp 1120w">
+                    <img src="images/elopement9-740.jpg"
+                      srcset="images/elopement9-480.jpg 480w, images/elopement9-740.jpg 740w, images/elopement9-900.jpg 900w, images/elopement9-1120.jpg 1120w"
+                      sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Elopement 9" loading="lazy"
+                      decoding="async" width="1189" height="1783">
+                  </picture>
+                </div>
+
+                <div class="iso-box branding">
+                  <picture>
+                    <source type="image/avif"
+                      srcset="images/elopement10-480.avif 480w, images/elopement10-740.avif 740w, images/elopement10-900.avif 900w, images/elopement10-1120.avif 1120w">
+                    <source type="image/webp"
+                      srcset="images/elopement10-480.webp 480w, images/elopement10-740.webp 740w, images/elopement10-900.webp 900w, images/elopement10-1120.webp 1120w">
+                    <img src="images/elopement10-740.jpg"
+                      srcset="images/elopement10-480.jpg 480w, images/elopement10-740.jpg 740w, images/elopement10-900.jpg 900w, images/elopement10-1120.jpg 1120w"
+                      sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Elopement 10" loading="lazy"
+                      decoding="async" width="1189" height="1783">
+                  </picture>
+                </div>
+
+                <div class="iso-box branding">
+                  <picture>
+                    <source type="image/avif"
+                      srcset="images/elopement11-480.avif 480w, images/elopement11-740.avif 740w, images/elopement11-900.avif 900w, images/elopement11-1120.avif 1120w">
+                    <source type="image/webp"
+                      srcset="images/elopement11-480.webp 480w, images/elopement11-740.webp 740w, images/elopement11-900.webp 900w, images/elopement11-1120.webp 1120w">
+                    <img src="images/elopement11-740.jpg"
+                      srcset="images/elopement11-480.jpg 480w, images/elopement11-740.jpg 740w, images/elopement11-900.jpg 900w, images/elopement11-1120.jpg 1120w"
+                      sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Elopement 11" loading="lazy"
+                      decoding="async" width="1189" height="1783">
+                  </picture>
+                </div>
+
+                <div class="iso-box branding">
+                  <picture>
+                    <source type="image/avif"
+                      srcset="images/elopement12-480.avif 480w, images/elopement12-740.avif 740w, images/elopement12-900.avif 900w, images/elopement12-1120.avif 1120w">
+                    <source type="image/webp"
+                      srcset="images/elopement12-480.webp 480w, images/elopement12-740.webp 740w, images/elopement12-900.webp 900w, images/elopement12-1120.webp 1120w">
+                    <img src="images/elopement12-740.jpg"
+                      srcset="images/elopement12-480.jpg 480w, images/elopement12-740.jpg 740w, images/elopement12-900.jpg 900w, images/elopement12-1120.jpg 1120w"
+                      sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Elopement 12" loading="lazy"
+                      decoding="async" width="1189" height="1783">
+                  </picture>
+                </div>
+
+                <div class="iso-box branding">
+                  <picture>
+                    <source type="image/avif"
+                      srcset="images/elopement13-480.avif 480w, images/elopement13-740.avif 740w, images/elopement13-900.avif 900w, images/elopement13-1120.avif 1120w">
+                    <source type="image/webp"
+                      srcset="images/elopement13-480.webp 480w, images/elopement13-740.webp 740w, images/elopement13-900.webp 900w, images/elopement13-1120.webp 1120w">
+                    <img src="images/elopement13-740.jpg"
+                      srcset="images/elopement13-480.jpg 480w, images/elopement13-740.jpg 740w, images/elopement13-900.jpg 900w, images/elopement13-1120.jpg 1120w"
+                      sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Elopement 13" loading="lazy"
+                      decoding="async" width="1189" height="1783">
+                  </picture>
+                </div>
+
+                <div class="iso-box branding">
+                  <picture>
+                    <source type="image/avif"
+                      srcset="images/elopement14-480.avif 480w, images/elopement14-740.avif 740w, images/elopement14-900.avif 900w, images/elopement14-1120.avif 1120w">
+                    <source type="image/webp"
+                      srcset="images/elopement14-480.webp 480w, images/elopement14-740.webp 740w, images/elopement14-900.webp 900w, images/elopement14-1120.webp 1120w">
+                    <img src="images/elopement14-740.jpg"
+                      srcset="images/elopement14-480.jpg 480w, images/elopement14-740.jpg 740w, images/elopement14-900.jpg 900w, images/elopement14-1120.jpg 1120w"
+                      sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Elopement 14" loading="lazy"
+                      decoding="async" width="1189" height="1783">
+                  </picture>
+                </div>
+
+                <div class="iso-box branding">
+                  <picture>
+                    <source type="image/avif"
+                      srcset="images/elopement15-480.avif 480w, images/elopement15-740.avif 740w, images/elopement15-900.avif 900w, images/elopement15-1120.avif 1120w">
+                    <source type="image/webp"
+                      srcset="images/elopement15-480.webp 480w, images/elopement15-740.webp 740w, images/elopement15-900.webp 900w, images/elopement15-1120.webp 1120w">
+                    <img src="images/elopement15-740.jpg"
+                      srcset="images/elopement15-480.jpg 480w, images/elopement15-740.jpg 740w, images/elopement15-900.jpg 900w, images/elopement15-1120.jpg 1120w"
+                      sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Elopement 15" loading="lazy"
+                      decoding="async" width="1189" height="1783">
+                  </picture>
+                </div>
+
+                <div class="iso-box branding">
+                  <picture>
+                    <source type="image/avif"
+                      srcset="images/elopement16-480.avif 480w, images/elopement16-740.avif 740w, images/elopement16-900.avif 900w, images/elopement16-1120.avif 1120w">
+                    <source type="image/webp"
+                      srcset="images/elopement16-480.webp 480w, images/elopement16-740.webp 740w, images/elopement16-900.webp 900w, images/elopement16-1120.webp 1120w">
+                    <img src="images/elopement16-740.jpg"
+                      srcset="images/elopement16-480.jpg 480w, images/elopement16-740.jpg 740w, images/elopement16-900.jpg 900w, images/elopement16-1120.jpg 1120w"
+                      sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Elopement 16" loading="lazy"
+                      decoding="async" width="1189" height="1783">
+                  </picture>
+                </div>
+
+                <div class="iso-box branding">
+                  <picture>
+                    <source type="image/avif"
+                      srcset="images/elopement17-480.avif 480w, images/elopement17-740.avif 740w, images/elopement17-900.avif 900w, images/elopement17-1120.avif 1120w">
+                    <source type="image/webp"
+                      srcset="images/elopement17-480.webp 480w, images/elopement17-740.webp 740w, images/elopement17-900.webp 900w, images/elopement17-1120.webp 1120w">
+                    <img src="images/elopement17-740.jpg"
+                      srcset="images/elopement17-480.jpg 480w, images/elopement17-740.jpg 740w, images/elopement17-900.jpg 900w, images/elopement17-1120.jpg 1120w"
+                      sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Elopement 17" loading="lazy"
+                      decoding="async" width="1189" height="1783">
+                  </picture>
+                </div>
+
+                <div class="iso-box branding">
+                  <picture>
+                    <source type="image/avif"
+                      srcset="images/elopement18-480.avif 480w, images/elopement18-740.avif 740w, images/elopement18-900.avif 900w, images/elopement18-1120.avif 1120w">
+                    <source type="image/webp"
+                      srcset="images/elopement18-480.webp 480w, images/elopement18-740.webp 740w, images/elopement18-900.webp 900w, images/elopement18-1120.webp 1120w">
+                    <img src="images/elopement18-740.jpg"
+                      srcset="images/elopement18-480.jpg 480w, images/elopement18-740.jpg 740w, images/elopement18-900.jpg 900w, images/elopement18-1120.jpg 1120w"
+                      sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Elopement 18" loading="lazy"
+                      decoding="async" width="1189" height="1783">
+                  </picture>
+                </div>
+
+                <div class="iso-box branding">
+                  <picture>
+                    <source type="image/avif"
+                      srcset="images/elopement19-480.avif 480w, images/elopement19-740.avif 740w, images/elopement19-900.avif 900w, images/elopement19-1120.avif 1120w">
+                    <source type="image/webp"
+                      srcset="images/elopement19-480.webp 480w, images/elopement19-740.webp 740w, images/elopement19-900.webp 900w, images/elopement19-1120.webp 1120w">
+                    <img src="images/elopement19-740.jpg"
+                      srcset="images/elopement19-480.jpg 480w, images/elopement19-740.jpg 740w, images/elopement19-900.jpg 900w, images/elopement19-1120.jpg 1120w"
+                      sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Elopement 19" loading="lazy"
+                      decoding="async" width="1189" height="1783">
+                  </picture>
+                </div>
+
+                <div class="iso-box branding">
+                  <picture>
+                    <source type="image/avif"
+                      srcset="images/elopement20-480.avif 480w, images/elopement20-740.avif 740w, images/elopement20-900.avif 900w, images/elopement20-1120.avif 1120w">
+                    <source type="image/webp"
+                      srcset="images/elopement20-480.webp 480w, images/elopement20-740.webp 740w, images/elopement20-900.webp 900w, images/elopement20-1120.webp 1120w">
+                    <img src="images/elopement20-740.jpg"
+                      srcset="images/elopement20-480.jpg 480w, images/elopement20-740.jpg 740w, images/elopement20-900.jpg 900w, images/elopement20-1120.jpg 1120w"
+                      sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Elopement 20" loading="lazy"
+                      decoding="async" width="1189" height="1783">
+                  </picture>
+                </div>
+
+                <div class="iso-box branding">
+                  <picture>
+                    <source type="image/avif"
+                      srcset="images/elopement21-480.avif 480w, images/elopement21-740.avif 740w, images/elopement21-900.avif 900w, images/elopement21-1120.avif 1120w">
+                    <source type="image/webp"
+                      srcset="images/elopement21-480.webp 480w, images/elopement21-740.webp 740w, images/elopement21-900.webp 900w, images/elopement21-1120.webp 1120w">
+                    <img src="images/elopement21-740.jpg"
+                      srcset="images/elopement21-480.jpg 480w, images/elopement21-740.jpg 740w, images/elopement21-900.jpg 900w, images/elopement21-1120.jpg 1120w"
+                      sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Elopement 21" loading="lazy"
+                      decoding="async" width="1189" height="1783">
+                  </picture>
+                </div>
+
+                <div class="iso-box branding">
+                  <picture>
+                    <source type="image/avif"
+                      srcset="images/elopement22-480.avif 480w, images/elopement22-740.avif 740w, images/elopement22-900.avif 900w, images/elopement22-1120.avif 1120w">
+                    <source type="image/webp"
+                      srcset="images/elopement22-480.webp 480w, images/elopement22-740.webp 740w, images/elopement22-900.webp 900w, images/elopement22-1120.webp 1120w">
+                    <img src="images/elopement22-740.jpg"
+                      srcset="images/elopement22-480.jpg 480w, images/elopement22-740.jpg 740w, images/elopement22-900.jpg 900w, images/elopement22-1120.jpg 1120w"
+                      sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 368px" alt="Elopement 22" loading="lazy"
+                      decoding="async" width="1189" height="1783">
+                  </picture>
+                </div>
               </div>
             </div><!-- /.iso-box-section -->
-
+            <!-- Sentinel для бесконечной прокрутки -->
+            <div class="js-portfolio-sentinel" aria-hidden="true"></div>
           </div><!-- /.iso-section -->
-
-          <!-- Кнопка "Показать ещё" -->
-          <button id="load-more" class="btn-more" type="button" aria-live="polite">
-            Show more
-          </button>
-
         </div><!-- /.col -->
       </div><!-- /.row -->
     </div><!-- /.container -->
@@ -949,6 +1343,7 @@
   <script src="js/wow.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
   <script src="js/loader.js"></script>
+  <script src="js/custom.js"></script>
   <script src="js/logo-easter.js" defer></script>
 
 </body>

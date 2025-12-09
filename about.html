@@ -32,7 +32,8 @@
 </head>
 
 
-<body data-bg="rose-vert-ultra" data-fx="zoomout" data-ui="chips-glass preload-glass preload-glow" data-card="glass">
+<body data-bg="rose-vert-ultra" data-fx="zoomout" data-ui="chips-glass preload-glass preload-glow" data-card="glass"
+  class="page-about-en">
   <!-- Preloader section
 ================================================== -->
   <div class="preloader">
@@ -40,88 +41,60 @@
   </div>
 
   <div class="nav-container">
-    <nav class="nav-inner transparent">
+    <nav class="nav-inner">
       <div class="navbar">
         <div class="container">
           <div class="header-row">
-            <!-- ЛОГО -->
+
             <div class="brand">
               <a href="index.html" aria-label="Hiilas Photography — home">
-                <img src="images/brand/hiilas-logo.svg" alt="Hiilas Photography — with love & lämpö" class="site-logo">
+                <img src="images/brand/hiilas-logo.svg" alt="Hiilas Photography — with love & warmth" class="site-logo">
               </a>
             </div>
 
-            <div class="header-spacer"></div>
-
-            <!-- Right group: languages + burger -->
             <div class="header-right">
-              <!-- Languages (desktop) – point to ABOUT in each language -->
-              <ul class="language-switch desktop-only">
-                <li><a href="about.html">EN</a></li>
+              <button class="mobile-nav-toggle" type="button" aria-expanded="false">
+                <span class="mobile-nav-label">About</span>
+              </button>
+
+              <ul class="main-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html" class="is-current">About</a></li>
+                <li><a href="pricing.html">Pricing</a></li>
+                <li><a href="contact.html">Contact</a></li>
+              </ul>
+
+              <ul class="lang-menu" aria-label="Language">
+                <li><span class="is-current-lang">EN</span></li>
                 <li><a href="about-fi.html">FI</a></li>
                 <li><a href="about-ru.html">RU</a></li>
               </ul>
+            </div>
 
-              <!-- Burger -->
-              <div class="navicon">
-                <div class="menu-container">
-                  <div class="circle dark inline" role="button" tabindex="0" aria-label="Open menu"
-                    aria-controls="site-menu" aria-expanded="false">
-                    <i class="icon ion-navicon" aria-hidden="true"></i>
-                  </div>
-
-                  <div id="site-menu" class="list-menu" role="dialog" aria-modal="true" aria-hidden="true"
-                    aria-label="Main menu">
-                    <i class="icon ion-close-round close-iframe" role="button" tabindex="0" aria-label="Close menu"></i>
-
-                    <!-- Languages (mobile) -->
-                    <ul class="language-switch mobile-only" aria-label="Language switch">
-                      <li><a href="about.html">EN</a></li>
-                      <li><a href="about-fi.html">FI</a></li>
-                      <li><a href="about-ru.html">RU</a></li>
-                    </ul>
-
-                    <div class="intro-inner">
-                      <ul id="nav-menu" aria-label="Main menu links">
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="about.html">About</a></li>
-                        <li><a href="pricing.html">Pricing</a></li>
-                        <li><a href="contact.html">Contact</a></li>
-                      </ul>
-                    </div>
-                  </div><!-- /#site-menu -->
-                </div><!-- /.menu-container -->
-              </div><!-- /.navicon -->
-            </div><!-- /.header-right -->
-          </div><!-- /.header-row -->
-
-        </div><!-- /.container -->
-      </div><!-- /.navbar -->
-    </nav><!-- /.nav-inner -->
-  </div><!-- /.nav-container -->
+          </div>
+        </div>
+      </div>
+    </nav>
+  </div>
 
   <!-- Header section
 ================================================== -->
   <section id="header" class="header-three hero-index-style">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8">
-          <div class="header-thumb">
-            <h1 class="wow fadeIn" data-wow-delay="0.6s">About</h1>
-          </div>
-        </div>
-      </div>
-    </div>
+    <picture class="hero-bg">
+      <img src="images/header-three-bg.jpg" alt="Hiilas Photography – about header" decoding="async">
+    </picture>
   </section>
 
   <!-- About section
 ================================================== -->
   <section id="about">
     <div class="container">
+      <h1 class="about-page-title">About</h1>
       <div class="row">
 
         <div class="col-md-6 col-sm-6">
           <img src="images/about-img1.jpg" class="img-responsive" alt="About Anastasia">
+
         </div>
 
         <div class="col-md-6 col-sm-6">
@@ -132,6 +105,25 @@
             <p style="text-transform:none; letter-spacing:0; margin-bottom:14px">
               Documentary photographer based in Helsinki.
             </p>
+            <div class="about-signature about-signature--text" id="aboutfi-signature" role="button" tabindex="0"
+              aria-expanded="false" aria-controls="aboutfi-secret-strip">
+
+              <img src="images/signature.svg" alt="Anastasia Hiilas signature" class="about-signature-img">
+
+              <!-- СЕКРЕТНАЯ ПЛЁНКА 😏 -->
+              <div class="about-secret-strip" id="aboutfi-secret-strip" aria-hidden="true">
+
+                <p class="about-secret-caption">
+                  Thank you for stopping here.
+                </p>
+
+                <div class="about-secret-photos">
+                  <img src="images/secret-1.jpg" alt="Kulissien takaa – Anastasia kameran kanssa.">
+                  <img src="images/about-img.jpg" alt="Pieni hetki arjesta, teekuppi ja kirja.">
+                  <img src="images/secret-3.jpg" alt="Valoisa hetki Helsingissä, kameran takana ja edessä.">
+                </div>
+              </div>
+            </div>
             <p>Documentary photography is the art of seeing the truth. At the heart of my approach are real emotions,
               honest glances, and genuine stories. During a photoshoot, I try to be your friend — someone who supports,
               encourages, and helps you feel comfortable and confident.</p>
@@ -187,7 +179,9 @@
   <script src="js/wow.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
   <script src="js/loader.js"></script>
+  <script src="js/custom.js"></script>
   <script src="js/logo-easter.js" defer></script>
+  <script src="js/about-fi-easter.js"></script>
 
 </body>
 

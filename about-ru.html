@@ -32,7 +32,7 @@
     <link rel="mask-icon" href="images/favicon-ah.svg" color="#111111">
 </head>
 
-<body class="page-about" data-bg="rose-vert-ultra" data-fx="zoomout" data-ui="preload-glass preload-glow"
+<body class="page-about-ru" data-bg="rose-vert-ultra" data-fx="zoomout" data-ui="preload-glass preload-glow"
     data-card="glass">
     <!-- Preloader -->
     <div class="preloader">
@@ -40,78 +40,62 @@
     </div>
 
     <div class="nav-container">
-        <nav class="nav-inner transparent">
+        <nav class="nav-inner">
             <div class="navbar">
                 <div class="container">
                     <div class="header-row">
-                        <!-- ЛОГО -->
+
                         <div class="brand">
-                            <a href="index.html" aria-label="Hiilas Photography — home">
-                                <img src="images/brand/hiilas-logo.svg" alt="Hiilas Photography — with love & lämpö"
+                            <a href="index-ru.html" aria-label="Hiilas Photography — главная">
+                                <img src="images/brand/hiilas-logo.svg" alt="Hiilas Photography — с любовью и теплом"
                                     class="site-logo">
                             </a>
                         </div>
 
-                        <div class="header-spacer"></div>
-
                         <div class="header-right">
-                            <!-- Языки (десктоп) — ссылки на ABOUT в каждом языке -->
-                            <ul class="language-switch desktop-only">
-                                <li><a href="about.html">EN</a></li>
-                                <li><a href="about-fi.html">FI</a></li>
-                                <li><a href="about-ru.html">RU</a></li>
+                            <button class="mobile-nav-toggle" type="button" aria-expanded="false">
+                                <span class="mobile-nav-label">Обо мне</span>
+                            </button>
+
+                            <ul class="main-menu">
+                                <li><a href="index-ru.html">Главная</a></li>
+                                <li><a href="about-ru.html" class="is-current">Обо мне</a></li>
+                                <li><a href="pricing-ru.html">Цены</a></li>
+                                <li><a href="contact-ru.html">Контакты</a></li>
                             </ul>
 
-                            <!-- Бургер -->
-                            <div class="navicon">
-                                <div class="menu-container">
-                                    <div class="circle dark inline" role="button" tabindex="0" aria-label="Открыть меню"
-                                        aria-controls="site-menu" aria-expanded="false">
-                                        <i class="icon ion-navicon" aria-hidden="true"></i>
-                                    </div>
+                            <ul class="lang-menu" aria-label="Язык">
+                                <li><a href="about.html">EN</a></li>
+                                <li><a href="about-fi.html">FI</a></li>
+                                <li><span class="is-current-lang">RU</span></li>
+                            </ul>
+                        </div>
 
-                                    <div id="site-menu" class="list-menu" role="dialog" aria-modal="true"
-                                        aria-hidden="true" aria-label="Главное меню">
-                                        <i class="icon ion-close-round close-iframe" role="button" tabindex="0"
-                                            aria-label="Закрыть меню"></i>
-                                        <ul class="language-switch mobile-only" aria-label="Выбор языка">
-                                            <li><a href="about.html">EN</a></li>
-                                            <li><a href="about-fi.html">FI</a></li>
-                                            <li><a href="about-ru.html">RU</a></li>
-                                        </ul>
-                                        <ul id="nav-menu" aria-label="Ссылки главного меню">
-                                            <ul id="nav-menu">
-                                                <li><a href="index-ru.html">Главная</a></li>
-                                                <li><a href="about-ru.html">Об авторе</a></li>
-                                                <li><a href="pricing-ru.html">Цены</a></li>
-                                                <li><a href="contact-ru.html">Контакты</a></li>
-                                            </ul>
-                                    </div>
-                                </div><!-- /.list-menu -->
-                            </div><!-- /.menu-container -->
-                        </div><!-- /.navicon -->
-                    </div><!-- /.header-right -->
-                </div><!-- /.header-row -->
-            </div><!-- /.container -->
-    </div><!-- /.navbar -->
-    </nav><!-- /.nav-inner -->
-    </div><!-- /.nav-container -->
-
-    <!-- Header -->
-    <section id="header" class="header-three hero-index-style">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8">
-                    <div class="header-thumb">
-                        <h1 class="wow fadeIn" data-wow-delay="0.6s">Об авторе</h1>
                     </div>
                 </div>
             </div>
+        </nav>
+    </div>
+
+    <!-- Hero-фото (только фоновая картинка, без текста) -->
+    <section id="header" class="header-three hero-index-style">
+        <picture class="hero-bg">
+            <img src="images/header-three-bg.jpg" alt="Hiilas Photography – about header" decoding="async">
+        </picture>
+    </section>
+
+    <!-- Заголовок под фото -->
+    <section class="page-title-simple page-title--aboutfi">
+        <div class="container">
+            <h1 class="page-about-heading">Об авторе</h1>
         </div>
     </section>
 
+
+
     <!-- About -->
     <section id="about">
+
         <div class="container">
             <div class="row">
 
@@ -125,6 +109,27 @@
                         <p style="text-transform:none; letter-spacing:0; margin-bottom:14px">
                             Документальный фотограф из Хельсинки.
                         </p>
+                        <div class="about-signature about-signature--text" id="aboutfi-signature" role="button"
+                            tabindex="0" aria-expanded="false" aria-controls="aboutfi-secret-strip">
+
+                            <img src="images/signature.svg" alt="Anastasia Hiilas signature"
+                                class="about-signature-img">
+
+                            <!-- СЕКРЕТНАЯ ПЛЁНКА 😏 -->
+                            <div class="about-secret-strip" id="aboutfi-secret-strip" aria-hidden="true">
+
+                                <p class="about-secret-caption">
+                                    Спасибо что зангянули.
+                                </p>
+
+                                <div class="about-secret-photos">
+                                    <img src="images/secret-1.jpg" alt="Kulissien takaa – Anastasia kameran kanssa.">
+                                    <img src="images/about-img.jpg" alt="Pieni hetki arjesta, teekuppi ja kirja.">
+                                    <img src="images/secret-3.jpg"
+                                        alt="Valoisa hetki Helsingissä, kameran takana ja edessä.">
+                                </div>
+                            </div>
+                        </div>
                         <p>Документальная фотография — это искусство видеть правду. В центре моего подхода — настоящие
                             эмоции, искренние взгляды и живые истории. На съёмке я стараюсь стать вашим другом:
                             поддержать, подбодрить и подсказать, чтобы вы чувствовали себя спокойно и уверенно.</p>
@@ -181,7 +186,9 @@
     <script src="js/wow.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/loader.js"></script>
+    <script src="js/custom.js"></script>
     <script src="js/logo-easter.js" defer></script>
+    <script src="js/about-fi-easter.js"></script>
 
 </body>
 

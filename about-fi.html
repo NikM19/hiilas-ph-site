@@ -23,80 +23,64 @@
     <link rel="mask-icon" href="images/favicon-ah.svg" color="#111111"> <!-- для Safari pinned tab -->
 </head>
 
-<body data-bg="rose-vert-ultra" data-fx="zoomout" data-ui="preload-glass preload-glow" data-card="glass">
-    <div class="preloader">
+<body data-bg="rose-vert-ultra" data-fx="zoomout" data-ui="preload-glass preload-glow" data-card="glass"
+    class="page-about-fi">
+    <div class=" preloader">
         <img src="images/brand/hiilas-logo.svg" alt="" class="loader-logo" aria-hidden="true">
     </div>
 
     <div class="nav-container">
-        <nav class="nav-inner transparent">
+        <nav class="nav-inner">
             <div class="navbar">
                 <div class="container">
                     <div class="header-row">
-                        <!-- ЛОГО -->
+
                         <div class="brand">
-                            <a href="index.html" aria-label="Hiilas Photography — home">
-                                <img src="images/brand/hiilas-logo.svg" alt="Hiilas Photography — with love & lämpö"
+                            <a href="index-fi.html" aria-label="Hiilas Photography — etusivu">
+                                <img src="images/brand/hiilas-logo.svg" alt="Hiilas Photography — with love & warmth"
                                     class="site-logo">
                             </a>
                         </div>
 
-                        <div class="header-spacer"></div>
-
                         <div class="header-right">
-                            <!-- Kielet (desktop) — linkit TÄHÄN SAMAAN sivuun -->
-                            <ul class="language-switch desktop-only">
-                                <li><a href="about.html">EN</a></li>
-                                <li><a href="about-fi.html">FI</a></li>
-                                <li><a href="about-ru.html">RU</a></li>
+                            <button class="mobile-nav-toggle" type="button" aria-expanded="false">
+                                <span class="mobile-nav-label">Minusta</span>
+                            </button>
+
+                            <ul class="main-menu">
+                                <li><a href="index-fi.html">Etusivu</a></li>
+                                <li><a href="about-fi.html" class="is-current">Minusta</a></li>
+                                <li><a href="pricing-fi.html">Hinnasto</a></li>
+                                <li><a href="contact-fi.html">Yhteys</a></li>
                             </ul>
 
-                            <!-- Burger -->
-                            <div class="navicon">
-                                <div class="menu-container">
-                                    <div class="circle dark inline" role="button" tabindex="0" aria-label="Avaa valikko"
-                                        aria-controls="site-menu" aria-expanded="false">
-                                        <i class="icon ion-navicon" aria-hidden="true"></i>
-                                    </div>
-                                    <div id="site-menu" class="list-menu" role="dialog" aria-modal="true"
-                                        aria-hidden="true" aria-label="Päävalikko">
-                                        <i class="icon ion-close-round close-iframe" role="button" tabindex="0"
-                                            aria-label="Sulje valikko"></i>
-                                        <ul class="language-switch mobile-only" aria-label="Kielen valinta">
-                                            <li><a href="about.html">EN</a></li>
-                                            <li><a href="about-fi.html">FI</a></li>
-                                            <li><a href="about-ru.html">RU</a></li>
-                                        </ul>
-                                        <div class="intro-inner">
-                                            <ul id="nav-menu" aria-label="Päävalikon linkit">
-                                                <li><a href="index-fi.html">Etusivu</a></li>
-                                                <li><a href="about-fi.html">Minusta</a></li>
-                                                <li><a href="pricing-fi.html">Hinnasto</a></li>
-                                                <li><a href="contact-fi.html">Yhteystiedot</a></li>
-                                            </ul>
-                                        </div>
-                                    </div><!-- /.list-menu -->
-                                </div><!-- /.menu-container -->
-                            </div><!-- /.navicon -->
-                        </div><!-- /.header-right -->
-                    </div><!-- /.header-row -->
-                </div><!-- /.container -->
-            </div><!-- /.navbar -->
-        </nav><!-- /.nav-inner -->
-    </div><!-- /.nav-container -->
+                            <ul class="lang-menu" aria-label="Kieli">
+                                <li><a href="about.html">EN</a></li>
+                                <li><span class="is-current-lang">FI</span></li>
+                                <li><a href="about-ru.html">RU</a></li>
+                            </ul>
+                        </div>
 
-    <!-- Header -->
-    <section id="header" class="header-three hero-index-style">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8">
-                    <div class="header-thumb">
-                        <h1 class="wow fadeIn" data-wow-delay="0.6s">Minusta</h1>
                     </div>
                 </div>
             </div>
+        </nav>
+    </div>
+
+    <!-- Hero-фото (только фоновая картинка, без текста) -->
+    <section id="header" class="header-three hero-index-style">
+        <picture class="hero-bg">
+            <img src="images/header-three-bg.jpg" alt="Hiilas Photography – about header" decoding="async">
+        </picture>
+    </section>
+
+    <!-- Заголовок под фото -->
+    <section class="page-title-simple page-title--aboutfi">
+        <div class="container">
+            <h1 class="page-title-heading">Minusta</h1>
         </div>
     </section>
+
 
     <!-- About -->
     <section id="about">
@@ -113,27 +97,52 @@
                         <p style="text-transform:none; letter-spacing:0; margin-bottom:14px">
                             Helsingissä toimiva dokumentaarinen valokuvaaja.
                         </p>
-                        <p>Dokumentaarinen valokuvaus on totuuden näkemisen taitoa. Lähestymistapani ytimessä ovat aidot
+                        <div class="about-signature about-signature--text" id="aboutfi-signature" role="button"
+                            tabindex="0" aria-expanded="false" aria-controls="aboutfi-secret-strip">
+
+                            <img src="images/signature.svg" alt="Anastasia Hiilas signature"
+                                class="about-signature-img">
+
+                            <!-- СЕКРЕТНАЯ ПЛЁНКА 😏 -->
+                            <div class="about-secret-strip" id="aboutfi-secret-strip" aria-hidden="true">
+
+                                <p class="about-secret-caption">
+                                    Kiitos että pysähdyit tähän.
+                                </p>
+
+                                <div class="about-secret-photos">
+                                    <img src="images/secret-1.jpg">
+                                    <img src="images/secret-3.jpg">
+                                    <img src="images/aboutme.jpeg">
+                                </div>
+                            </div>
+                        </div>
+                        <p>Dokumentaarinen valokuvaus on totuuden näkemisen taitoa. Lähestymistapani ytimessä ovat
+                            aidot
                             tunteet, katseet ja elävät tarinat. Kuvauksissa pyrin olemaan ystävä — tukemaan,
                             rohkaisemaan ja auttamaan sinua tuntemaan olosi rennoksi ja itsevarmaksi.</p>
                         <p>Jokainen tarina on ainutlaatuinen. Jos ajattelet, ettet ole kuvauksellinen, anna minun
                             näyttää, kuinka kaunis olet oikeasti.</p>
-                        <p>Uskon, että rakkaus ei ole vain kahden ihmisen välinen asia. Se on myös rakkautta itseäsi,
+                        <p>Uskon, että rakkaus ei ole vain kahden ihmisen välinen asia. Se on myös rakkautta
+                            itseäsi,
                             perhettäsi, ystäviäsi, lemmikkejäsi ja sinulle tärkeitä hetkiä kohtaan.</p>
-                        <p>Rakastan ihmisiä kamerani kautta. Ei ole väliä, onko sinulla kokemusta kuvauksista — kirjoita
+                        <p>Rakastan ihmisiä kamerani kautta. Ei ole väliä, onko sinulla kokemusta kuvauksista —
+                            kirjoita
                             minulle, ja luodaan yhdessä kuvia, joissa näet itsesi ja tunnet elämän.</p>
 
                         <h3>Minun tarinani</h3>
 
                         <p>Valokuvaus pelasti minut kerran — se oli majakka pimeimpänä päivänä.</p>
                         <p>Kuten monilla luovilla ihmisillä, myös minun inspiraationi syntyi kivusta. Mutta tänään
-                            kotini, valokuvaus, seisoo vakaalla perustalla. Tiedän, miksi ja kenelle teen tätä työtä.
+                            kotini, valokuvaus, seisoo vakaalla perustalla. Tiedän, miksi ja kenelle teen tätä
+                            työtä.
                         </p>
 
                         <p>Haluan, että ihmiset näkevät itsensä minun silmieni kautta — aitoina, elävinä ja kauniina
                             juuri siinä hetkessä, missä he ovat.</p>
                         <p>Olen dokumentaarinen valokuvaaja Helsingistä, ja kuvaukseni eivät ole teennäisiä tai
-                            täydellisiä — ne ovat elämää, jota voi tulostaa, liittää albumiin ja palata siihen vuosien
+                            täydellisiä — ne ovat elämää, jota voi tulostaa, liittää albumiin ja palata siihen
+                            vuosien
                             päästä — muistaen itsensä onnellisena ja aitona siinä hetkessä.</p>
 
                         <p>Tavoitteeni on auttaa sinua säilyttämään muistot ja tuntemaan itsesi erityiseksi.</p>
@@ -170,6 +179,8 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/loader.js"></script>
     <script src="js/logo-easter.js" defer></script>
+    <script src="js/custom.js"></script>
+    <script src="js/about-fi-easter.js"></script>
 
 </body>
 

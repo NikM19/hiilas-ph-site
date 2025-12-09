@@ -47,47 +47,47 @@ $(window).on('load', function(){
   var didInitialReveal = false;
 
   function currentSelector(){
-    // В All показываем только .is-visible (кнопка «Показать ещё»), в категориях — всю категорию
+    // В All показываем только .is-visible, в категориях — всю категорию
     return currentFilter === '*' ? '.is-visible' : currentFilter;
   }
 
   // Временное отключение анимации на время одного arrange/layout
-var DEFAULT_TD = '0.22s', silencing = false;
-function silent(fn){
-  if (silencing) { fn(); return; }
-  silencing = true;
-  var iso  = $grid.data('isotope');
-  var prev = (iso && iso.options.transitionDuration) || DEFAULT_TD;
-  $grid.isotope('option', { transitionDuration: 0 });
-  fn();
-  // вернём анимацию, когда Isotope закончит раскладку
-  $grid.one('arrangeComplete layoutComplete', function(){
-    $grid.isotope('option', { transitionDuration: prev });
-    silencing = false;
-  });
-}
+  var DEFAULT_TD = '0.22s', silencing = false;
+  function silent(fn){
+    if (silencing) { fn(); return; }
+    silencing = true;
+    var iso  = $grid.data('isotope');
+    var prev = (iso && iso.options.transitionDuration) || DEFAULT_TD;
+    $grid.isotope('option', { transitionDuration: 0 });
+    fn();
+    // вернём анимацию, когда Isotope закончит раскладку
+    $grid.one('arrangeComplete layoutComplete', function(){
+      $grid.isotope('option', { transitionDuration: prev });
+      silencing = false;
+    });
+  }
 
-// NEW: мягко показать список карточек (волной)
-function softReveal(elems){
-  if (!elems || !elems.length) return;
+  // Мягко показать список карточек (волной)
+  function softReveal(elems){
+    if (!elems || !elems.length) return;
 
-  elems.forEach(function(el, i){
-    el.classList.remove('iso-soft-in');
-    el.classList.add('iso-soft-start');
-    el.style.setProperty('--st', (i * 25) + 'ms'); // шаг «волны»
-  });
+    elems.forEach(function(el, i){
+      el.classList.remove('iso-soft-in');
+      el.classList.add('iso-soft-start');
+      el.style.setProperty('--st', (i * 20) + 'ms'); // шаг «волны»
+    });
 
-  requestAnimationFrame(function(){
     requestAnimationFrame(function(){
-      elems.forEach(function(el){
-        el.classList.add('iso-soft-in');
-        el.classList.remove('iso-soft-start');
+      requestAnimationFrame(function(){
+        elems.forEach(function(el){
+          el.classList.add('iso-soft-in');
+          el.classList.remove('iso-soft-start');
+        });
       });
     });
-  });
-}
+  }
 
-  // Автоподстройка числа колонок (на десктопе уменьшаем, если мало карточек)
+  // Автоподстройка числа колонок
   function autoCols(){
     var cols = 3;
     if (window.matchMedia('(max-width:600px)').matches) cols = 1;
@@ -97,11 +97,13 @@ function softReveal(elems){
       if (iso){
         var vis = iso.filteredItems.length; // сколько реально видно
         if (vis <= 2) cols = 1;
-        else if (vis <= 6) cols = 2;       // порог подправь по вкусу: 9–12
+        else if (vis <= 6) cols = 2;
         else cols = 3;
       }
     }
-    $grid[0].style.setProperty('--cols', cols); // локально, только для этой сетки
+    if ($grid[0]) {
+      $grid[0].style.setProperty('--cols', cols);
+    }
   }
 
   function initIso(){
@@ -110,319 +112,235 @@ function softReveal(elems){
       $grid.prepend('<div class="grid-sizer"></div><div class="gutter-sizer"></div>');
     }
 
-// показываем первые 9 карточек в "All" при загрузке
-$grid.find('.iso-box').slice(0, 9).addClass('is-visible');
+    // показываем первые 9 карточек в "All" при загрузке
+    $grid.find('.iso-box').slice(0, 12).addClass('is-visible');
 
-if ($grid.find('.iso-box:not(.is-visible)').length === 0) {
-  $('#load-more').hide();
-} else {
-  $('#load-more').show();
-}
-$grid.isotope({
-  itemSelector: '.iso-box',
-  layoutMode: 'masonry',
-  percentPosition: true,
-  transitionDuration: '0.26s',   // чутка длиннее
-  stagger: 0,                   // волна мягче (можно 45–60)
-  masonry: {
-    columnWidth: '.grid-sizer',
-    gutter: '.gutter-sizer',
-    horizontalOrder: false
-  },
-  hiddenStyle:  { opacity: 0 },  // <— только фейд, без scale/сжатия
-  visibleStyle: { opacity: 1 },
-  filter: currentSelector()
-});
-
-$grid.on('transitionend', '.iso-box img', function(e){
-  // интересуют только opacity/transform
-  if (e.propertyName !== 'opacity' && e.propertyName !== 'transform') return;
-  var box = this.closest('.iso-box');
-  if (box) box.classList.remove('iso-soft-in','iso-soft-start');
-});
-
-$grid.one('arrangeComplete.softInit', function(e, items){
-  if (!items || !items.length) return;
-  didInitialReveal = true;
-  softReveal(items.map(function(it){ return it.element; }));
-});
-
-// NEW: после раскладки (фильтр/перекладка) — мягко «вплываем»
-$grid.off('arrangeComplete.soft').on('arrangeComplete.soft', function(e, items){
-  if (didInitialReveal){                   // ← пропускаем самую первую волну
-    didInitialReveal = false;
-    return;
-  }
-  if (currentFilter === '*' && Date.now() - lastInteractive < 400) return;
-  if (!items || !items.length) return;
-  var domElems = items
-    .filter(function(it){ return it.isVisible && it.element && it.element.parentNode; })
-    .map(function(it){ return it.element; });
-  softReveal(domElems);
-});
-
-// перекладываем по мере загрузки каждого изображения + ставим .is-loaded
-if (window.imagesLoaded) {
-  // всё, что уже в кэше — сразу помечаем
-  $grid.find('img').each(function () {
-    if (this.complete && this.naturalWidth) this.classList.add('is-loaded');
-  });
-
-  // ВАЖНО: используем ванильный конструктор imagesLoaded, а не цепочку $grid.imagesLoaded()
-  var il = imagesLoaded($grid.find('img').get());
-
-  il.on('progress', function (_, image) {
-    if (image && image.img) image.img.classList.add('is-loaded');
-    requestAnimationFrame(function () {
-      silent(function () { $grid.isotope('layout'); });
+    $grid.isotope({
+      itemSelector: '.iso-box',
+      layoutMode: 'masonry',
+      percentPosition: true,
+      transitionDuration: '0.18s',
+      stagger: 0,
+      masonry: {
+        columnWidth: '.grid-sizer',
+        gutter: '.gutter-sizer',
+        horizontalOrder: false
+      },
+      hiddenStyle:  { opacity: 0 },
+      visibleStyle: { opacity: 1 },
+      filter: currentSelector()
     });
-  });
 
-  il.on('always', function () {
-    silent(function () { $grid.isotope('layout'); });
-  });
-}
+    $grid.on('transitionend', '.iso-box img', function(e){
+      if (e.propertyName !== 'opacity' && e.propertyName !== 'transform') return;
+      var box = this.closest('.iso-box');
+      if (box) box.classList.remove('iso-soft-in','iso-soft-start');
+    });
+
+    $grid.one('arrangeComplete.softInit', function(e, items){
+      if (!items || !items.length) return;
+      didInitialReveal = true;
+      softReveal(items.map(function(it){ return it.element; }));
+    });
+
+    // после раскладки (фильтр/перекладка) — мягко «вплываем»
+    $grid.off('arrangeComplete.soft').on('arrangeComplete.soft', function(e, items){
+      if (didInitialReveal){
+        didInitialReveal = false;
+        return;
+      }
+      if (currentFilter === '*' && Date.now() - lastInteractive < 400) return;
+      if (!items || !items.length) return;
+      var domElems = items
+        .filter(function(it){ return it.isVisible && it.element && it.element.parentNode; })
+        .map(function(it){ return it.element; });
+      softReveal(domElems);
+    });
+
+    // перекладываем по мере загрузки каждого изображения + ставим .is-loaded
+    if (window.imagesLoaded) {
+      $grid.find('img').each(function () {
+        if (this.complete && this.naturalWidth) this.classList.add('is-loaded');
+      });
+
+      var il = imagesLoaded($grid.find('img').get());
+
+      il.on('progress', function (_, image) {
+        if (image && image.img) image.img.classList.add('is-loaded');
+        requestAnimationFrame(function () {
+          silent(function () { $grid.isotope('layout'); });
+        });
+      });
+
+      il.on('always', function () {
+        silent(function () { $grid.isotope('layout'); });
+      });
+    }
 
     autoCols();
     requestAnimationFrame(function(){ $grid.isotope('layout'); });
-    $('#load-more').show(); // стартуем в All
   }
 
   function boot(){ initIso(); }
+  boot(); // запускаем сразу
 
-boot(); // запускаем сразу, без ожидания lazy-изображений
+  // ——— когда карточке ДОБАВИЛИ .is-visible (infinite scroll / инициализация)
+  var obsPaused = false;
+  var arrangeScheduled = false;
 
-  // ——— когда карточке ДОБАВИЛИ .is-visible (кнопка «Показать ещё»)
-var obsPaused = false;
-var arrangeScheduled = false;
+  function scheduleArrange(){
+    var iso = $grid.data('isotope');
+    if (!iso) return;
+    if (arrangeScheduled) return;
 
-function scheduleArrange(){
-  var iso = $grid.data('isotope');
-  if (!iso) return;                 // <— защита: если isotope не инициализирован
-  if (arrangeScheduled) return;
-
-  arrangeScheduled = true;
-  requestAnimationFrame(function(){
-    arrangeScheduled = false;
-    lastInteractive = Date.now();
-    obsPaused = true;
-    $grid.isotope('arrange', { filter: currentSelector() });
-    autoCols();
-    requestAnimationFrame(function(){ $grid.isotope('layout'); });
-  });
-}
-
-var observer = new MutationObserver(function(list){
-  if (obsPaused) return;
-  for (var i = 0; i < list.length; i++){
-    var m = list[i];
-    if (m.type !== 'attributes' || m.attributeName !== 'class') continue;
-    var t = m.target;
-    // обрабатываем только .iso-box, у которой .is-visible ТОЛЬКО ЧТО появился
-    if (!t.classList || !t.classList.contains('iso-box')) continue;
-
-    var old = m.oldValue || '';
-    var wasVisible = old.indexOf('is-visible') !== -1;
-    var nowVisible = t.classList.contains('is-visible');
-    if (!wasVisible && nowVisible){
-      t.classList.remove('iso-soft-in','iso-soft-start');
-      // мягко показать ЭТУ карточку и один раз перестроить сетку
-      softReveal([t]);
-      scheduleArrange();
-    }
+    arrangeScheduled = true;
+    requestAnimationFrame(function(){
+      arrangeScheduled = false;
+      lastInteractive = Date.now();
+      obsPaused = true;
+      $grid.isotope('arrange', { filter: currentSelector() });
+      autoCols();
+      requestAnimationFrame(function(){ $grid.isotope('layout'); });
+    });
   }
-});
 
-if ($grid[0]) {
-  observer.observe($grid[0], {
-    subtree: true,
-    attributes: true,
-    attributeFilter: ['class'],
-    attributeOldValue: true   // <— важно, чтобы видеть "до/после"
+  var observer = new MutationObserver(function(list){
+    if (obsPaused) return;
+    for (var i = 0; i < list.length; i++){
+      var m = list[i];
+      if (m.type !== 'attributes' || m.attributeName !== 'class') continue;
+      var t = m.target;
+      if (!t.classList || !t.classList.contains('iso-box')) continue;
+
+      var old = m.oldValue || '';
+      var wasVisible = old.indexOf('is-visible') !== -1;
+      var nowVisible = t.classList.contains('is-visible');
+      if (!wasVisible && nowVisible){
+        t.classList.remove('iso-soft-in','iso-soft-start');
+        softReveal([t]);
+        scheduleArrange();
+      }
+    }
   });
-}
 
-// на время самой раскладки — не реагируем на внутренние классы Isotope
-$grid.on('arrangeComplete layoutComplete', function(){ obsPaused = false; });
-$grid.on('arrange', function(){ obsPaused = true; });
+  if ($grid[0]) {
+    observer.observe($grid[0], {
+      subtree: true,
+      attributes: true,
+      attributeFilter: ['class'],
+      attributeOldValue: true
+    });
+  }
+
+  // на время самой раскладки — не реагируем на внутренние классы Isotope
+  $grid.on('arrangeComplete layoutComplete', function(){ obsPaused = false; });
+  $grid.on('arrange', function(){ obsPaused = true; });
 
   // ——— переключение фильтров
-$(document).on('click', '.filter-wrapper a', function(e){
-  e.preventDefault();
-  currentFilter = $(this).data('filter') || '*';
+  $(document).on('click', '.filter-wrapper a', function(e){
+    e.preventDefault();
+    currentFilter = $(this).data('filter') || '*';
 
-  if (currentFilter === '*') { $('body').removeClass('mode-cat'); $('#load-more').show(); }
-  else { $('body').addClass('mode-cat'); $('#load-more').hide(); }
+    if (currentFilter === '*') {
+      $('body').removeClass('mode-cat');
+    } else {
+      $('body').addClass('mode-cat');
+    }
 
-  // если isotope ещё не готов — выходим тихо
-  if (!$grid.data('isotope')) return;
+    if (!$grid.data('isotope')) return;
 
-  $grid.isotope('arrange', { filter: currentSelector() });
-  autoCols();
+    $grid.isotope('arrange', { filter: currentSelector() });
+    autoCols();
 
-  if (currentFilter === '*') {
-    silent(function(){ $grid.isotope('shuffle'); });
-  }
-  lastInteractive = Date.now();
-  requestAnimationFrame(function(){ $grid.isotope('layout'); });
+    if (currentFilter === '*') {
+      silent(function(){ $grid.isotope('shuffle'); });
+    }
+    lastInteractive = Date.now();
+    requestAnimationFrame(function(){ $grid.isotope('layout'); });
 
-var $chips = $('.filter-wrapper a');
-$chips.removeClass('selected is-checked active').attr('aria-pressed','false');
-$(this).addClass('selected is-checked').attr('aria-pressed','true');
-});
+    var $chips = $('.filter-wrapper a');
+    $chips.removeClass('selected is-checked active').attr('aria-pressed','false');
+    $(this).addClass('selected is-checked').attr('aria-pressed','true');
+  });
 
   // ——— ресайз (с дебаунсом)
   var rAF;
   $(window).on('resize', function(){
     cancelAnimationFrame(rAF);
-rAF = requestAnimationFrame(function(){
-  autoCols();
-  silent(function(){ $grid.isotope('layout'); });
-});
-});
-
-// === LOAD MORE: стабильный, без наслаиваний ===
-$('#load-more').on('click', function(e){
-  e.preventDefault();
-  if (!$grid.length || !$grid.data('isotope')) return;
-
-  var BATCH = 9;
-  var $items = $grid.find('.iso-box:not(.is-visible)').slice(0, BATCH);
-
-  if (!$items.length){
-    $(this).attr('disabled', true).hide();
-    return;
-  }
-
-  lastInteractive = Date.now();
-
-  // 1) показать новые карточки мягкой волной
-  $items
-    .addClass('is-visible')
-    .each(function(){ this.classList.remove('iso-soft-in','iso-soft-start'); });
-  softReveal($items.toArray());
-
-  // 2) пометить уже загруженные картинки
-  $items.find('img').each(function(){
-    if (this.complete && this.naturalWidth) this.classList.add('is-loaded');
+    rAF = requestAnimationFrame(function(){
+      autoCols();
+      silent(function(){ $grid.isotope('layout'); });
+    });
   });
 
-  // 3) переложить сетку
-  silent(function(){ $grid.isotope('arrange', { filter: currentSelector() }); });
-  autoCols();
-  requestAnimationFrame(function(){ $grid.isotope('layout'); });
+  // === INFINITE SCROLL: грузим по 9 карточек при доскролле до sentinel ===
+  (function(){
+    var sentinel = document.querySelector('.js-portfolio-sentinel');
+    if (!sentinel || !('IntersectionObserver' in window)) return;
 
-  // 4) когда догрузятся новые изображения — ещё раз переложить
-  if (window.imagesLoaded){
-    var ilNew = imagesLoaded($items.get());
-    ilNew.on('progress', function(){
-      silent(function(){ $grid.isotope('layout'); });
-    });
-    ilNew.on('always', function(){
-      silent(function(){ $grid.isotope('layout'); });
-    });
-  }
+    var BATCH   = 15;
+    var loading = false;
 
-  // 5) если скрытых больше нет — прячем кнопку
-  if ($grid.find('.iso-box:not(.is-visible)').length === 0){
-    $(this).attr('disabled', true).hide();
-  }
-});
-});
+    var io = new IntersectionObserver(function(entries){
+      if (!entries.some(function(e){ return e.isIntersecting; })) return;
+      if (loading) return;
 
-// ==== Мобильное меню ====
-$(function () {
-  // Гарантируем, что элементы есть (ставим id/aria, если забыты в HTML)
-  let $menu = $('#site-menu');
-  if (!$menu.length) {
-    $menu = $('.navicon .list-menu').first().attr({
-      id: 'site-menu',
-      role: 'dialog',
-      'aria-modal': 'true',
-      'aria-hidden': 'true'
-    });
-  }
+      // Бесконечный скролл только в режиме "All"
+      if (currentFilter !== '*') return;
 
-  let $burger = $('.navicon .circle').first();
-  if (!$burger.is('[aria-controls]')) {
-    $burger.attr({
-      'aria-controls': 'site-menu',
-      'aria-expanded': 'false',
-      'aria-label': 'Open menu'
-    });
-  }
-
-  if ($menu[0]) { $menu[0].inert = true; } // по умолчанию меню нефокусируемо
-
-  function openMenu() {
-    if ($menu[0]) { $menu[0].inert = false; }
-    $menu.addClass('reveal-modal').attr('aria-hidden', 'false');
-    $burger.attr('aria-expanded', 'true');
-    // ВАЖНО: совпадаем с CSS
-    $('html,body').addClass('no-scroll');
-
-    const $first = $menu
-      .find('a, button, [tabindex]:not([tabindex="-1"])')
-      .filter(':visible')
-      .first();
-    setTimeout(() => { ($first[0] || $menu[0]).focus(); }, 0);
-  }
-
-  function closeMenu() {
-    $burger.focus();
-    if ($menu[0]) { $menu[0].inert = true; }
-    $menu.removeClass('reveal-modal').attr('aria-hidden', 'true');
-    $burger.attr('aria-expanded', 'false');
-    $('html,body').removeClass('no-scroll');
-  }
-
-  // Открыть
-  $(document)
-    .off('click.openMenu')
-    .on('click.openMenu', '.navicon .circle, .navicon .ion-navicon', function (e) {
-      e.preventDefault(); e.stopPropagation();
-      openMenu();
-    });
-
-  // Закрыть по X
-  $(document)
-    .off('click.closeMenu')
-    .on('click.closeMenu', '.close-iframe, #site-menu .ion-close-round', function (e) {
-      e.preventDefault(); e.stopPropagation();
-      closeMenu();
-    });
-
-  // Закрыть по клику на фон
-  $(document)
-    .off('click.bgClose')
-    .on('click.bgClose', '#site-menu', function (e) {
-      if (e.target === this) closeMenu();
-    });
-
-  // Закрыть по клику на пункт меню (и перейти по ссылке)
-  $(document)
-    .off('click.linkClose')
-    .on('click.linkClose', '#site-menu a', function (e) {
-      const href = $(this).attr('href') || '';
-      closeMenu();
-      if (href && href !== '#') {
-        e.preventDefault();
-        window.location.href = href;
-      } else {
-        e.preventDefault();
+      var $items = $grid.find('.iso-box:not(.is-visible)').slice(0, BATCH);
+      if (!$items.length){
+        io.disconnect();
+        return;
       }
+
+      loading = true;
+      lastInteractive = Date.now();
+
+      // 1) показать новые карточки мягкой волной
+      $items
+        .addClass('is-visible')
+        .each(function(){ this.classList.remove('iso-soft-in','iso-soft-start'); });
+      softReveal($items.toArray());
+
+      // 2) пометить уже загруженные картинки
+      $items.find('img').each(function(){
+        if (this.complete && this.naturalWidth) this.classList.add('is-loaded');
+      });
+
+      // 3) переложить сетку
+      silent(function(){ $grid.isotope('arrange', { filter: currentSelector() }); });
+      autoCols();
+      requestAnimationFrame(function(){ $grid.isotope('layout'); });
+
+      // 4) когда новые изображения догрузятся — ещё раз переложить
+      if (window.imagesLoaded){
+        var ilNew = imagesLoaded($items.get());
+        ilNew.on('progress', function(){
+          silent(function(){ $grid.isotope('layout'); });
+        });
+        ilNew.on('always', function(){
+          silent(function(){ $grid.isotope('layout'); });
+          loading = false;
+        });
+      } else {
+        loading = false;
+      }
+
+      // 5) если скрытых карточек больше нет — выключаем наблюдатель
+      if ($grid.find('.iso-box:not(.is-visible)').length === 0){
+        io.disconnect();
+      }
+    }, {
+      rootMargin: '0px 0px 100% 0px'
     });
 
-  // ESC
-  $(document).on('keydown', function (e) { if (e.key === 'Escape') closeMenu(); });
+    io.observe(sentinel);
+  })();
 
-  // iOS tap hack
-  $(document).on('touchstart', '.close-iframe, #site-menu .ion-close-round, #site-menu a', function () { });
 });
-
 })(jQuery);
 
-// === 3D Tilt с инерцией + совместим с "zoomout" ===
 // === 3D Tilt + ЕДИНЫЙ zoom без рывков ===
 (function(){
   if (!matchMedia('(hover:hover)').matches) return;
@@ -498,25 +416,49 @@ $(function () {
   });
 })();
 
-// === Lazy + Blur-up для изображений в .iso-box ===
+// === Lazy + Blur-up для изображений в .iso-box + пересборка Isotope ===
 (function(){
   var imgs = document.querySelectorAll('.iso-box img');
   if (!imgs.length) return;
 
+  var gridEl = null;
+
+  function relayoutIso(){
+    if (!window.jQuery) return;
+    if (!gridEl) gridEl = document.querySelector('.iso-box-wrapper');
+    if (!gridEl) return;
+
+    var $g = window.jQuery(gridEl);
+    if ($g.data('isotope')) {
+      // чуть мягче, через rAF
+      requestAnimationFrame(function(){
+        $g.isotope('layout');
+      });
+    }
+  }
+
   imgs.forEach(function(img, i){
-    if (i < 12) {                      // верх страницы грузим сразу
+    // первые ~24 кадра грузим сразу, остальные — lazy
+    if (i < 24) {
       img.removeAttribute('loading');
-      img.setAttribute('fetchpriority','high'); // хинт браузеру
+      img.setAttribute('fetchpriority','high');
     } else {
       if (!img.hasAttribute('loading')) img.setAttribute('loading','lazy');
     }
     if (!img.hasAttribute('decoding')) img.setAttribute('decoding','async');
 
     img.classList.add('img-blur');
-    if (img.complete) {
+
+    if (img.complete && img.naturalWidth) {
+      // уже загружено (из кэша) — пометили и переложили сетку
       img.classList.add('is-loaded');
+      relayoutIso();
     } else {
-      img.addEventListener('load', function(){ img.classList.add('is-loaded'); }, {once:true});
+      // когда ДОгрузится — пометить и переложить сетку
+      img.addEventListener('load', function(){
+        img.classList.add('is-loaded');
+        relayoutIso();
+      }, { once:true });
     }
   });
 })();
@@ -588,3 +530,169 @@ $(function () {
     if (contact) contact.scrollIntoView({behavior:'smooth', block:'start'});
   });
 })();
+
+document.addEventListener('DOMContentLoaded', function () {
+  // Чтобы код сработал только на pricing-странице
+  if (!document.body.classList.contains('page-pricing')) return;
+
+  (function () {
+    var chips = [].slice.call(document.querySelectorAll('.pricing-filter a'));
+    if (!chips.length) return;
+
+    var rows = [].slice.call(document.querySelectorAll('.pricing-row'));
+    var timelineItems = [].slice.call(document.querySelectorAll('.pricing-timeline-item'));
+
+    function toggleByGroup(el, group) {
+      if (!el) return;
+      var g = el.getAttribute('data-group') || '';
+      var tags = (el.getAttribute('data-tags') || '').split(/\s+/);
+      var show =
+        group === 'all' ||
+        g === group ||
+        (tags.length && tags.indexOf(group) !== -1);
+
+      el.style.display = show ? '' : 'none';
+    }
+
+    function apply(group) {
+      rows.forEach(function (el) { toggleByGroup(el, group); });
+      timelineItems.forEach(function (el) { toggleByGroup(el, group); });
+    }
+
+    chips.forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        e.preventDefault();
+        var group = this.dataset.group || 'all';
+
+        chips.forEach(function (c) { c.classList.remove('is-checked'); });
+        this.classList.add('is-checked');
+
+        apply(group);
+      });
+    });
+
+    // Стартовое состояние
+    apply('all');
+  })();
+});
+
+
+// === MINUSTA: открыть / закрыть верхнее меню (desktop) ===
+document.addEventListener('DOMContentLoaded', function () {
+  const trigger = document.querySelector('.header-page-trigger');
+  const flyout  = document.querySelector('.header-flyout');
+
+  if (!trigger || !flyout) return; // если чего-то нет — выходим тихо
+
+  // Клик по MINUSTA — открыть / закрыть меню
+  trigger.addEventListener('click', function (e) {
+    e.preventDefault();
+
+    const isOpen = document.body.classList.toggle('header-menu-open');
+    trigger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+
+  // Клик вне меню — закрыть
+  document.addEventListener('click', function (e) {
+    if (!document.body.classList.contains('header-menu-open')) return;
+
+    // если кликнули по самому меню или по MINUSTA — не закрываем
+    if (e.target.closest('.header-flyout') || e.target.closest('.header-page-trigger')) {
+      return;
+    }
+
+    document.body.classList.remove('header-menu-open');
+    trigger.setAttribute('aria-expanded', 'false');
+  });
+
+  // ESC — тоже закрывает
+  document.addEventListener('keyup', function (e) {
+    if (e.key === 'Escape') {
+      document.body.classList.remove('header-menu-open');
+      trigger.setAttribute('aria-expanded', 'false');
+    }
+  });
+});
+
+// Меню: линия под пунктами начинается из позиции курсора
+document.addEventListener('DOMContentLoaded', function () {
+  var links = document.querySelectorAll('.main-menu a, .lang-menu a');
+
+  function setUnderlineOrigin(e) {
+    var link = e.currentTarget;
+    var rect = link.getBoundingClientRect();
+    var x = e.clientX - rect.left;          // px от левого края ссылки
+    var percent = (x / rect.width) * 100;   // в проценты
+
+    link.style.setProperty('--ux', percent + '%');
+  }
+
+  links.forEach(function (link) {
+    link.addEventListener('mouseenter', setUnderlineOrigin);
+    link.addEventListener('mousemove', setUnderlineOrigin);
+  });
+});
+
+// === MOBILE: HOME показывает / прячет главное меню + языки ===
+document.addEventListener('DOMContentLoaded', function () {
+  var pageTrigger = document.querySelector('.mobile-nav-toggle');
+  var mainMenu    = document.querySelector('.main-menu');
+  var langMenu    = document.querySelector('.lang-menu');
+
+  // Если чего-то нет — тихо выходим
+  if (!pageTrigger || !mainMenu || !langMenu) return;
+
+  function isMobile() {
+    return window.matchMedia('(max-width: 800px)').matches;
+  }
+
+  // Клик по HOME
+  pageTrigger.addEventListener('click', function (e) {
+    if (!isMobile()) return;
+    e.preventDefault();
+    e.stopPropagation();
+
+    var open = document.body.classList.toggle('menu-open');
+    pageTrigger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+
+  // Клик мимо – закрыть
+  document.addEventListener('click', function (e) {
+    if (!isMobile()) return;
+    if (!document.body.classList.contains('menu-open')) return;
+
+    if (
+      e.target.closest('.mobile-nav-toggle') ||
+      e.target.closest('.main-menu') ||
+      e.target.closest('.lang-menu')
+    ) {
+      return;
+    }
+
+    document.body.classList.remove('menu-open');
+    pageTrigger.setAttribute('aria-expanded', 'false');
+  });
+
+  // ESC — тоже закрыть
+  document.addEventListener('keyup', function (e) {
+    if (!isMobile()) return;
+    if (e.key === 'Escape') {
+      document.body.classList.remove('menu-open');
+      pageTrigger.setAttribute('aria-expanded', 'false');
+    }
+  });
+});
+
+// Блокируем контекстное меню на картинках (правую кнопку)
+document.addEventListener('contextmenu', function (e) {
+  if (e.target.tagName === 'IMG' || e.target.closest('picture')) {
+    e.preventDefault();
+  }
+});
+
+// Блокируем перетаскивание картинок
+document.addEventListener('dragstart', function (e) {
+  if (e.target.tagName === 'IMG' || e.target.closest('picture')) {
+    e.preventDefault();
+  }
+});

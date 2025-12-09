@@ -81,8 +81,8 @@ http://www.tooplate.com/view/2082-pure-mix
   --logo-h-desktop: 140px;
 
   /* Preloader logo sizing */
-  --pre-logo-h-desktop: clamp(96px, 12vw, 140px);
-  --pre-logo-h-mobile: clamp(64px, 22vw, 96px);
+  --pre-logo-h-desktop: clamp(120px, 14vw, 180px);
+  --pre-logo-h-mobile: clamp(80px, 26vw, 120px);
 
   /* Preloader glass/glow */
   --pre-glass-alpha: .8500;
@@ -90,6 +90,12 @@ http://www.tooplate.com/view/2082-pure-mix
   --pre-glow-alpha: .22;
   --pre-glow-size: 62%;
   --pre-glow-y: 38%;
+
+  /* Hero gap */
+  --hero-gap-desktop: 35px;
+
+  /* Nav top */
+  --nav-top-desktop: 50px;
 }
 
 body {
@@ -101,7 +107,14 @@ body {
   background-attachment: var(--page-bg-attach);
 }
 
-
+/* Анти-Drag для картинок */
+img {
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
 
 /* Typography
 ------------------------------------- */
@@ -266,7 +279,7 @@ nav ul.right {
   height: 70px;
   max-height: 70px;
   margin: 0;
-  background: #ffffff;
+  background: transparent;
 }
 
 .sticky nav.transparent .navbar {
@@ -279,7 +292,7 @@ nav ul.right {
   }
 
   .nav-inner {
-    background: #ffffff;
+    background: transparent;
   }
 
   .transparent {
@@ -405,78 +418,6 @@ a.icon {
   }
 }
 
-/* Полноэкранное оверлей-меню */
-.list-menu {
-  position: fixed !important;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.9);
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity .3s ease, visibility .3s ease;
-  z-index: 99999;
-  /* оставляем высокий слой */
-  padding-top: 0 !important;
-  /* сброс старого отступа */
-  pointer-events: none;
-  /* пока скрыто — кликов нет */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.list-menu.reveal-modal {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-  /* открыто — клики работают */
-}
-
-.list-menu .ion-close-round {
-  font-size: 31px;
-  position: absolute;
-  top: 32px;
-  right: 32px;
-  color: #fff;
-  cursor: pointer;
-}
-
-/* === Overlay menu: brighten text on hover (no glow, no bg) === */
-.list-menu #nav-menu a {
-  color: rgba(255, 255, 255, .78);
-  transition: color var(--ui-ease) ease, filter var(--ui-ease) ease;
-  text-shadow: none;
-}
-
-.list-menu #nav-menu a:hover,
-.list-menu #nav-menu a:focus-visible {
-  color: #fff;
-  filter: brightness(var(--hover-brightness)) contrast(1.05);
-}
-
-.list-menu #nav-menu a:active {
-  filter: brightness(calc(var(--hover-brightness) - .06)) contrast(1.05);
-}
-
-/* Мобильный "блик" при тапе: ярче текст */
-@media (hover: none) and (pointer: coarse) {
-  .list-menu ul#nav-menu>li>a {
-    transition: filter var(--ui-ease) ease, transform .1s ease, color var(--ui-ease) ease;
-    -webkit-tap-highlight-color: rgba(255, 255, 255, .12);
-  }
-
-  .list-menu ul#nav-menu>li>a:active,
-  .list-menu ul#nav-menu>li>a:focus-visible {
-    filter: brightness(var(--tap-brightness)) drop-shadow(0 0 6px rgba(255, 255, 255, .25));
-    transform: scale(var(--tap-scale));
-    outline: none;
-  }
-}
-
 /* header section styles
 /* ========================================== */
 #header {
@@ -560,7 +501,7 @@ a.icon {
 }
 
 .header-three {
-  background: url('../images/header-three-bg.jpg') no-repeat;
+  background: none;
 }
 
 .header-four {
@@ -685,7 +626,7 @@ a.icon {
 }
 
 #about img {
-  padding-bottom: 20px;
+  padding-bottom: 0px;
 }
 
 #about blockquote {
@@ -726,6 +667,230 @@ a.icon {
   #about .about-thumb>p:first-of-type {
     transform: translateY(-50px);
   }
+}
+
+/* ABOUT — поставить ряд иконок прямо под подписью (desktop) */
+@media (min-width: 992px) {
+  #about .about-thumb .about-iconrow {
+    transform: translateY(-50px);
+    /* возьми то же значение, что выше */
+  }
+
+  /* чтобы текст под иконками не прилипал */
+  #about .about-thumb .about-iconrow+p {
+    margin-top: 6px;
+  }
+}
+
+.about-iconrow {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  margin: 6px 0 4px;
+  color: #9aa;
+}
+
+.about-iconrow .ico {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: .85;
+  transition: opacity .18s, transform .12s;
+}
+
+.about-iconrow:hover .ico {
+  opacity: 1
+}
+
+.about-iconrow .ico:active {
+  transform: translateY(1px) scale(.98)
+}
+
+/* авто-цвет под розовые фоны (у тебя body[data-bg="rose-vert-ultra"]) */
+body[data-bg^="rose-vert"] .about-iconrow {
+  color: color-mix(in srgb, #111 28%, #fff);
+}
+
+/* тёмные темы, если будут */
+body[data-bg^="charcoal"] .about-iconrow {
+  color: #d0d0d0
+}
+
+@media (max-width:700px) {
+  .about-iconrow .ico {
+    width: 20px;
+    height: 20px
+  }
+}
+
+
+/* Подпись под блоком About */
+.about-signature {
+  margin: -120px auto 10px;
+  text-align: center;
+}
+
+.about-signature-img {
+  max-width: 420px;
+  /* ширина на десктопе */
+  width: 70%;
+  /* адаптивность */
+  height: auto;
+  display: inline-block;
+  opacity: 0.96;
+}
+
+@media (max-width: 600px) {
+  .about-signature-img {
+    max-width: 320px;
+    width: 80%;
+  }
+}
+
+/* === About FI: подпись в текстовой колонке === */
+.about-signature--text {
+  margin: -130px 0 16px;
+  text-align: left;
+  /* на десктопе — как рукописная строка под текстом */
+}
+
+.about-signature--text img {
+  max-width: 220px;
+  /* ширина подписи */
+  width: 70%;
+  height: auto;
+  opacity: .98;
+  display: inline-block;
+  margin-left: 18px;
+  /* 👉 сдвиг вправо — подбери 10–30px по вкусу */
+}
+
+/* на телефоне — выровнять по центру и убрать сдвиг */
+@media (max-width: 767px) {
+  .about-signature--text {
+    text-align: center;
+  }
+
+  .about-signature--text img {
+    margin-left: 0;
+  }
+}
+
+/* === SECRET STRIP under FI signature === */
+.about-secret-strip {
+  margin: 0;
+  /* 👉 когда пасхалка закрыта — блок не занимает лишнего места */
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height .4s ease, opacity .4s ease, margin .4s ease;
+}
+
+.about-secret-strip.is-open {
+  /* 👉 отступы появятся только когда фото раскрыты */
+  margin: 10px 0 28px;
+  max-height: 280px;
+  /* при необходимости подстроишь */
+  opacity: 1;
+}
+
+.about-secret-caption {
+  font-size: 13px;
+  letter-spacing: .05em;
+  text-transform: none;
+  margin: 4px 0 6px;
+  color: #777;
+}
+
+/* Ряд мини-полароидов */
+.about-secret-photos {
+  display: flex;
+  gap: 14px;
+  flex-wrap: nowrap;
+  align-items: flex-end;
+  margin-top: 4px;
+}
+
+/* Собственно "полароид" */
+.about-secret-photos img {
+  position: relative;
+  width: 30%;
+  max-width: 140px;
+
+  /* рамка полароида */
+  background: #fff;
+  padding: 10px 10px 26px;
+  /* снизу толще — классика */
+  border-radius: 12px;
+  box-shadow:
+    0 10px 24px rgba(0, 0, 0, .16),
+    0 2px 6px rgba(0, 0, 0, .08);
+  object-fit: cover;
+
+  /* лёгкая кинематографичность */
+  filter: saturate(1.02) contrast(1.03);
+
+  transform-origin: center bottom;
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+
+/* Немного "разбросаем" карточки по углам */
+.about-secret-photos img:nth-child(1) {
+  transform: rotate(-5deg);
+}
+
+.about-secret-photos img:nth-child(2) {
+  transform: rotate(2deg);
+}
+
+.about-secret-photos img:nth-child(3) {
+  transform: rotate(6deg) translateY(4px);
+}
+
+/* При ховере карточка "выравнивается" и поднимается */
+@media (hover:hover) {
+  .about-secret-photos img:hover {
+    transform: rotate(0deg) translateY(-2px);
+    box-shadow:
+      0 14px 30px rgba(0, 0, 0, .22),
+      0 3px 10px rgba(0, 0, 0, .10);
+  }
+}
+
+/* на мобиле — по центру и без сильных наклонов */
+@media (max-width: 767px) {
+  .about-secret-photos {
+    justify-content: center;
+  }
+
+  .about-secret-photos img {
+    max-width: 135px;
+    transform: rotate(0deg);
+    padding: 12px 12px 30px;
+  }
+}
+
+/* Общие отступы абзацев в колонке about */
+#about .about-thumb p {
+  margin: 0 0 18px;
+}
+
+/* Когда пасхалка ОТКРЫТА — фотки + текст не должны налезать друг на друга */
+.about-secret-strip.is-open {
+  margin: 16px 0 70px;
+  /* было 10 / 28 — даём больше воздуха снизу */
+  max-height: 360px;
+  /* чтобы всё точно влезало, можно 340, если нужно */
+}
+
+#about .about-thumb .about-secret-strip.is-open+p {
+  margin-top: 50px !important;
+  /* было 10 — поднимаем, чтобы текст явно отъехал */
 }
 
 /* blog & single post section styles
@@ -827,15 +992,29 @@ a.icon {
 
 #contact .fa {
   font-size: 32px;
-  padding-right: 10px;
+  padding-right: 0px;
+  display: block;
+  margin: 0 auto;
+  line-height: 1;
+}
+
+#contact .contact-info-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+  /* расстояние между иконкой и ником */
 }
 
 /* Кликабельные иконки в контактных карточках */
 #contact .contact-info-block .icon-link {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   line-height: 1;
-  padding: 6px;
-  /* увеличиваем зону клика */
+  padding: 0;
+  /* было 6px */
   border-radius: 999px;
   -webkit-tap-highlight-color: transparent;
 }
@@ -1124,7 +1303,7 @@ footer.wide-footer {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.45);
+  background: rgba(0, 0, 0, 0.20);
   z-index: 1;
   pointer-events: none;
 }
@@ -1154,10 +1333,33 @@ footer.wide-footer {
   text-rendering: optimizeLegibility;
 }
 
+/* Подзаголовок под hero — в таком же стиле, только помельче */
+.header-one .header-thumb .hero-tagline {
+  margin-top: 8px;
+  font-family:
+    "TAN Moonlight",
+    "TAN Moonlight Fallback",
+    system-ui, -apple-system, "Segoe UI", "Roboto", "Helvetica Neue", Arial, "Source Sans Pro", sans-serif;
+  font-weight: 400;
+  font-size: clamp(16px, 1.6vw, 22px);
+  line-height: 1.3;
+  letter-spacing: .004em;
+  text-transform: none;
+  color: #111;
+}
+
 /* на больших экранах можно чуть сильнее раздвинуть буквы */
 @media (min-width: 1200px) {
   .header-one .header-thumb h1 {
     letter-spacing: .01em;
+  }
+}
+
+/* DESKTOP: карточки ровные, без наклонов */
+@media (min-width: 992px) {
+  .pricing-grid .price-card {
+    transition: transform .14s ease, box-shadow .2s ease;
+    transform: none;
   }
 }
 
@@ -1183,7 +1385,33 @@ footer.wide-footer {
 .header-right {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 6px;
+}
+
+/* Кликабельное название текущей страницы (desktop) */
+.header-page-trigger {
+  background: none;
+  border: none;
+  padding: 0;
+  margin-right: 18px;
+
+  font: 600 13px/1.2 "Source Sans Pro", system-ui, -apple-system, "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+
+  cursor: pointer;
+  color: #111111;
+  text-decoration: none;
+  text-underline-offset: 3px;
+}
+
+.header-page-trigger:hover,
+.header-page-trigger:focus-visible {
+  opacity: 0.9;
+}
+
+body.header-menu-open .header-page-trigger {
+  opacity: 0.7;
 }
 
 /* Языковой переключатель */
@@ -1342,16 +1570,6 @@ body.no-scroll {
   height: 100%;
 }
 
-/* === MOBILE MENU ALIGNMENT FIX (final) === */
-@media (max-width: 767px) {}
-
-/* ====== DESKTOP ====== */
-@media (min-width: 768px) {
-  .mobile-only {
-    display: none !important;
-  }
-}
-
 @media (min-width: 768px) {
   .language-switch.desktop-only {
     transform: none;
@@ -1372,9 +1590,7 @@ body.no-scroll {
 
   /* Языки + бургер правее и чуть ниже */
   .header-right {
-    margin-right: -60px;
-    margin-top: 20px;
-    /* подбери 8–14px по вкусу */
+    margin-right: -40px;
   }
 
   .language-switch {
@@ -1453,6 +1669,15 @@ body.no-scroll {
   /* под контентом */
 }
 
+/* Сдвигаем букет чуть выше в кадре,
+   чтобы снизу осталось чуть больше фона */
+.hero-bg>img {
+  object-position: center 35%;
+  /* можешь поиграть:
+     45% – букет ниже
+     35% – ещё выше */
+}
+
 .header-thumb {
   position: relative;
   z-index: 2;
@@ -1466,10 +1691,9 @@ body.no-scroll {
   }
 }
 
-/* --- Burger click area fix (header only) --- */
+/* --- Burger click area (без камеры) --- */
 .header-row .circle {
   position: static !important;
-  /* вместо абсолютного позиционирования */
   margin: 0 !important;
   width: 45px;
   height: 45px;
@@ -1477,18 +1701,27 @@ body.no-scroll {
   align-items: center;
   justify-content: center;
   z-index: 1001;
-  /* поверх всего в шапке */
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity .22s ease, transform .22s ease;
 }
 
-/* чтобы иконка не терялась */
+/* Когда меню открыто — бургер чуть «тускнеет» */
+body.header-menu-open .header-row .circle {
+  opacity: 0.4;
+}
+
+/* Показываем обычный ion-navicon, без кастомной камеры */
 .header-row .circle i {
+  font-size: 28px;
+  line-height: 1;
   pointer-events: none;
-  /* кликаем по кругу тоже */
 }
 
-/* когда меню открыто — блокируем скролл страницы */
-body.no-scroll {
-  overflow: hidden;
+/* Убираем нарисованную камеру */
+.header-row .circle::before,
+.header-row .circle::after {
+  content: none;
 }
 
 /* Гарантируем клики по пунктам меню и языкам в оверлее */
@@ -1500,10 +1733,14 @@ body.no-scroll {
 }
 
 .iso-box-wrapper {
-  max-width: 1140px !important;
+  max-width: 1400px !important;
   margin: 0 auto !important;
   padding: 0 0 72px !important;
   position: relative !important;
+}
+
+#portfolio .container {
+  max-width: 1400px;
 }
 
 /* ширина одной колонки — строго завязана на --cols */
@@ -2123,32 +2360,8 @@ body[data-fx~="tilt"] .iso-box img {
   }
 
   .brand {
-    margin-top: 40px;
+    margin-top: 30px;
     /* подстрой по вкусу */
-  }
-}
-
-/* ==== Logo: сместить левее ==== */
-
-/* Чуть уменьшаем левый внутренний отступ контейнера шапки */
-.navbar .container {
-  padding-left: 8px;
-  /* можно 0–12px, подбери */
-}
-
-/* Десктоп: двигаем только блок с логотипом левее */
-@media (min-width: 768px) {
-  .brand {
-    margin-left: -150px;
-    /* подбери -10…-60px */
-  }
-}
-
-/* Мобилка: убираем лишний padding слева у .brand */
-@media (max-width: 767px) {
-  .brand {
-    padding-left: 0 !important;
-    margin-left: -27px;
   }
 }
 
@@ -2196,11 +2409,14 @@ body[data-fx~="tilt"] .iso-box img {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  /* расстояние между «чипами» */
   justify-content: center;
   margin: 0 0 24px;
   padding: 0;
   list-style: none;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  border-radius: 0;
 }
 
 .filter-wrapper li {
@@ -2269,7 +2485,7 @@ body[data-fx~="tilt"] .iso-box img {
   background: #111;
   color: #fff;
   border: none;
-  box-shadow: 0 8px 22px rgba(0, 0, 0, .12);
+  box-shadow: none;
 }
 
 /* мобильная настройка: чуть больше кнопки */
@@ -2293,14 +2509,6 @@ body[data-fx~="tilt"] .iso-box img {
   position: relative;
 }
 
-#header.hero-index-style::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, .50);
-  z-index: 1;
-  pointer-events: none;
-}
 
 #header.hero-index-style .header-thumb {
   position: relative;
@@ -2800,7 +3008,7 @@ body[data-bg="rose-vert"][data-ui~="chips-glass"] .filter-wrapper li a {
   border: 1px solid color-mix(in srgb, var(--rose-3) 55%, transparent);
   -webkit-backdrop-filter: saturate(130%) blur(10px);
   backdrop-filter: saturate(130%) blur(10px);
-  box-shadow: 0 10px 24px rgba(255, 160, 190, .18);
+  box-shadow: none;
   color: #222;
 }
 
@@ -2817,7 +3025,7 @@ body[data-bg="rose-vert"][data-ui~="chips-glass"] .filter-wrapper li a[aria-pres
   background: color-mix(in srgb, var(--rose-6) 88%, rgba(255, 255, 255, .06));
   color: #fff;
   border-color: color-mix(in srgb, var(--rose-6) 70%, transparent);
-  box-shadow: 0 12px 28px rgba(255, 120, 160, .28);
+  box-shadow: none;
 }
 
 /* focus для клавиатуры */
@@ -2833,16 +3041,6 @@ body[data-bg="rose-vert"][data-ui~="chips-glass"] .filter-wrapper li a:focus-vis
   }
 }
 
-/* === OPTIONAL: стеклянная "капсула" под всей лентой (включается словом 'band' в data-ui) === */
-body[data-bg="rose-vert"][data-ui~="band"] .filter-wrapper {
-  background: color-mix(in srgb, var(--rose-1) 40%, transparent);
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
-  border: 1px solid color-mix(in srgb, var(--rose-3) 50%, transparent);
-  border-radius: 999px;
-  padding: 10px 14px;
-  box-shadow: 0 12px 30px rgba(255, 160, 190, .16);
-}
 
 /* GHOST: прозрачная, розовая обводка */
 body[data-ui~="btn-ghost"] .btn-more {
@@ -2859,8 +3057,8 @@ body[data-ui~="btn-ghost"] .btn-more {
 body[data-ui~="btn-ghost"] .btn-more:hover {
   background: color-mix(in srgb, var(--rose-2) 40%, #fff);
   /* лёгкий розовый залив */
-  border-color: color-mix(in srgb, var(--rose-6) 68%, #fff);
-  box-shadow: 0 12px 28px rgba(255, 160, 190, .22);
+  border-color: none;
+  box-shadow: none;
 }
 
 body[data-ui~="btn-ghost"] .btn-more:active {
@@ -3065,11 +3263,6 @@ body[data-card="glass"] #header .header-thumb::before {
   }
 }
 
-/* Оверлей сцены оставляем как у тебя (читабельность) */
-body[data-card="glass"] .header-one::before {
-  background: rgba(0, 0, 0, .40);
-}
-
 /* --- Easter egg: heart rain --- */
 @keyframes heartFall {
   0% {
@@ -3194,21 +3387,50 @@ body[data-card="glass"] .header-one::before {
   }
 }
 
-/* === Pricing cards === */
+/* БАЗОВАЯ КАРТОЧКА — аккуратная наклейка без зубчиков */
 .price-card {
-  background: #fff;
-  border: 1px solid color-mix(in srgb, var(--rose-3, #ffd6e4) 45%, #fff);
-  border-radius: var(--radius-soft, 16px);
-  box-shadow: 0 12px 28px rgba(255, 160, 190, .12);
-  padding: 22px 20px;
-  margin-bottom: 22px;
-  transition: transform .14s ease, box-shadow .2s ease;
+  position: relative;
+  padding: 24px 24px 26px;
+  margin-bottom: 28px;
+
+  background: #ffffff;
+  border-radius: 26px;
+  border: 1px solid color-mix(in srgb, var(--rose-3, #ffd6e4) 40%, #fff);
+
+  box-shadow:
+    0 10px 26px rgba(0, 0, 0, .04),
+    0 0 0 1px rgba(255, 255, 255, .7);
+
+  transition: transform .16s ease, box-shadow .22s ease;
 }
 
+/* Мягкий ореол под карточкой */
+.price-card::before {
+  content: "";
+  position: absolute;
+  inset: -10px -14px -16px;
+  border-radius: inherit;
+  z-index: -1;
+
+  background: rgba(255, 255, 255, .7);
+  box-shadow: 0 22px 46px rgba(255, 160, 190, .22);
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity .18s ease, transform .18s ease;
+}
+
+/* Лёгкий подъём при hover (только на десктопе) */
 @media (hover:hover) {
   .price-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 18px 40px rgba(255, 160, 190, .18);
+    transform: translateY(-3px);
+    box-shadow:
+      0 16px 38px rgba(0, 0, 0, .06),
+      0 0 0 1px rgba(255, 255, 255, .9);
+  }
+
+  .price-card:hover::before {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
@@ -3270,6 +3492,55 @@ body[data-card="glass"] .header-one::before {
   outline-offset: 2px;
 }
 
+/* === Pricing layout — аккуратный центр === */
+
+/* Обёртка секции цен */
+.pricing-section {
+  position: relative;
+  padding: 40px 0 80px;
+}
+
+/* Сетка карточек */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  /* по умолчанию одна колонка */
+  gap: 26px;
+  max-width: 900px;
+  /* ширина блока с ценами */
+  margin: 0 auto 40px;
+  /* по центру страницы */
+  padding: 0 16px;
+  /* небольшие поля слева/справа */
+}
+
+/* на больших экранах — две колонки, ровно по центру */
+@media (min-width: 900px) {
+  .pricing-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+  }
+}
+
+/* колонкам ничего особенного не нужно, просто держим отступы */
+.pricing-grid .price-col {
+  padding: 0;
+}
+
+/* декоративные линии, если они у тебя остались — можно пока отключить */
+.pricing-decor {
+  display: none;
+}
+
+
+/* на больших — контент Love Story можно чуть «растянуть» по горизонтали */
+@media (min-width: 992px) {
+  .price-col--wide .price-card {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
 /* Блок доп.опций */
 .addons {
   margin-top: 10px;
@@ -3312,13 +3583,6 @@ html[lang="ru"] button {
 html[lang="ru"] .header-one .header-thumb h1 .line2 {
   font-size: .92em;
   letter-spacing: .004em;
-}
-
-/* PRICING: опустить текст в карточке героя */
-body.page-pricing #header.header-one .header-thumb {
-  padding-top: 100px !important;
-  /* подбери число */
-  padding-bottom: 22px !important;
 }
 
 @media (max-width:700px) {
@@ -3397,9 +3661,9 @@ body[data-bg^="rose-vert"] #header.header-one .header-thumb {
 body[data-bg^="rose-vert"][data-ui~="chips-glass"] .filter-wrapper li a {
   background: color-mix(in srgb, var(--rose-1, #fff1f6) 45%, transparent);
   border: 1px solid color-mix(in srgb, var(--rose-3, #ffd6e4) 55%, transparent);
-  -webkit-backdrop-filter: saturate(130%) blur(10px);
-  backdrop-filter: saturate(130%) blur(10px);
-  box-shadow: 0 10px 24px rgba(255, 160, 190, .18);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  box-shadow: none;
   color: #222;
 }
 
@@ -3414,7 +3678,7 @@ body[data-bg^="rose-vert"][data-ui~="chips-glass"] .filter-wrapper li a[aria-pre
   background: color-mix(in srgb, var(--rose-6, #ff7aa6) 88%, rgba(255, 255, 255, .06));
   color: #fff;
   border-color: color-mix(in srgb, var(--rose-6, #ff7aa6) 70%, transparent);
-  box-shadow: 0 12px 28px rgba(255, 120, 160, .28);
+  box-shadow: none;
 }
 
 /* «ghost pill» кнопки (кнопка «Показать ещё», submit и т.п.) */
@@ -3481,15 +3745,6 @@ body[data-bg="rose-vert-ultra-grain"] {
   --rose-6: #ff9db9;
 }
 
-/* === Pricing: без фоновой картинки в hero ====================== */
-body.page-pricing .hero-bg {
-  display: none !important;
-}
-
-/* убираем тёмную вуаль у header-one */
-body.page-pricing .header-one::before {
-  content: none !important;
-}
 
 /* сжимаем высоту геро-блока до «контентной» */
 body.page-pricing .header-one {
@@ -3498,11 +3753,6 @@ body.page-pricing .header-one {
   padding-top: 100px !important;
   /* место под навбар */
   padding-bottom: 24px !important;
-}
-
-/* если добавляла класс no-hero на header — тот же эффект */
-.header-one.no-hero::before {
-  content: none !important;
 }
 
 .header-one.no-hero {
@@ -3519,4 +3769,1557 @@ body.page-pricing #header.header-one .header-thumb {
 */
   padding-top: 24px !important;
   padding-bottom: 22px !important;
+}
+
+/* pricing-ru: чуть шире поля и не обрезать контент по радиусу */
+html[lang^="ru"] body.page-pricing #header .header-thumb {
+  padding-left: 24px !important;
+  padding-right: 24px !important;
+  overflow: visible;
+  /* перекрывает стеклянное overflow:hidden */
+}
+
+/* аккуратнее кернинг, чтобы буквы не «упирались» в радиус */
+html[lang^="ru"] body.page-pricing #header .header-thumb h1 {
+  letter-spacing: .002em;
+}
+
+/* очень узкие экраны: немного уменьшить кегль */
+@media (max-width:380px) {
+  html[lang^="ru"] body.page-pricing #header .header-thumb h1 {
+    font-size: clamp(24px, 6.2vw, 40px);
+  }
+}
+
+/* About: уменьшить расстояние между подписью и первым абзацем — для всех языков */
+@media (min-width: 992px) {
+  #about .about-signature--text {
+    margin-bottom: 4px;
+  }
+
+  #about .about-signature--text+p {
+    margin-top: -50px !important;
+  }
+}
+
+/* === CARD SHAPE: BUBBLE ==================================== */
+body[data-card-shape="bubble"] .price-card {
+  border-radius: 32px;
+  background: #ffffff;
+  border: 1px solid color-mix(in srgb, var(--rose-3, #ffd6e4) 40%, #fff);
+  box-shadow:
+    0 18px 42px rgba(255, 160, 190, .22),
+    0 0 0 1px rgba(255, 255, 255, .9);
+  padding: 26px 26px 28px;
+}
+
+body[data-card-shape="bubble"] .price-card::before {
+  content: "";
+  position: absolute;
+  inset: -16px -22px -24px;
+  border-radius: inherit;
+  background:
+    radial-gradient(130% 100% at 12% 0%, rgba(255, 190, 210, .18), transparent 60%),
+    radial-gradient(140% 120% at 100% 110%, rgba(255, 210, 230, .18), transparent 60%);
+  z-index: -1;
+  opacity: .9;
+}
+
+/* чуть компактнее текст внутри */
+body[data-card-shape="bubble"] .price-card h3 {
+  margin-bottom: 4px;
+}
+
+body[data-card-shape="bubble"] .price-card .price {
+  margin: 4px 0 10px;
+}
+
+/* === SIMPLE PRICING LIST (без карточек) ===================== */
+
+/* Заголовок секции */
+.pricing-simple .pricing-kicker {
+  text-transform: none;
+  letter-spacing: .04em;
+  font-size: 22px;
+  margin: 0 0 6px;
+  color: #111;
+}
+
+/* Подзаголовок */
+.pricing-simple .pricing-intro {
+  margin: 0 0 26px;
+  color: #555;
+  max-width: 640px;
+}
+
+/* Блоки категорий (Portraits & Love Story / Family & Other…) */
+.pricing-block {
+  margin: 28px 0 20px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(0, 0, 0, .08);
+}
+
+.pricing-block-title {
+  font-size: 13px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: #b49ea8;
+  margin: 0 0 10px;
+}
+
+/* Одна строка-пакет */
+.pricing-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 12px 0 14px;
+  border-top: 1px solid rgba(0, 0, 0, .04);
+}
+
+/* нижняя линия только у последней строки блока */
+.pricing-block .pricing-row:last-child {
+  border-bottom: 1px solid rgba(0, 0, 0, .04);
+}
+
+/* Левая колонка — название + описание */
+.pr-left {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* Правая колонка — цена + кнопка */
+.pr-right {
+  flex: 0 0 auto;
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+/* Название пакета */
+.pr-name {
+  font-weight: 600;
+  font-size: 16px;
+  color: #111;
+  margin-bottom: 4px;
+}
+
+/* Описание */
+.pr-note {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #555;
+}
+
+/* Цена */
+.pr-price {
+  font-weight: 700;
+  font-size: 15px;
+  color: #111;
+}
+
+/* Кнопка в строке – та же «пилюля», что и на форме */
+.pr-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--rose-6, #ff7aa6) 55%, #fff);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .3px;
+  text-decoration: none;
+  background: #fff;
+  color: #111;
+  box-shadow: 0 4px 14px rgba(255, 160, 190, .18);
+  transition: background-color .2s, box-shadow .2s, transform .06s;
+}
+
+.pr-cta:hover {
+  background: color-mix(in srgb, var(--rose-2, #ffe6ee) 40%, #fff);
+  box-shadow: 0 8px 24px rgba(255, 160, 190, .24);
+}
+
+.pr-cta:active {
+  transform: translateY(1px) scale(.99);
+}
+
+/* Мобилка: всё в колонку */
+@media (max-width: 700px) {
+  .pricing-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .pr-right {
+    align-items: flex-start;
+    text-align: left;
+    white-space: normal;
+  }
+}
+
+/* === PRICING: DOCUMENT / NOTION STYLE (EN) ===================== */
+
+body.page-pricing[data-layout="doc"] .pricing-grid {
+  max-width: 820px;
+  margin: 0 auto 48px;
+  padding: 0 16px;
+}
+
+/* Заголовки блоков (Portraits & Love Story, и т.п.) */
+body.page-pricing[data-layout="doc"] .pricing-doc-title {
+  margin: 32px 0 8px;
+  font-size: 13px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #a8a0a3;
+}
+
+/* Сбрасываем «карточный» стиль */
+body.page-pricing[data-layout="doc"] .price-card {
+  background: transparent;
+  border-radius: 0;
+  border: none;
+  box-shadow: none;
+  padding: 14px 0 18px;
+  margin: 0;
+  border-bottom: 1px solid rgba(0, 0, 0, .06);
+}
+
+/* Последнему можно убрать линию, если захочешь */
+body.page-pricing[data-layout="doc"] .price-card:last-of-type {
+  border-bottom-color: transparent;
+}
+
+/* Строка: слева текст, справа цена + кнопка */
+body.page-pricing[data-layout="doc"] .pricing-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 32px;
+}
+
+/* Чуть мягкий подсвет для hero-пакета */
+body.page-pricing[data-layout="doc"] .pricing-row--highlight {
+  background: rgba(255, 240, 249, .6);
+  border-radius: 14px;
+  padding: 16px 18px 18px;
+}
+
+/* Левая часть (текст) */
+body.page-pricing[data-layout="doc"] .pricing-row-main {
+  flex: 1 1 auto;
+}
+
+/* Правая часть (цена + кнопка) */
+body.page-pricing[data-layout="doc"] .pricing-row-side {
+  flex: 0 0 auto;
+  text-align: right;
+  min-width: 160px;
+}
+
+/* Название пакета */
+body.page-pricing[data-layout="doc"] .pricing-row h3 {
+  margin: 0 0 4px;
+  font-size: 16px;
+  letter-spacing: 0.04em;
+  text-transform: none;
+}
+
+/* Краткое описание одной строкой */
+body.page-pricing[data-layout="doc"] .pricing-row-lead {
+  margin: 0 0 4px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Список деталей под lead */
+body.page-pricing[data-layout="doc"] .pricing-row-list {
+  margin: 0 0 2px 1.1em;
+  padding: 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #777;
+}
+
+/* Цена */
+body.page-pricing[data-layout="doc"] .pricing-row-price {
+  margin: 0 0 6px;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+/* Маленький лейбл «Most booked» */
+body.page-pricing[data-layout="doc"] .pricing-row-label {
+  margin: 0 0 4px;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #ff7aa6;
+}
+
+/* Кнопка — чуть компактнее */
+body.page-pricing[data-layout="doc"] .price-card .btn-book {
+  font-size: 13px;
+  padding: 8px 16px;
+}
+
+/* Мобильный вид: всё в одну колонку */
+@media (max-width: 768px) {
+  body.page-pricing[data-layout="doc"] .pricing-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  body.page-pricing[data-layout="doc"] .pricing-row-side {
+    text-align: left;
+    min-width: 0;
+  }
+
+  body.page-pricing[data-layout="doc"] .price-card .btn-book {
+    margin-top: 2px;
+  }
+}
+
+/* === PRICING RU: gallery + price (горизонтальные карточки) === */
+
+.pricing-gallery .pricing-gallery-list {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  margin-top: 10px;
+}
+
+.pricing-gallery .pricing-item {
+  display: flex;
+  gap: 18px;
+  padding: 14px 0 18px;
+  border-top: 1px solid rgba(0, 0, 0, .06);
+}
+
+.pricing-gallery .pricing-item:first-child {
+  border-top: none;
+}
+
+.pricing-gallery .pricing-item-thumb {
+  flex: 0 0 180px;
+  max-width: 180px;
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.pricing-gallery .pricing-item-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.pricing-gallery .pricing-item-body {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.pricing-gallery .pricing-item-title {
+  margin: 0 0 4px;
+  font-size: 16px;
+  letter-spacing: .04em;
+  text-transform: none;
+  color: #111;
+}
+
+.pricing-gallery .pricing-item-lead {
+  margin: 0 0 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #555;
+}
+
+.pricing-gallery .pricing-item-list {
+  margin: 0 0 6px 1.1em;
+  padding: 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #777;
+}
+
+.pricing-gallery .pricing-item-list li {
+  margin: 2px 0;
+}
+
+.pricing-gallery .pricing-item-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 18px;
+  margin-top: 4px;
+}
+
+.pricing-gallery .pricing-item-price {
+  font-weight: 700;
+  font-size: 14px;
+  color: #111;
+}
+
+/* чуть шире карточка для свадеб/событий */
+.pricing-gallery .pricing-item--wide {
+  border-top: 1px solid rgba(0, 0, 0, .08);
+}
+
+/* мобилка: картинка сверху, текст снизу */
+@media (max-width: 768px) {
+  .pricing-gallery .pricing-item {
+    flex-direction: column;
+  }
+
+  .pricing-gallery .pricing-item-thumb {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .pricing-gallery .pricing-item-meta {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* === Pricing letter (FI) — kirjemäinen asettelu === */
+.pricing-letter-body p {
+  margin: 0 0 18px;
+  font-size: 15px;
+  line-height: 1.7;
+  color: #555;
+}
+
+.pricing-letter-body strong {
+  font-weight: 600;
+  color: #111;
+}
+
+.pricing-letter-body em {
+  font-style: italic;
+}
+
+.pricing-letter-note {
+  font-size: 13px;
+  color: #777;
+  margin-top: 8px;
+}
+
+
+/* Кнопка-пилюля, как на форме/прайсе */
+.btn-book-letter {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 8px 18px;
+  border-radius: 999px;
+  border: 2px solid color-mix(in srgb, var(--rose-6, #ff7aa6) 55%, #fff);
+  background: transparent;
+  color: #111;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .3px;
+  text-decoration: none;
+  box-shadow: 0 3px 0 rgba(0, 0, 0, .04),
+    0 10px 24px rgba(255, 160, 190, .14);
+  transition: background-color .2s, border-color .2s,
+    box-shadow .2s, transform .06s;
+}
+
+.btn-book-letter:hover {
+  background: color-mix(in srgb, var(--rose-2, #ffe6ee) 40%, #fff);
+  border-color: color-mix(in srgb, var(--rose-6, #ff7aa6) 68%, #fff);
+  box-shadow: 0 12px 28px rgba(255, 160, 190, .22);
+}
+
+.btn-book-letter:active {
+  transform: translateY(1px) scale(.99);
+}
+
+.btn-book-letter:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--rose-6, #ff7aa6) 60%, #fff);
+  outline-offset: 2px;
+}
+
+/* Мобилка: чуть крупнее текст */
+@media (max-width: 700px) {
+  .pricing-letter-body p {
+    font-size: 14px;
+  }
+}
+
+/* Pricing: кликабельные названия + цены в тексте */
+.pricing-link {
+  font-weight: 600;
+  /* чуть жирнее */
+  color: #333333;
+  /* темнее, чем обычный текст (#777) */
+  text-decoration: none;
+  /* без подчёркивания */
+  letter-spacing: .01em;
+  cursor: pointer;
+  transition: color .2s ease, opacity .2s ease;
+}
+
+/* Наведение / фокус */
+.pricing-link:hover,
+.pricing-link:focus-visible {
+  color: #111111;
+  /* ещё чуть темнее */
+  opacity: 0.95;
+}
+
+.pricing-letter-cta {
+  /* пусть блок занимает всю ширину контейнера */
+  max-width: none;
+  margin: 26px 0 0;
+  text-align: center;
+  /* оставляем для кнопки */
+  padding-top: 0;
+  border: none;
+  position: static;
+}
+
+/* текст внутри — слева */
+.pricing-letter-cta p {
+  text-align: left;
+  margin: 0 0 14px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #555;
+}
+
+.pricing-letter-cta p {
+  margin: 0 0 14px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #555;
+}
+
+/* Кнопка под письмом — можно чуть компактнее */
+.btn-book-letter {
+  margin-top: 4px;
+  font-size: 14px;
+  padding: 10px 20px;
+}
+
+/* === PRICING HERO (коллаж + надпись) ================== */
+
+.pricing-hero {
+  max-width: 1040px;
+  margin: 0 auto 56px;
+}
+
+.pricing-hero-collage img {
+  display: block;
+  width: 100%;
+  border-radius: 32px;
+}
+
+/* Надпись под коллажем */
+.pricing-hero-title {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.pricing-hero-title h1,
+.pricing-hero-title p {
+  font-family: "TAN Moonlight", "MotterFixed",
+    system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+}
+
+.pricing-hero-title h1 {
+  margin: 0 0 4px;
+  font-size: 32px;
+}
+
+.pricing-hero-title p {
+  margin: 0;
+  font-size: 18px;
+  color: rgba(0, 0, 0, .6);
+}
+
+.pricing-hero-heart {
+  margin-top: 10px;
+  font-size: 20px;
+}
+
+/* Мобилка */
+@media (max-width: 768px) {
+  .pricing-hero {
+    margin-bottom: 40px;
+  }
+
+  .pricing-hero-title h1 {
+    font-size: 24px;
+    letter-spacing: 0.14em;
+  }
+
+  .pricing-hero-title p {
+    font-size: 14px;
+    letter-spacing: 0.14em;
+  }
+}
+
+/* Главный слоган под фото на index */
+.index-hero-text {
+  padding: 32px 0 16px;
+  /* вместо 1rem */
+  margin-top: 0;
+  /* было -59px */
+  text-align: center;
+}
+
+.index-hero-title {
+  font-family: "TAN Moonlight", "TAN Moonlight Fallback",
+    system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.index-hero-title h1,
+.index-hero-title p {
+  font-family: inherit;
+}
+
+.index-hero-title h1 {
+  font-family:
+    "TAN Moonlight",
+    "TAN Moonlight Fallback",
+    system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-weight: 400;
+  font-size: 2.2rem;
+  /* как в “новом” блоке */
+  line-height: 1.2;
+  text-transform: none;
+  letter-spacing: 0.06em;
+  margin: 0 0 0.5rem;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.index-hero-title p {
+  font-family: "TAN Moonlight", "TAN Moonlight Fallback", system-ui,
+    -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 1.1rem;
+  /* как в “новом” блоке */
+  line-height: 1.6;
+  margin: 0;
+  opacity: 0.9;
+}
+
+/* Fix: шрифт второй строки под коллажем на pricing-ru */
+html[lang^="ru"] body.page-pricing .pricing-hero-title p {
+  font-family: "TAN Moonlight", "MotterFixed", system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+}
+
+/* (опционально) сердечко тем же шрифтом */
+html[lang^="ru"] body.page-pricing .pricing-hero-heart {
+  font-family: "TAN Moonlight", "MotterFixed", system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+
+/* === PRICING HERO full-width на странице цен === */
+
+body.page-pricing #header .container {
+  width: 100%;
+  max-width: none;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+body.page-pricing .pricing-hero {
+  max-width: none;
+  margin: 0 auto 56px;
+}
+
+body.page-pricing .pricing-hero-collage img {
+  width: 100%;
+  display: block;
+  /* если хочешь без скругления – раскомментируй: */
+  /* border-radius: 0; */
+}
+
+/* Pricing RU — опустить строку "простые пакеты..." ниже */
+html[lang^="ru"] body.page-pricing .pricing-hero-title p {
+  margin-top: 1.9rem;
+  /* подбери 2.0–3.5rem по вкусу */
+}
+
+/* === ABOUT: заголовок на розовом фоне, без капсулы === */
+
+/* Новый заголовок над блоком About */
+.about-page-title {
+  text-align: center;
+  margin: -10px 0 50px;
+  /* отступ сверху и снизу */
+  font-size: clamp(28px, 3vw, 40px);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #111;
+  font-family:
+    "TAN Moonlight",
+    "TAN Moonlight Fallback",
+    system-ui, -apple-system, "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
+  font-weight: 400;
+}
+
+/* === ABOUT FI: простой заголовок над страницей === */
+
+.page-title-simple {
+  padding: 32px 0 0;
+  text-align: center;
+}
+
+.page-title-simple .container {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.page-title-heading {
+  font-family:
+    "TAN Moonlight",
+    "TAN Moonlight Fallback",
+    system-ui, -apple-system, "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
+  font-size: 42px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  margin: 0;
+  color: #111;
+}
+
+/* чуть меньше на телефоне */
+@media (max-width: 700px) {
+  .page-title-simple {
+    padding: 24px 0 0;
+  }
+
+  .page-title-heading {
+    font-size: 30px;
+    letter-spacing: 0.16em;
+  }
+}
+
+/* на этой странице уменьшим верхний отступ у блока about,
+   чтобы Minusta и текст были ближе друг к другу */
+.page-title--aboutfi+#about {
+  padding-top: 2.5rem;
+}
+
+/* === ABOUT-FI: заголовок Minusta поверх фото === */
+
+.header-aboutfi {
+  position: relative;
+}
+
+/* лёгкое затемнение, чтобы текст был читаем */
+.header-aboutfi::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 1;
+}
+
+/* обёртка, которая кладёт заголовок поверх фото */
+.header-aboutfi .header-title-wrap {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  align-items: flex-start;
+  /* текст ближе к верху */
+  justify-content: center;
+  padding-top: 80px;
+  /* отступ от меню, можешь подправить */
+}
+
+/* сам заголовок Minusta */
+.hero-title-aboutfi {
+  font-family:
+    "TAN Moonlight",
+    "TAN Moonlight Fallback",
+    system-ui, -apple-system, "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
+  font-weight: 400;
+  font-size: clamp(32px, 4.2vw, 60px);
+  letter-spacing: 0.08em;
+  text-transform: none;
+  color: #ffffff;
+  margin: 0;
+}
+
+/* === ABOUT RU: заголовок "Об авторе" под фото === */
+
+.page-about-heading {
+  text-align: center;
+  font-family: "MotterFixed", "MotterFixed Fallback",
+    "Source Sans Pro", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 32px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin: 32px 0 32px;
+  color: #111;
+}
+
+
+/* === FINAL HEADER: статичное меню + языки столбиком === */
+
+/* Бургер и полноэкранное меню полностью отключаем */
+.navicon,
+.circle,
+.list-menu {
+  display: none !important;
+}
+
+/* Шапка */
+.navbar {
+  background: transparent;
+  height: 94px;
+  max-height: 94px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+.navbar .container {
+  width: 100%;
+  padding: var(--nav-top-desktop) 24px 0;
+}
+
+.header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ПРАВАЯ ЧАСТЬ: меню + языки */
+.header-right {
+  display: flex;
+  align-items: flex-start;
+  gap: 32px;
+  /* расстояние между главным меню и языками */
+  margin-left: auto;
+}
+
+/* ПРАВАЯ ЧАСТЬ: меню + языки */
+.header-right {
+  display: flex;
+  align-items: flex-start;
+  gap: 32px;
+  margin-left: auto;
+}
+
+/* Кнопка мобильного меню: по умолчанию скрыта (на десктопе её нет вообще) */
+.mobile-nav-toggle {
+  display: none;
+}
+
+/* ГЛАВНОЕ МЕНЮ — в одну линию */
+.main-menu {
+  display: flex;
+  gap: 24px;
+  list-style: none;
+  /* без точек */
+  margin: 0;
+  padding: 0;
+  font-size: 13px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.main-menu li {
+  margin: 0;
+}
+
+/* Пункты меню: линия рисуется из точки курсора */
+.main-menu a {
+  position: relative;
+  text-decoration: none;
+  color: #111;
+  padding-bottom: 4px;
+  transition: color .18s ease;
+  --ux: 50%;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.main-menu a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  /* линия может растянуться на всю ширину */
+  bottom: 0;
+  height: 1.2px;
+  border-radius: 999px;
+  background-color: #111;
+  /* БЕЗ градиента, просто чёрная линия */
+
+  transform-origin: var(--ux, 50%) 50%;
+  transform: scaleX(0);
+  /* старт — точка */
+  opacity: 0;
+
+  transition:
+    transform .26s ease-out,
+    opacity .18s ease-out;
+}
+
+.main-menu a:hover::after,
+.main-menu a:focus-visible::after {
+  opacity: 1;
+  transform: scaleX(1);
+  /* линия вырастает из точки курсора */
+}
+
+.main-menu a.is-current::after {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+/* ЯЗЫКОВОЕ МЕНЮ — СТОЛБИК СПРАВА, БЕЗ ТОЧЕК */
+.lang-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  list-style: none;
+  /* <<< убираем точки */
+  margin: 0;
+  padding: 0;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* Больше воздуха между основным меню и языками на широких экранах */
+@media (min-width: 900px) {
+  .lang-menu {
+    margin-left: 20px;
+    /* можно 40–80, подбери по вкусу */
+
+  }
+}
+
+/* Двигаем только меню языков правее (только на десктопе) */
+@media (min-width: 900px) {
+  .lang-menu {
+    position: relative;
+    /* даёт возможность сдвинуть */
+    left: 20px;
+    /* сдвиг вправо, поменяй на 30 / 50 / 60 по вкусу */
+  }
+}
+
+.lang-menu li {
+  margin: 0;
+}
+
+/* Языки: линия рисуется из точки курсора, как в главном меню */
+.lang-menu a,
+.lang-menu .is-current-lang {
+  position: relative;
+  text-decoration: none;
+  color: #111;
+  opacity: 0.8;
+  padding-bottom: 3px;
+  /* чуть больше места под линию */
+  --ux: 50%;
+  /* по умолчанию центр */
+}
+
+/* Общая линия для ссылок и для текущего языка */
+.lang-menu a::after,
+.lang-menu .is-current-lang::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1.2px;
+  border-radius: 999px;
+  background-color: #111;
+  /* без градиента, чёрная линия */
+
+  transform-origin: var(--ux, 50%) 50%;
+  transform: scaleX(0);
+  opacity: 0;
+
+  transition:
+    transform .26s ease-out,
+    opacity .18s ease-out;
+}
+
+/* hover / focus по ссылкам-языкам */
+.lang-menu a:hover,
+.lang-menu a:focus-visible {
+  opacity: 1;
+}
+
+.lang-menu a:hover::after,
+.lang-menu a:focus-visible::after {
+  opacity: 1;
+  transform: scaleX(1);
+  /* линия вырастает из точки курсора */
+}
+
+/* Текущий язык всегда с полной линией */
+.lang-menu .is-current-lang {
+  opacity: 1;
+  cursor: default;
+}
+
+.lang-menu .is-current-lang::after {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+/* АДАПТАЦИЯ ПОД УЗКИЕ ЭКРАНЫ */
+@media (max-width: 800px) {
+  .navbar .container {
+    padding: 0 12px;
+  }
+
+  .header-row {
+    flex-wrap: wrap;
+    align-items: flex-start;
+    height: auto;
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+
+  .header-right {
+    margin-top: 55px;
+    gap: 16px;
+  }
+
+  .main-menu {
+    flex-wrap: wrap;
+    row-gap: 4px;
+    column-gap: 16px;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+  }
+
+  /* Включаем кнопку ТОЛЬКО на мобильных */
+  .mobile-nav-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    padding: 0 0 3px;
+
+    background: none;
+    border: none;
+
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    border-bottom: 1px solid #111;
+    cursor: pointer;
+  }
+}
+
+/* === HEADER TWEAK: сдвигаем меню левее и опускаем ниже === */
+
+/* 1. Сдвинуть правый блок (меню + языки) левее */
+.navbar .container {
+  padding-left: 24px;
+  /* можно не трогать, если логотип ок */
+  padding-right: 90px;
+  /* УВЕЛИЧИВАЕМ, чтобы всё ушло левее */
+}
+
+/* 2. Опустить ГЛАВНОЕ меню чуть ниже */
+.main-menu {
+  margin-top: 40px;
+  /* подбери от 4 до 14px по вкусу */
+}
+
+/* Если захочешь опустить и языковое меню – раскомментируй: */
+
+.lang-menu {
+  margin-top: 2px;
+}
+
+/* === LANG MENU: одинаковый размер EN / FI / RU === */
+.lang-menu a,
+.lang-menu .is-current-lang {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  text-align: right;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+  font-size: 11px !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.16em !important;
+  text-transform: uppercase;
+  line-height: 1;
+  color: #111;
+}
+
+/* Чуть сдвинуть строку FI влево относительно EN и RU */
+.lang-menu li:nth-child(2) a,
+.lang-menu li:nth-child(2) .is-current-lang {
+  transform: none;
+}
+
+/* Мягкая жирность цен и названий пакетов на странице цен */
+.page-pricing .pricing-letter strong {
+  font-weight: 501;
+  /* было ~700, теперь легче */
+  letter-spacing: 0.03em;
+  /* можно убрать, если не нужно */
+}
+
+html[lang="ru"] .index-hero-text p {
+  font-family:
+    "TAN Moonlight",
+    "TAN Moonlight Fallback",
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    "Roboto",
+    "Helvetica Neue",
+    Arial,
+    sans-serif;
+}
+
+/* убрать затемнение, если есть */
+.page-home-header::before {
+  display: none;
+}
+
+/* SUPER-ЖИРНЫЙ HERO НА ГЛАВНОЙ (и вообще) */
+.index-hero-photo {
+  max-width: none;
+  margin: 0 auto 0;
+  border-radius: 0;
+  overflow: hidden;
+  box-shadow: none;
+}
+
+.index-hero-photo img {
+  display: block;
+  width: 100%;
+  height: clamp(480px, 92vh, 1100px);
+  object-fit: cover;
+}
+
+/* ===== Поднять капсулу с фото на главной ===== */
+
+#header.page-home-header .container {
+  width: 100%;
+  max-width: none;
+  /* ширина секции под фото */
+  padding-top: 0 !important;
+  padding-left: 0;
+  /* чтобы не прилипало к краю */
+  padding-right: 0;
+}
+
+#header.page-home-header .index-hero-photo {
+  margin-top: 0 !important;
+}
+
+/* Главная: окончательно переопределяем высоту хедера */
+body.page-home #header.header-one.page-home-header {
+  height: auto !important;
+  min-height: 30vh !important;
+  /* герой на 80% экрана */
+  padding-top: 120px !important;
+  /* отступ от меню */
+  padding-bottom: 80px !important;
+  /* воздух снизу */
+}
+
+/* === HOME: фото сразу под меню (для всех языков) === */
+
+/* 1. Убираем верхние отступы у хедера с карточкой-фото */
+#header.header-one.page-home-header {
+  padding-top: 70px !important;
+  margin-top: 0 !important;
+}
+
+/* 2. Карточка-фото тоже без отступа сверху */
+#header.header-one.page-home-header .index-hero-photo {
+  margin-top: 0 !important;
+}
+
+/* 3. Чуть ниже шапка, чтобы меньше «съедала» высоту */
+@media (min-width: 768px) {
+  .navbar {
+    height: 80px !important;
+    max-height: 80px !important;
+  }
+}
+
+/* по умолчанию без отступа */
+.nav-container {
+  margin-bottom: 0;
+}
+
+/* а вот на ВСЕХ, кроме главной, даём отступ */
+body:not(.page-index-ru) .nav-container {
+  margin-bottom: 40px;
+}
+
+/* index-ru: сделать такой же отступ меню, как на остальных */
+body.page-index-ru .nav-container {
+  margin-bottom: 40px;
+}
+
+/* Тонкая настройка кадра для hero на главной */
+.page-home-header .hero-bg img {
+  object-fit: cover;
+  object-position: center 55%;
+  /* вертикальный сдвиг: 0% — верх, 100% — низ */
+}
+
+/* === HERO на главной (перекрывает старые правила) === */
+
+.page-home-header {
+  position: relative;
+  /* высота секции: регулируй под себя */
+  min-height: clamp(420px, 70vh, 650px);
+}
+
+/* картинка — как фон на всю секцию */
+.page-home-header .hero-bg {
+  position: absolute;
+  inset: 0;
+  /* top/right/bottom/left: 0 */
+  margin: 0;
+}
+
+/* сама секция */
+.page-home-header {
+  position: relative;
+  min-height: clamp(420px, 70vh, 650px);
+}
+
+/* картинка как фон героя */
+.page-home-header .hero-bg {
+  position: absolute;
+  inset: 0;
+}
+
+.page-home-header .hero-bg img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  /* заполняет всё, без полос */
+  object-position: center 58%;
+  /* фокус: центр по горизонтали, чуть ниже центра по вертикали */
+}
+
+/* HOME HERO — финальный контроль размера */
+#header.header-one.page-home-header {
+  height: auto !important;
+  min-height: 60vh !important;
+  /* ← тут регулируем ЖИР */
+  padding-top: 70px !important;
+  padding-bottom: 60px !important;
+}
+
+/* MOBILE: всегда скрываем пункт текущей страницы в главном меню,
+   потому что у нас уже есть отдельная кнопка HOME */
+@media (max-width: 800px) {
+  .main-menu li:has(> a.is-current) {
+    display: none;
+  }
+}
+
+/* === MOBILE: логотип слева, языки НАД HOME, меню ПОД HOME, без прыжков === */
+@media (max-width: 800px) {
+
+  .navbar {
+    height: 70px;
+    max-height: 70px;
+  }
+
+  .navbar .container {
+    position: relative;
+    padding: 8px 16px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  .header-row {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  /* ЛОГОТИП слева */
+  .brand {
+    margin: 45px 0 0;
+    margin-left: -50px;
+    display: flex;
+    align-items: center;
+  }
+
+  .site-logo {
+    height: 80px;
+    width: auto;
+    transform: none;
+  }
+
+  /* ПРАВАЯ часть: HOME + выпадающие меню */
+  .header-right {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* Кнопка HOME – всегда на месте */
+  .mobile-nav-toggle {
+    display: inline-flex;
+  }
+
+  /* ОБЩИЕ настройки выпадающих блоков (языки + меню) */
+  .navbar .lang-menu,
+  .navbar .main-menu {
+    position: absolute;
+    right: 0;
+    left: auto;
+    background: transparent;
+    padding: 0;
+    margin: 0;
+    border-radius: 0;
+    box-shadow: none;
+
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(4px);
+    transition: opacity .22s ease, transform .22s ease;
+  }
+
+  /* ЯЗЫКИ — строкой НАД HOME */
+  .navbar .lang-menu {
+    bottom: 100%;
+    margin-bottom: 9px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: flex-end;
+  }
+
+  /* ГЛАВНОЕ МЕНЮ — горизонтально ПОД HOME */
+  .navbar .main-menu {
+    top: 100%;
+    margin-top: 6px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  /* Когда меню открыто – показываем оба блока */
+  body.menu-open .navbar .lang-menu,
+  body.menu-open .navbar .main-menu {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  /* Размеры шрифтов */
+  .navbar .main-menu a {
+    font-size: 13px;
+    letter-spacing: 0.14em;
+  }
+
+  .navbar .lang-menu a,
+  .navbar .lang-menu .is-current-lang {
+    font-size: 11px;
+  }
+}
+
+/* Форсим горизонтальное меню на мобиле (на всякий случай) */
+@media (max-width: 800px) {
+  .navbar .main-menu {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 30px;
+    flex-wrap: wrap;
+  }
+
+  .navbar .main-menu li {
+    display: inline-block;
+    margin: 0;
+  }
+}
+
+/* === FIX: главное меню в одну строку под HOME (mobile) === */
+@media (max-width: 800px) {
+
+  /* справа всё в столбик:
+     1 — языки, 2 — HOME, 3 — меню */
+  .header-right {
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+  }
+
+  /* главное меню — только горизонтально, без переноса */
+  .navbar .main-menu {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    /* одна строка */
+    justify-content: flex-end;
+    align-items: center;
+    gap: 30px;
+    margin-top: 10px;
+  }
+
+  .navbar .main-menu li {
+    display: inline-flex;
+    margin: 0;
+  }
+
+  .navbar .main-menu a {
+    font-size: 11px;
+    /* чуть меньше, чтобы точно влезло */
+    letter-spacing: 0.12em;
+    white-space: nowrap;
+    /* не даём словам ломаться по буквам */
+  }
+}
+
+/* ==== PRICING: показать коллаж целиком, без обрезки ==== */
+
+/* Секция с коллажем на странице цен */
+body.page-pricing #header.header-pricing {
+  position: relative;
+  height: auto !important;
+  min-height: 0 !important;
+  padding-top: var(--hero-gap-desktop) !important;
+  /* место под меню */
+  padding-bottom: 0 !important;
+}
+
+/* Перекрываем глобальные правила hero-bg */
+body.page-pricing #header.header-pricing .hero-bg,
+body.page-pricing #header.header-pricing .hero-bg img {
+  position: static !important;
+  /* больше не absolute */
+  inset: auto !important;
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Картинка — как обычное фото, без обрезки по бокам */
+@media (min-width: 900px) {
+  body.page-pricing #header.header-pricing .hero-bg img {
+    width: 100%;
+    height: 700px;
+    object-fit: cover;
+    object-position: center center;
+  }
+}
+
+/* Убираем затемняющий оверлей из .header-one на этой странице */
+body.page-pricing .header-one::before {
+  display: none;
+}
+
+/* ==== INDEX: герой как обычное фото, без обрезки ==== */
+
+/* сама секция героя на главной */
+#header.header-one.page-home-header {
+  position: relative;
+  height: auto !important;
+  min-height: 0 !important;
+  padding-top: var(--hero-gap-desktop) !important;
+  /* место под меню */
+  padding-bottom: 0 !important;
+}
+
+/* hero-bg больше НЕ absolute, а обычный блок */
+#header.header-one.page-home-header .hero-bg,
+#header.header-one.page-home-header .hero-bg img {
+  position: static !important;
+  inset: auto !important;
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+@media (min-width: 900px) {
+  #header.header-one.page-home-header .hero-bg img {
+    width: 100%;
+    height: 700px;
+    object-fit: cover;
+    object-position: center center;
+  }
+}
+
+/* ==== ABOUT: герой как обычное фото, без обрезки ==== */
+
+/* 1. Любая about-страница: хедер не фиксированной высоты */
+body[class*="page-about"] #header {
+  position: relative;
+  height: auto !important;
+  min-height: 0 !important;
+  padding-top: var(--hero-gap-desktop) !important;
+  /* место под меню */
+  padding-bottom: 0 !important;
+}
+
+/* 2. hero-bg ведёт себя как обычный блок, а не фон */
+body[class*="page-about"] #header .hero-bg,
+body[class*="page-about"] #header .hero-bg img {
+  position: static !important;
+  inset: auto !important;
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* 3. Картинка целиком, без обрезки */
+@media (min-width: 900px) {
+  body[class*="page-about"] #header .hero-bg img {
+    width: 100%;
+    height: 700px;
+    object-fit: cover;
+    object-position: center center;
+  }
+}
+
+/* === Общая высота героев (DESKTOP) === */
+@media (min-width: 900px) {
+
+  /* главная */
+  #header.header-one.page-home-header .hero-bg img,
+  /* страница цен */
+  body.page-pricing #header.header-pricing .hero-bg img,
+  /* все about-страницы */
+  body[class*="page-about"] #header .hero-bg img {
+    max-height: 500px;
+    /* ← ВОТ ЭТИМ ЧИСЛОМ ТЫ РЕГУЛИРУЕШЬ РАЗМЕР */
+  }
 }
