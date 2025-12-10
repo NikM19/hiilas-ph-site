@@ -810,6 +810,14 @@ body[data-bg^="charcoal"] .about-iconrow {
   color: #777;
 }
 
+.about-secret-caption .about-heart {
+  font-size: 1em;
+  /* чуть меньше текста, можно 1em если хочешь одинаково */
+  letter-spacing: 0.05em;
+  display: inline-block;
+  color: #c36a7b;
+}
+
 /* Ряд мини-полароидов */
 .about-secret-photos {
   display: flex;
