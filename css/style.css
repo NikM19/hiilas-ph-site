@@ -754,7 +754,7 @@ body[data-bg^="charcoal"] .about-iconrow {
 
 /* === About FI: подпись в текстовой колонке === */
 .about-signature--text {
-  margin: -130px 0 16px;
+  margin: -125px 0 -10px;
   text-align: left;
   /* на десктопе — как рукописная строка под текстом */
 }
@@ -774,6 +774,8 @@ body[data-bg^="charcoal"] .about-iconrow {
 @media (max-width: 767px) {
   .about-signature--text {
     text-align: center;
+    margin-top: -90px;
+    margin-bottom: -40px;
   }
 
   .about-signature--text img {
@@ -5192,7 +5194,7 @@ body.page-index-ru .nav-container {
     justify-content: flex-end;
     align-items: center;
     gap: 30px;
-    margin-top: 10px;
+    margin-top: 20px;
   }
 
   .navbar .main-menu li {
