@@ -5078,12 +5078,6 @@ body.page-index-ru .nav-container {
     align-items: center;
   }
 
-  .site-logo {
-    height: 80px;
-    width: auto;
-    transform: none;
-  }
-
   /* ПРАВАЯ часть: HOME + выпадающие меню */
   .header-right {
     position: relative;
@@ -5118,7 +5112,7 @@ body.page-index-ru .nav-container {
   /* ЯЗЫКИ — строкой НАД HOME */
   .navbar .lang-menu {
     bottom: 100%;
-    margin-bottom: 9px;
+    margin-bottom: 20px;
     display: flex;
     flex-direction: row;
     gap: 10px;
@@ -5194,7 +5188,7 @@ body.page-index-ru .nav-container {
     justify-content: flex-end;
     align-items: center;
     gap: 30px;
-    margin-top: 20px;
+    margin-top: 35px;
   }
 
   .navbar .main-menu li {
