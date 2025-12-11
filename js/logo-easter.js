@@ -1,31 +1,31 @@
 (function () {
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Берём сам логотип (картинку). Если её нет — берём ссылку-обёртку.
-  const logo = document.querySelector('.brand .site-logo') || document.querySelector('.brand a');
-  if (!logo) return;
+  // Лого-ссылка (обёртка)
+  const logoLink = document.querySelector('.brand a');
+  if (!logoLink) return;
 
-  const HOLD_MS = 600;          // сколько держать для срабатывания
-  let holdTimer = null;
-  let keyTimer = null;
-  let pressing = false;
-  let didLong = false;
+  // --- ЭФФЕКТЫ (вспышка + звёздочки) ---
 
-  function triggerEffect() {
+  function triggerEffect(x, y) {
     if (reduce) {
-      // Мягкий пульс вместо эффектов
+      // Мягкий пульс вместо салюта
       try {
-        logo.animate(
-          [{ filter: 'brightness(1)' }, { filter: 'brightness(1.35)' }, { filter: 'brightness(1)' }],
+        logoLink.animate(
+          [
+            { filter: 'brightness(1)' },
+            { filter: 'brightness(1.35)' },
+            { filter: 'brightness(1)' }
+          ],
           { duration: 400, easing: 'ease-out' }
         );
       } catch (_) {}
       return;
     }
 
-    const rect = logo.getBoundingClientRect();
-    const cx = rect.left + rect.width / 2;
-    const cy = rect.top + rect.height / 2;  // fixed-позиционирование использует viewport, scroll не нужен
+    const rect = logoLink.getBoundingClientRect();
+    const cx = x ?? (rect.left + rect.width / 2);
+    const cy = y ?? (rect.top + rect.height / 2);
 
     sparkleBurst(cx, cy);
     flashOverlay();
@@ -61,47 +61,80 @@
     setTimeout(() => f.remove(), 520);
   }
 
-  // ---- Pointer (мышь/тач/перо) длинное нажатие ----
-  const onDown = () => {
-    pressing = true;
-    didLong = false;
-    clearTimeout(holdTimer);
-    holdTimer = setTimeout(() => { didLong = true; triggerEffect(); }, HOLD_MS);
-  };
-  const onUpCancel = (e) => {
-    pressing = false;
-    clearTimeout(holdTimer);
-    // Если был «лонг-тап» по ссылке — отменим одноразово переход
-    if (didLong) {
-      const a = logo.closest('a');
-      if (a && e && typeof e.preventDefault === 'function') e.preventDefault();
-      didLong = false;
-    }
-  };
+  // --- ОДИН / ДВОЙНОЙ КЛИК (desktop) ---
 
-  logo.addEventListener('pointerdown', onDown, { passive: true });
-  logo.addEventListener('pointerup', onUpCancel);
-  logo.addEventListener('pointercancel', onUpCancel);
+  let clickTimer = null;
+  const DOUBLE_DELAY = 260; // мс — окно для "двойного клика"
 
-  // На таче во время удержания подавим контекст-меню
-  logo.addEventListener('contextmenu', (e) => { if (pressing) e.preventDefault(); });
+  // --- LONG PRESS для тача (mobile/tablet) ---
 
-  // ---- Клавиатура: удержание Enter/Space ----
-  // (у тебя логотип внутри <a>, он уже фокусируемый)
-  logo.addEventListener('keydown', (e) => {
-    if (e.key === ' ' || e.key === 'Enter') {
-      e.preventDefault();
-      clearTimeout(keyTimer);
-      keyTimer = setTimeout(() => triggerEffect(), HOLD_MS);
-    }
-  });
-  logo.addEventListener('keyup', () => { clearTimeout(keyTimer); });
-  
-  // На всякий случай отменим переход при клике, если сработал лонг-пресс
-  const anchor = logo.closest('a');
-  if (anchor) {
-    anchor.addEventListener('click', function (e) {
-      if (didLong) { e.preventDefault(); didLong = false; }
-    });
+  const hasTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  const LONG_MS = 600; // сколько держать палец
+  let longTimer = null;
+  let didLongTouch = false;
+
+  if (hasTouch) {
+    logoLink.addEventListener(
+      'touchstart',
+      function (e) {
+        if (longTimer) clearTimeout(longTimer);
+
+        const t = e.touches[0] || e.changedTouches[0];
+        const startX = t.clientX + window.scrollX;
+        const startY = t.clientY + window.scrollY;
+
+        longTimer = setTimeout(function () {
+          longTimer = null;
+          didLongTouch = true;
+          triggerEffect(startX, startY);
+        }, LONG_MS);
+      },
+      { passive: true }
+    );
+
+    const cancelLong = () => {
+      if (longTimer) {
+        clearTimeout(longTimer);
+        longTimer = null;
+      }
+    };
+
+    logoLink.addEventListener('touchend', cancelLong);
+    logoLink.addEventListener('touchcancel', cancelLong);
   }
+
+  // --- Общий click (и для мыши, и после тача) ---
+
+  logoLink.addEventListener('click', function (e) {
+    e.preventDefault();
+
+    const pageX = e.clientX + window.scrollX;
+    const pageY = e.clientY + window.scrollY;
+
+    // 1) Если только что был long press на таче — НИЧЕГО не делаем
+    if (didLongTouch) {
+      didLongTouch = false;
+      return;
+    }
+
+    // 2) Если уже ждём второй клик — значит это второй → двойной
+    if (clickTimer) {
+      clearTimeout(clickTimer);
+      clickTimer = null;
+
+      // ДВОЙНОЙ КЛИК: только пасхалка, без перехода
+      triggerEffect(
+        pageX || window.innerWidth / 2,
+        pageY || window.innerHeight / 2
+      );
+      return;
+    }
+
+    // 3) Первый клик: ждём чуть-чуть — вдруг будет второй
+    clickTimer = setTimeout(function () {
+      clickTimer = null;
+      // Если второго клика не было → обычный переход на главную
+      window.location.href = logoLink.href;
+    }, DOUBLE_DELAY);
+  });
 })();
