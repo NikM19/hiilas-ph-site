@@ -12,9 +12,14 @@
   <link rel="stylesheet" href="css/font-awesome.min.css">
   <link rel="stylesheet" href="css/ionicons.min.css">
   <link rel="stylesheet" href="css/style.css">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <!-- Brand font preload -->
+  <link rel="preload" as="font" href="fonts/tan-moonlight.woff2" type="font/woff2" crossorigin>
+
   <!-- HERO preload (AVIF only, по брейкпоинтам) -->
   <link rel="preload" as="image" type="image/avif" imagesrcset="images/header-bg-800.avif 800w" imagesizes="100vw"
     media="(max-width: 767.98px)">
@@ -24,13 +29,14 @@
 
   <link rel="preload" as="image" type="image/avif" imagesrcset="images/header-bg-2000.avif 2000w" imagesizes="100vw"
     media="(min-width: 1200px)">
-  <!-- SEO + Social (FI) -->
-  <link rel="canonical" href="https://YOUR-DOMAIN.tld/index-fi.html">
 
-  <link rel="alternate" href="https://YOUR-DOMAIN.tld/index.html" hreflang="en">
-  <link rel="alternate" href="https://YOUR-DOMAIN.tld/index-fi.html" hreflang="fi">
-  <link rel="alternate" href="https://YOUR-DOMAIN.tld/index-ru.html" hreflang="ru">
-  <link rel="alternate" href="https://YOUR-DOMAIN.tld/index.html" hreflang="x-default">
+  <!-- SEO + Social (FI) -->
+  <link rel="canonical" href="https://hiilas.fi/index-fi.html">
+
+  <link rel="alternate" href="https://hiilas.fi/" hreflang="en">
+  <link rel="alternate" href="https://hiilas.fi/index-fi.html" hreflang="fi">
+  <link rel="alternate" href="https://hiilas.fi/index-ru.html" hreflang="ru">
+  <link rel="alternate" href="https://hiilas.fi/" hreflang="x-default">
 
   <meta name="description"
     content="Lämmin dokumentaarinen valokuvaus Helsingissä ja lähellä: pienet häät, parit, perheet ja muotokuvat. Lempeys, keveys ja luonnonvalo.">
@@ -43,35 +49,36 @@
   <meta property="og:title" content="Hiilas Photography — Dokumentaarinen valokuvaaja Helsingissä">
   <meta property="og:description"
     content="Dokumentaarinen kuvaus lämmöllä ja rakkaudella: häät, parikuvaukset, perheet ja muotokuvat. Varaa: ph.hiilas@gmail.com">
-  <meta property="og:url" content="https://YOUR-DOMAIN.tld/index-fi.html">
-  <meta property="og:image" content="https://YOUR-DOMAIN.tld/images/og/logo.jpeg">
+  <meta property="og:url" content="https://hiilas.fi/index-fi.html">
+  <meta property="og:image" content="https://hiilas.fi/images/og/logo.jpeg">
   <meta property="og:image:alt" content="Lämmin ja aito valokuvaus — Hiilas Photography">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Hiilas Photography — Dokumentaarinen valokuvaaja Helsingissä">
   <meta name="twitter:description"
     content="Pienet häät, parit, perheet, muotokuvat — lämmin dokumentaarinen kuvaus Helsingissä ja lähellä.">
-  <meta name="twitter:image" content="https://YOUR-DOMAIN.tld/images/og/logo.jpeg">
+  <meta name="twitter:image" content="https://hiilas.fi/images/og/logo.jpeg">
+
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@graph": [
     {
       "@type": "WebSite",
-      "@id": "https://YOUR-DOMAIN.tld/#website",
-      "url": "https://YOUR-DOMAIN.tld/",
+      "@id": "https://hiilas.fi/#website",
+      "url": "https://hiilas.fi/",
       "name": "Hiilas Photography",
-      "publisher": { "@id": "https://YOUR-DOMAIN.tld/#organization" },
+      "publisher": { "@id": "https://hiilas.fi/#organization" },
       "inLanguage": "fi"
     },
     {
       "@type": "Organization",
-      "@id": "https://YOUR-DOMAIN.tld/#organization",
+      "@id": "https://hiilas.fi/#organization",
       "name": "Hiilas Photography",
-      "url": "https://YOUR-DOMAIN.tld/",
+      "url": "https://hiilas.fi/",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://YOUR-DOMAIN.tld/images/og/logo.jpeg"
+        "url": "https://hiilas.fi/images/og/logo.jpeg"
       },
       "sameAs": ["https://instagram.com/hiilas.ph"],
       "contactPoint": [
@@ -86,19 +93,19 @@
     },
     {
       "@type": "Person",
-      "@id": "https://YOUR-DOMAIN.tld/#person",
+      "@id": "https://hiilas.fi/#person",
       "name": "Anastasia Hiilas",
       "jobTitle": "Dokumentaarinen valokuvaaja",
-      "url": "https://YOUR-DOMAIN.tld/",
-      "worksFor": { "@id": "https://YOUR-DOMAIN.tld/#organization" },
+      "url": "https://hiilas.fi/",
+      "worksFor": { "@id": "https://hiilas.fi/#organization" },
       "knowsLanguage": ["fi","ru","en"]
     },
     {
       "@type": "ProfessionalService",
-      "@id": "https://YOUR-DOMAIN.tld/#business",
+      "@id": "https://hiilas.fi/#business",
       "name": "Hiilas Photography",
-      "url": "https://YOUR-DOMAIN.tld/",
-      "image": "https://YOUR-DOMAIN.tld/images/og/logo.jpeg",
+      "url": "https://hiilas.fi/",
+      "image": "https://hiilas.fi/images/og/logo.jpeg",
       "areaServed": ["Helsinki","Uusimaa","Suomi"],
       "address": {
         "@type": "PostalAddress",
@@ -107,14 +114,15 @@
       },
       "priceRange": "€€",
       "sameAs": ["https://instagram.com/hiilas.ph"],
-      "founder": { "@id": "https://YOUR-DOMAIN.tld/#person" }
+      "founder": { "@id": "https://hiilas.fi/#person" }
     }
   ]
 }
-</script>
+  </script>
+
   <!-- Favicon (SVG) -->
   <link rel="icon" href="images/favicon-ah.svg" type="image/svg+xml">
-  <link rel="mask-icon" href="images/favicon-ah.svg" color="#111111"> <!-- для Safari pinned tab -->
+  <link rel="mask-icon" href="images/favicon-ah.svg" color="#111111">
 
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-4RZS2TK0FB"></script>
@@ -122,10 +130,8 @@
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
-
     gtag('config', 'G-4RZS2TK0FB');
   </script>
-
 </head>
 
 <body data-bg="rose-vert-ultra" data-fx="zoomout" data-ui="chips-glass btn-ghost preload-glass preload-glow"

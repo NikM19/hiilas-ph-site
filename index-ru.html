@@ -12,9 +12,15 @@
   <link rel="stylesheet" href="css/font-awesome.min.css">
   <link rel="stylesheet" href="css/ionicons.min.css">
   <link rel="stylesheet" href="css/style.css">
+
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <!-- Brand font preload -->
+  <link rel="preload" as="font" href="fonts/tan-moonlight.woff2" type="font/woff2" crossorigin>
+
   <!-- HERO preload (AVIF only, по брейкпоинтам) -->
   <link rel="preload" as="image" type="image/avif" imagesrcset="images/header-bg-800.avif 800w" imagesizes="100vw"
     media="(max-width: 767.98px)">
@@ -24,17 +30,19 @@
 
   <link rel="preload" as="image" type="image/avif" imagesrcset="images/header-bg-2000.avif 2000w" imagesizes="100vw"
     media="(min-width: 1200px)">
-  <!-- SEO + Social (RU) -->
-  <link rel="canonical" href="https://YOUR-DOMAIN.tld/index-ru.html">
 
-  <link rel="alternate" href="https://YOUR-DOMAIN.tld/index.html" hreflang="en">
-  <link rel="alternate" href="https://YOUR-DOMAIN.tld/index-fi.html" hreflang="fi">
-  <link rel="alternate" href="https://YOUR-DOMAIN.tld/index-ru.html" hreflang="ru">
-  <link rel="alternate" href="https://YOUR-DOMAIN.tld/index.html" hreflang="x-default">
+  <!-- SEO + hreflang -->
+  <link rel="canonical" href="https://hiilas.fi/index-ru.html">
+
+  <link rel="alternate" href="https://hiilas.fi/" hreflang="en">
+  <link rel="alternate" href="https://hiilas.fi/index-fi.html" hreflang="fi">
+  <link rel="alternate" href="https://hiilas.fi/index-ru.html" hreflang="ru">
+  <link rel="alternate" href="https://hiilas.fi/" hreflang="x-default">
 
   <meta name="description"
     content="Тёплая документальная фотография в Хельсинки и не только: камерные свадьбы, пары, семьи и портреты. Забота, лёгкость и живой свет.">
 
+  <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Hiilas Photography">
   <meta property="og:locale" content="ru_RU">
@@ -43,78 +51,88 @@
   <meta property="og:title" content="Hiilas Photography — Документальный фотограф в Хельсинки">
   <meta property="og:description"
     content="Документальная съёмка с теплом и любовью: свадьбы, love story, семьи и портреты. Запись: ph.hiilas@gmail.com">
-  <meta property="og:url" content="https://YOUR-DOMAIN.tld/index-ru.html">
-  <meta property="og:image" content="https://YOUR-DOMAIN.tld/images/og/logo.jpeg">
+  <meta property="og:url" content="https://hiilas.fi/index-ru.html">
+
+  <!-- OG image -->
+  <meta property="og:image" content="https://hiilas.fi/images/og/logo.jpeg">
+  <meta property="og:image:secure_url" content="https://hiilas.fi/images/og/logo.jpeg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1050">
+  <meta property="og:image:height" content="600">
   <meta property="og:image:alt" content="Тёплая и искренняя фотография — Hiilas Photography">
 
+  <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Hiilas Photography — Документальный фотограф в Хельсинки">
   <meta name="twitter:description"
     content="Камерные свадьбы, пары, семьи, портреты — тёплая документальная съёмка в Хельсинки и рядом.">
-  <meta name="twitter:image" content="https://YOUR-DOMAIN.tld/images/og/logo.jpeg">
+  <meta name="twitter:image" content="https://hiilas.fi/images/og/logo.jpeg">
+
+  <!-- Structured data (RU) -->
   <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "WebSite",
-      "@id": "https://YOUR-DOMAIN.tld/#website",
-      "url": "https://YOUR-DOMAIN.tld/",
-      "name": "Hiilas Photography",
-      "publisher": { "@id": "https://YOUR-DOMAIN.tld/#organization" },
-      "inLanguage": "ru"
-    },
-    {
-      "@type": "Organization",
-      "@id": "https://YOUR-DOMAIN.tld/#organization",
-      "name": "Hiilas Photography",
-      "url": "https://YOUR-DOMAIN.tld/",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://YOUR-DOMAIN.tld/images/og/logo.jpeg"
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://hiilas.fi/#website",
+        "url": "https://hiilas.fi/",
+        "name": "Hiilas Photography",
+        "publisher": { "@id": "https://hiilas.fi/#organization" },
+        "inLanguage": "ru"
       },
-      "sameAs": ["https://instagram.com/hiilas.ph"],
-      "contactPoint": [
-        {
-          "@type": "ContactPoint",
-          "contactType": "booking",
-          "email": "ph.hiilas@gmail.com",
-          "availableLanguage": ["ru","fi","en"],
-          "areaServed": "FI"
-        }
-      ]
-    },
-    {
-      "@type": "Person",
-      "@id": "https://YOUR-DOMAIN.tld/#person",
-      "name": "Anastasia Hiilas",
-      "jobTitle": "Documentary Photographer",
-      "url": "https://YOUR-DOMAIN.tld/",
-      "worksFor": { "@id": "https://YOUR-DOMAIN.tld/#organization" },
-      "knowsLanguage": ["ru","fi","en"]
-    },
-    {
-      "@type": "ProfessionalService",
-      "@id": "https://YOUR-DOMAIN.tld/#business",
-      "name": "Hiilas Photography",
-      "url": "https://YOUR-DOMAIN.tld/",
-      "image": "https://YOUR-DOMAIN.tld/images/og/logo.jpeg",
-      "areaServed": ["Helsinki","Uusimaa","Finland"],
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Helsinki",
-        "addressCountry": "FI"
+      {
+        "@type": "Organization",
+        "@id": "https://hiilas.fi/#organization",
+        "name": "Hiilas Photography",
+        "url": "https://hiilas.fi/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://hiilas.fi/images/og/logo.jpeg"
+        },
+        "sameAs": ["https://instagram.com/hiilas.ph"],
+        "contactPoint": [
+          {
+            "@type": "ContactPoint",
+            "contactType": "booking",
+            "email": "ph.hiilas@gmail.com",
+            "availableLanguage": ["ru","fi","en"],
+            "areaServed": "FI"
+          }
+        ]
       },
-      "priceRange": "€€",
-      "sameAs": ["https://instagram.com/hiilas.ph"],
-      "founder": { "@id": "https://YOUR-DOMAIN.tld/#person" }
-    }
-  ]
-}
-</script>
+      {
+        "@type": "Person",
+        "@id": "https://hiilas.fi/#person",
+        "name": "Anastasia Hiilas",
+        "jobTitle": "Документальный фотограф",
+        "url": "https://hiilas.fi/",
+        "worksFor": { "@id": "https://hiilas.fi/#organization" },
+        "knowsLanguage": ["ru","fi","en"]
+      },
+      {
+        "@type": "ProfessionalService",
+        "@id": "https://hiilas.fi/#business",
+        "name": "Hiilas Photography",
+        "url": "https://hiilas.fi/",
+        "image": "https://hiilas.fi/images/og/logo.jpeg",
+        "areaServed": ["Helsinki","Uusimaa","Finland"],
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Helsinki",
+          "addressCountry": "FI"
+        },
+        "priceRange": "€€",
+        "sameAs": ["https://instagram.com/hiilas.ph"],
+        "founder": { "@id": "https://hiilas.fi/#person" }
+      }
+    ]
+  }
+  </script>
+
   <!-- Favicon (SVG) -->
   <link rel="icon" href="images/favicon-ah.svg" type="image/svg+xml">
-  <link rel="mask-icon" href="images/favicon-ah.svg" color="#111111"> <!-- для Safari pinned tab -->
+  <link rel="mask-icon" href="images/favicon-ah.svg" color="#111111">
 
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-4RZS2TK0FB"></script>
@@ -122,10 +140,8 @@
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
-
     gtag('config', 'G-4RZS2TK0FB');
   </script>
-
 </head>
 
 <body data-bg="rose-vert-ultra" data-fx="zoomout" data-ui="chips-glass btn-ghost preload-glass preload-glow"
