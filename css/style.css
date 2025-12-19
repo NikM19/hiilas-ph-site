@@ -5349,3 +5349,152 @@ body[class*="page-about"] #header .hero-bg img {
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
+
+/* =========================
+   Cookie banner (Hiilas style) — Variant 1 (lighter buttons)
+   ========================= */
+
+.cookie-banner {
+  position: fixed;
+  left: 14px;
+  right: 14px;
+  bottom: 14px;
+  z-index: 99999;
+
+  max-width: 980px;
+  margin: 0 auto;
+
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 14px 16px;
+  border-radius: 18px;
+
+  will-change: transform, border-radius;
+  transform: translate3d(0, 0, 0);
+
+  background: rgba(246, 214, 223, 0.42);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  border: 1px solid rgba(17, 17, 17, 0.10);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+
+  font-family: "Source Sans Pro", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+.cookie-banner__text {
+  font-size: 14px;
+  line-height: 1.35;
+  color: rgba(17, 17, 17, 0.88);
+  max-width: 68%;
+}
+
+.cookie-banner__actions {
+  display: flex;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.cookie-btn {
+  appearance: none;
+  border: 1px solid rgba(17, 17, 17, 0.14);
+  padding: 7px 12px;
+  border-radius: 999px;
+
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  line-height: 1;
+  min-height: 32px;
+
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.08s ease, background 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
+}
+
+.cookie-btn:active {
+  transform: translateY(1px);
+}
+
+/* Accept = dark glass */
+#cookieAccept.cookie-btn {
+  background: rgba(17, 17, 17, 0.34);
+  /* прозрачность */
+  color: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.16);
+}
+
+#cookieAccept.cookie-btn:hover {
+  background: rgba(17, 17, 17, 0.42);
+}
+
+#cookieAccept.cookie-btn:active {
+  background: rgba(17, 17, 17, 0.48);
+}
+
+/* Decline = light glass */
+.cookie-btn--ghost {
+  background: rgba(255, 255, 255, 0.12);
+  color: rgba(17, 17, 17, 0.86);
+  border: 1px solid rgba(17, 17, 17, 0.16);
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  box-shadow:
+    0 10px 22px rgba(0, 0, 0, 0.10),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45),
+    inset 0 -10px 18px rgba(0, 0, 0, 0.06);
+}
+
+.cookie-btn--ghost:hover {
+  background: rgba(255, 255, 255, 0.20);
+  border-color: rgba(17, 17, 17, 0.22);
+}
+
+.cookie-btn--ghost:active {
+  transform: translateY(1px);
+  background: rgba(255, 255, 255, 0.24);
+}
+
+@media (max-width: 600px) {
+  .cookie-banner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    padding: 14px 14px;
+  }
+
+  .cookie-banner__text {
+    max-width: 100%;
+  }
+
+  .cookie-btn {
+    width: 100%;
+    min-height: 38px;
+  }
+}
+
+/* Cookie buttons: no borders + no focus outline */
+.cookie-banner .cookie-btn,
+.cookie-banner #cookieAccept,
+.cookie-banner .cookie-btn--ghost {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none;
+  /* если вдруг где-то рисуется "обводка" тенью */
+}
+
+.cookie-banner .cookie-btn:focus,
+.cookie-banner .cookie-btn:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}

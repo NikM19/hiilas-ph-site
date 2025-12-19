@@ -36,16 +36,6 @@
     <link rel="icon" type="image/svg+xml" href="images/favicon-ah.svg">
     <link rel="mask-icon" href="images/favicon-ah.svg" color="#111111">
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4RZS2TK0FB"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-
-        gtag('config', 'G-4RZS2TK0FB');
-    </script>
-
 </head>
 
 <body class="page-pricing" data-bg="rose-vert-ultra" data-fx="zoomout"
@@ -245,11 +235,21 @@
         </div>
     </footer>
 
+    <div id="cookieBanner" class="cookie-banner" hidden>
+        <div class="cookie-banner__text" id="cookieText"></div>
+        <div class="cookie-banner__actions">
+            <button id="cookieAccept" class="cookie-btn" type="button"></button>
+            <button id="cookieDecline" class="cookie-btn cookie-btn--ghost" type="button"></button>
+        </div>
+    </div>
+
     <script src="js/jquery.js"></script>
     <script src="js/wow.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/loader.js"></script>
     <script src="js/custom.js"></script>
+    <script src="js/cookie-consent.js"></script>
+
     <script>
         (function () {
             var openBtn = document.querySelector('.circle.inline');

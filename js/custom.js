@@ -696,3 +696,103 @@ document.addEventListener('dragstart', function (e) {
     e.preventDefault();
   }
 });
+
+(function () {
+  const banner = document.querySelector(".cookie-banner");
+  if (!banner) return;
+
+  let lastY = window.scrollY;
+  let lastT = performance.now();
+  let stopTimer = null;
+
+  const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+
+  function onScroll() {
+    const y = window.scrollY;
+    const t = performance.now();
+    const dy = y - lastY;
+    const dt = Math.max(16, t - lastT);
+
+    // “скорость” скролла
+    const v = Math.abs(dy / dt); // примерно 0..1+
+    const k = clamp(v * 2.2, 0, 1); // сила эффекта 0..1
+
+    // Сосиска: шире + ниже + круглее
+    const sx = 1 + 0.10 * k;   // +10% по ширине
+    const sy = 1 - 0.07 * k;   // -7% по высоте
+    const r  = 18 + 10 * k;    // радиус больше
+
+    banner.style.setProperty("--cb-sx", sx.toFixed(3));
+    banner.style.setProperty("--cb-sy", sy.toFixed(3));
+    banner.style.setProperty("--cb-r",  r.toFixed(1) + "px");
+
+    banner.classList.add("is-sausage");
+
+    // когда скролл остановился — вернуть “крепкий”
+    clearTimeout(stopTimer);
+    stopTimer = setTimeout(() => {
+      banner.classList.remove("is-sausage");
+      banner.style.setProperty("--cb-sx", "1");
+      banner.style.setProperty("--cb-sy", "1");
+      banner.style.setProperty("--cb-r",  "18px");
+    }, 140);
+
+    lastY = y;
+    lastT = t;
+  }
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+})();
+
+(function () {
+  const banner = document.querySelector(".cookie-banner");
+  if (!banner) return;
+
+  let stopTimer = null;
+
+  function onScroll() {
+    banner.classList.add("is-worm");
+
+    clearTimeout(stopTimer);
+    stopTimer = setTimeout(() => {
+      banner.classList.remove("is-worm");
+    }, 180); // через 180мс после остановки скролла — вернуть "ровный"
+  }
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+})();
+
+(function () {
+  const banner = document.getElementById("cookieBanner");
+  if (!banner) return;
+
+  let lastY = window.scrollY;
+  let lastT = performance.now();
+  let stopTimer = null;
+
+  function onScroll() {
+    const y = window.scrollY;
+    const t = performance.now();
+
+    const dy = Math.abs(y - lastY);
+    const dt = Math.max(16, t - lastT); // защита от деления на 0
+    const speed = dy / dt; // px per ms
+
+    // переводим скорость в "силу": примерно 0.2..1.8
+    const worm = Math.min(1.8, Math.max(0.2, speed * 2.8));
+    banner.style.setProperty("--worm", worm.toFixed(2));
+
+    banner.classList.add("is-worm");
+
+    clearTimeout(stopTimer);
+    stopTimer = setTimeout(() => {
+      banner.classList.remove("is-worm");
+      banner.style.setProperty("--worm", "0.6"); // мягкий остаток, чтобы возврат был нежнее
+    }, 180);
+
+    lastY = y;
+    lastT = t;
+  }
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+})();
