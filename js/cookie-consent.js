@@ -131,14 +131,21 @@ const sy      = 1 - smooth * 0.055;
 
     banner.hidden = false;
 
-    // ✅ запускаем анимацию и получаем stop()
-    const stopElastic = setupBannerElasticity(banner);
+// ✅ плавное появление (после того как текст уже выставлен)
+requestAnimationFrame(() => {
+  banner.classList.add('is-visible');
+});
+
+// ✅ запускаем анимацию и получаем stop()
+const stopElastic = setupBannerElasticity(banner);
 
     acceptBtn.addEventListener('click', () => {
       localStorage.setItem(KEY, 'yes');
-      banner.hidden = true;
-      stopElastic();
-      loadGA();
+      banner.classList.remove('is-visible');
+banner.classList.remove('is-visible');
+banner.hidden = true;
+stopElastic();
+loadGA();
     }, { once: true });
 
     declineBtn.addEventListener('click', () => {
