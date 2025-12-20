@@ -107,6 +107,12 @@ $(window).on('load', function(){
   }
 
   function initIso(){
+
+  // перемешать iso-box ДО запуска Isotope
+  if (typeof dailyShuffleIsoBoxes === 'function') {
+    dailyShuffleIsoBoxes('.iso-box-wrapper', 0);
+  }
+
     // добавим сайзеры, если их нет
     if(!$grid.find('.grid-sizer').length){
       $grid.prepend('<div class="grid-sizer"></div><div class="gutter-sizer"></div>');
