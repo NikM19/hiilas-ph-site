@@ -1124,6 +1124,12 @@ body[data-bg^="charcoal"] .about-iconrow {
   outline-offset: 2px;
 }
 
+#contact input[type='submit']:disabled {
+  cursor: wait;
+  opacity: 0.72;
+  box-shadow: 0 3px 0 rgba(0, 0, 0, .03), 0 6px 16px rgba(255, 160, 190, .10);
+}
+
 /* Фолбэк, если нет color-mix */
 @supports not (background: color-mix(in srgb, #fff, #000)) {
   #contact input[type='submit'] {
@@ -1136,6 +1142,29 @@ body[data-bg^="charcoal"] .about-iconrow {
   margin: 28px auto 0;
   /* было 0 — теперь есть воздух сверху */
   text-align: center;
+}
+
+.form-status {
+  margin: 18px auto 0;
+  max-width: 640px;
+  padding: 14px 18px;
+  border-radius: 18px;
+  border: 1px solid transparent;
+  font-size: 15px;
+  line-height: 1.6;
+  letter-spacing: 0.2px;
+}
+
+.form-status.is-success {
+  color: #234236;
+  background: #edf8f1;
+  border-color: #bddfc9;
+}
+
+.form-status.is-error {
+  color: #6c3840;
+  background: #fff2f4;
+  border-color: #ecc7cf;
 }
 
 #contact .col-md-4 {

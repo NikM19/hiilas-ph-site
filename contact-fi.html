@@ -112,7 +112,8 @@ http://www.tooplate.com/view/2082-pure-mix
 						vastaan sinulle 1–2 arkipäivän kuluessa</p>
 
 					<div class="contact-form">
-						<form id="contact-form" method="post" action="#">
+						<form id="contact-form" method="post"
+							action="https://script.google.com/macros/s/AKfycby6vVDhpNKYoM_ciSljO02d9Qw-ymuG5oZ4yOlM0aiizwXYiibA-T-72PXcOtCnBWOQ/exec">
 							<label class="sr-only" for="name">Nimesi</label>
 							<input id="name" name="name" type="text" class="form-control"
 								placeholder="Kerro, miten voin kutsua sinua" required aria-describedby="name-hint">
@@ -128,6 +129,14 @@ http://www.tooplate.com/view/2082-pure-mix
 							<textarea id="message" name="message" class="form-control"
 								placeholder="Kerro lyhyesti ideastasi" rows="4" required
 								aria-describedby="message-hint"></textarea>
+
+							<input type="hidden" name="page" value="contact-fi.html">
+							<input type="hidden" name="package" value="">
+							<input type="hidden" name="source" value="website-contact-form">
+							<input type="hidden" name="referrer" value="">
+							<input type="hidden" name="userAgent" value="">
+							<input type="text" name="website" tabindex="-1" autocomplete="off"
+								style="position:absolute;left:-9999px;opacity:0;pointer-events:none;" aria-hidden="true">
 
 
 							<div class="contact-submit">
