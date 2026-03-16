@@ -9,6 +9,7 @@
   const pageField = form.querySelector('input[name="page"]');
   const statusBox = document.createElement('div');
   const defaultButtonLabel = submitButton ? submitButton.value : '';
+  let successTimer = null;
 
   statusBox.className = 'form-status';
   statusBox.hidden = true;
@@ -99,13 +100,28 @@
   }
 
   function showStatus(text, kind) {
+    if (successTimer) {
+      clearTimeout(successTimer);
+      successTimer = null;
+    }
+
     statusBox.textContent = text;
     statusBox.classList.remove('is-success', 'is-error');
     statusBox.classList.add(kind === 'success' ? 'is-success' : 'is-error');
     statusBox.hidden = false;
+
+    if (kind === 'success') {
+      successTimer = setTimeout(() => {
+        clearStatus();
+      }, 5000);
+    }
   }
 
   function clearStatus() {
+    if (successTimer) {
+      clearTimeout(successTimer);
+      successTimer = null;
+    }
     statusBox.hidden = true;
     statusBox.textContent = '';
     statusBox.classList.remove('is-success', 'is-error');
