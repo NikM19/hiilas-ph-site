@@ -1018,6 +1018,21 @@ body[data-bg^="charcoal"] .about-iconrow {
   /* расстояние между иконкой и ником */
 }
 
+#contact .contact-links-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 180px;
+}
+
+#contact .contact-links-row .contact-info-block {
+  float: none;
+  width: 25%;
+  padding: 28px 16px;
+  margin-top: 0;
+}
+
 /* Кликабельные иконки в контактных карточках */
 #contact .contact-info-block .icon-link {
   display: inline-flex;
@@ -1264,6 +1279,15 @@ footer.wide-footer {
     margin-top: 80px;
   }
 
+  #contact .contact-links-row {
+    margin-top: 80px;
+  }
+
+  #contact .contact-links-row .contact-info-block {
+    width: 50%;
+    padding: 24px 16px;
+  }
+
   #contact .col-md-4 p {
     font-size: 12px;
   }
@@ -1314,6 +1338,10 @@ footer.wide-footer {
   #contact .col-md-4 {
     padding: 20px 16px;
     margin-top: 40px;
+  }
+
+  #contact .contact-links-row .contact-info-block {
+    width: 100%;
   }
 
   .contact-submit {
