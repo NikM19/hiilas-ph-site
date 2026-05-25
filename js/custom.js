@@ -1,4 +1,40 @@
 // custom.js — мобильное меню + Isotope (masonry, imagesLoaded, resize)
+(function preloaderTapGuard(){
+  var pre = document.querySelector('.preloader');
+  if (!pre || pre.dataset.tapGuard === '1') return;
+
+  pre.dataset.tapGuard = '1';
+
+  var MIN = 800;
+  var MAX = 3500;
+  var start = Date.now();
+  var doneCalled = false;
+
+  function removePreloader(){
+    if (pre && pre.parentNode) pre.remove();
+  }
+
+  function finish(){
+    if (doneCalled) return;
+    doneCalled = true;
+
+    var wait = Math.max(0, MIN - (Date.now() - start));
+    setTimeout(function(){
+      pre.classList.add('is-done');
+      setTimeout(removePreloader, 1500);
+    }, wait);
+  }
+
+  if (document.readyState === 'complete') {
+    finish();
+  } else {
+    window.addEventListener('load', finish, { once: true });
+  }
+
+  setTimeout(finish, MAX);
+  setTimeout(removePreloader, MAX + 2500);
+})();
+
 (function($){
 
  // ==== Preloader ==== (class-based + min/max timing + safe remove)

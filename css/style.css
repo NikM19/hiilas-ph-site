@@ -3163,12 +3163,14 @@ body[data-ui~="btn-ghost-strong"] .btn-more {
   background: transparent;
   transition: opacity 1.2s ease;
   will-change: opacity;
+  animation: preloaderTapFallback 4.8s ease forwards;
 }
 
 /* когда JS добавит .is-done — слой плавно исчезает и перестаёт ловить клики */
 .preloader.is-done {
   opacity: 0;
   pointer-events: none;
+  animation: none;
 }
 
 /* на фазе исчезновения останавливаем пульс логотипа, чтобы не «дёргался» */
@@ -5129,6 +5131,11 @@ body.page-index-ru .nav-container {
     align-items: center;
   }
 
+  .nav-container {
+    position: relative;
+    z-index: 1000;
+  }
+
   .header-row {
     width: 100%;
     display: flex;
@@ -5155,12 +5162,23 @@ body.page-index-ru .nav-container {
   /* Кнопка HOME – всегда на месте */
   .mobile-nav-toggle {
     display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 40px;
+    padding: 0 8px;
+    border-bottom: 0;
+  }
+
+  .mobile-nav-label {
+    border-bottom: 1px solid #111;
+    padding-bottom: 3px;
   }
 
   /* ОБЩИЕ настройки выпадающих блоков (языки + меню) */
   .navbar .lang-menu,
   .navbar .main-menu {
     position: absolute;
+    z-index: 1001;
     right: 0;
     left: auto;
     background: transparent;
@@ -5268,6 +5286,39 @@ body.page-index-ru .nav-container {
     letter-spacing: 0.12em;
     white-space: nowrap;
     /* не даём словам ломаться по буквам */
+    padding-bottom: 4px;
+  }
+
+  .navbar .lang-menu a,
+  .navbar .lang-menu .is-current-lang {
+    padding-bottom: 3px;
+  }
+
+  .navbar .main-menu a::before,
+  .navbar .lang-menu a::before,
+  .navbar .lang-menu .is-current-lang::before {
+    content: "";
+    position: absolute;
+    inset: -12px -6px;
+  }
+
+  .navbar .main-menu a::before {
+    inset: -12px -10px;
+  }
+}
+
+@keyframes preloaderTapFallback {
+  0%,
+  75% {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  100% {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
   }
 }
 
